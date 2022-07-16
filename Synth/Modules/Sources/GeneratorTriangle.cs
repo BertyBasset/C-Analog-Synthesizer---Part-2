@@ -2,17 +2,16 @@
     internal class GeneratorTriangle : iGenerator {
 
         // To prevent clicks, only apply changed Duty on a zero crossing
-        float _oldPhase;
         float _newDuty;
-        //                                                       Not Used
-        float iGenerator.GenerateSample(float Phase, float Duty, float PhaseIncrement) {
+        //                                                       Not Used                   Used
+        float iGenerator.GenerateSample(float Phase, float Duty, float PhaseIncrement, bool IsZeroCrossing) {
 
             // Phase Distortion
             // For triangle, instead of varying SQ duty cycle, we can do phase distortion a la Casio CZ100 !
             float phase = Phase;
             if (Duty != 0) {
                 // If we've wrapped round 360 -> 0, we're safe to do Phase Distortion
-                if (Phase < _oldPhase)
+                if (IsZeroCrossing)
                     _newDuty = Duty;
 
                 phase = PhaseDistortionTransferFunction.GetPhase(phase, _newDuty, this);
@@ -22,8 +21,6 @@
             var sample = phase / 180f - 1;               // Get Saw First
             sample = (Math.Abs(sample) - .5f) * 2f;      // Rectify and shift
 
-
-            _oldPhase = Phase;
             return sample;
         }
 

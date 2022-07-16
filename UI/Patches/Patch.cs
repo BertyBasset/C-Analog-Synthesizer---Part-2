@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Synth.Modules.Sources;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -57,7 +58,7 @@ namespace UI {
             return patches.Where(p => p.IsInit).ToList().First();            // Should only be 1, so this should be ok
         }
 
-        internal static void RecallPatch(Form Form, Patch patch, Synth.SynthEngine Synth) {
+        internal static void RecallPatch(Form Form, Patch patch, Oscillator o1, Oscillator o2, Oscillator o3) {
             foreach (var c in patch.Controls) {
                 var control = Form.Controls.Find(c.ControlName, true)[0];
 
@@ -81,17 +82,17 @@ namespace UI {
 
             }
 
-            //Synth.Oscillators[0].WaveTableFileName = patch.WaveTableName ?? "";
-            //Synth.Oscillators[1].WaveTableFileName = patch.WaveTableName1 ?? "";
-            //Synth.Oscillators[2].WaveTableFileName = patch.WaveTableName2 ?? "";
-            //Synth.Oscillators[0].FourierCoefficients = patch.FourierCoefficients;
-            //Synth.Oscillators[1].FourierCoefficients = patch.FourierCoefficients1;
-            //Synth.Oscillators[2].FourierCoefficients = patch.FourierCoefficients2;
+            o1.WaveTableFileName = patch.WaveTableName ?? "";
+            o2.WaveTableFileName = patch.WaveTableName1 ?? "";
+            o3.WaveTableFileName = patch.WaveTableName2 ?? "";
+            o1.FourierCoefficients = patch.FourierCoefficients;
+            o2.FourierCoefficients = patch.FourierCoefficients1;
+            o3.FourierCoefficients = patch.FourierCoefficients2;
         }
 
         // Need to pass Fourier arrays etc in as well. 
         // Return true if sucesfull saved
-        internal static Patch? SaveNewPatch(Form Form, Synth.SynthEngine Synth) {
+        internal static Patch? SaveNewPatch(Form Form, Oscillator o1, Oscillator o2, Oscillator o3) {
             // Get Name
             var patchName = TextInputBox.Show("Save Patch", "Patch Name:");
             if (patchName.Trim() == "")
@@ -129,12 +130,12 @@ namespace UI {
             }
 
             // Get Fourier etc from Oscillators passed in SynthEngine, they aren't stored in Controls on the form
-            //newPatch.WaveTableName = Synth.Oscillators[0].WaveTableFileName;
-            //newPatch.WaveTableName1 = Synth.Oscillators[1].WaveTableFileName; ;
-            //newPatch.WaveTableName2 = Synth.Oscillators[2].WaveTableFileName; ;
-            //newPatch.FourierCoefficients = Synth.Oscillators[0].FourierCoefficients;
-            //newPatch.FourierCoefficients1 = Synth.Oscillators[1].FourierCoefficients;
-            //newPatch.FourierCoefficients2 = Synth.Oscillators[2].FourierCoefficients;
+            newPatch.WaveTableName = o1.WaveTableFileName;
+            newPatch.WaveTableName1 = o2.WaveTableFileName; ;
+            newPatch.WaveTableName2 = o3.WaveTableFileName; ;
+            newPatch.FourierCoefficients = o1.FourierCoefficients;
+            newPatch.FourierCoefficients1 = o2.FourierCoefficients;
+            newPatch.FourierCoefficients2 = o3.FourierCoefficients;
 
             patches.Add(newPatch);
             Save(patches);

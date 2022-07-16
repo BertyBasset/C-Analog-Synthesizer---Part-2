@@ -10,21 +10,23 @@ using Synth.Modules.Modifiers;
 /* To Do:
  *  Remove Volumes from Oscillators                                      DONE
  *  Add n way mixer                                                      DONE
- *  Observable maybe to dynamically size Level property of Mixer ?       -
- *  Glitch  (2 phase Tick or triple buffer)                              -
- *  Tidy PD - do more in Osc                                             -
- *  Default Wavetable to first available wave                            -
- *  Wavetable/Harmonic Preview                                           -
- *  Glide                                                                -
+ *  Tidy PD - do more in Osc                                             DONE
+ *  Wavetable/Harmonic Preview                                           DONE
+ *  Re-add wavetable/harmonic/sawtooth info to pathc save/load           DONE
+ *  Default Wavetable to first available wave - init array to [1024]     DONE
+ *  Observable maybe to dynamically size Level property of Mixer ?       DONE
+ *  Glitch  (2 phase Tick or triple buffer)                              Park
+ *  Glitches on harmonic                                                 Park
+ *  Glide (add Tick to frequecny)                                        -
  
  *  Part 2 Modulators
  *  LFOs
  *  SH
- *  VCAs
  *  ADSRs
  *  
- *  Part 3 - Shapers
+ *  Part 3 - Modifiers 
  *  Filters
+ *  VCA
  *  
  *  Part 4 - Effects
  *  Phasers
@@ -67,13 +69,13 @@ public partial class SimpleTest : Form {
         m.Sources.Add(o1);
         m.Sources.Add(o2);
         m.Sources.Add(o3);
-        m.Level[0] = 1;
+        m.Levels[0] = 1;
 
         audioOut = new AudioOut() { Source = m };
         
 
 
-        // Add ALL modules to synth
+        // Add ALL modules to synth, even if they are children of other modules as SynthEngine needs to enumarate ALL modules
         synth.Modules.Add(o1);
         synth.Modules.Add(o2);
         synth.Modules.Add(o3);
@@ -340,7 +342,7 @@ public partial class SimpleTest : Form {
     }
 
     private void SldLevel_ValueChanged(object? sender, EventArgs e) {
-        m.Level[0] = sldLevel.Value / 100f;
+        m.Levels[0] = sldLevel.Value / 100f;
     }
     private void CmdOsctSetting_Click(object? sender, EventArgs e) {
         bool originalSynthStateStarted = synth.Started;
@@ -452,7 +454,7 @@ public partial class SimpleTest : Form {
         o2.Duty.Value = (float)sldPWM1.Value / 100f;
     }
     private void SldLevel1_ValueChanged(object? sender, EventArgs e) {
-        m.Level[1] = sldLevel1.Value / 100f;
+        m.Levels[1] = sldLevel1.Value / 100f;
     }
 
     private void CmdOsctSetting1_Click(object? sender, EventArgs e) {
@@ -567,7 +569,7 @@ public partial class SimpleTest : Form {
         o3.Duty.Value = (float)sldPWM2.Value / 100f;
     }
     private void SldLevel2_ValueChanged(object? sender, EventArgs e) {
-        m.Level[2] = sldLevel2.Value / 100f;
+        m.Levels[2] = sldLevel2.Value / 100f;
     }
 
     private void CmdOsctSetting2_Click(object? sender, EventArgs e) {
@@ -642,7 +644,7 @@ public partial class SimpleTest : Form {
     private void CmdSavePatch_Click(object? sender, EventArgs e) {
         // Get Patch Name
 
-        var savedPatch = Patch.SaveNewPatch(this, synth);           // Pass form across so control settings can be scraped
+        var savedPatch = Patch.SaveNewPatch(this, o1, o2, o3);           // Pass form across so control settings can be scraped
 
         // Patch object returned if sucesfull. Select from ddl if so, otherwise, just return
         if (savedPatch == null)
@@ -660,13 +662,13 @@ public partial class SimpleTest : Form {
     private void DdlPatches_SelectedIndexChanged(object? sender, EventArgs e) {
         var p = (Patch)ddlPatches.SelectedItem;
         if (p.PatchName != "")
-            Patch.RecallPatch(this, p, synth);
+            Patch.RecallPatch(this, p, o1, o2, o3);
     }
 
     private void CmdInitPatch_Click(object? sender, EventArgs e) {
         var p = Patch.GetInitPatch();
 
-        Patch.RecallPatch(this, p, synth);
+        Patch.RecallPatch(this, p, o1, o2, o3);
     }
 
     private void CmdDeletePatch_Click(object? sender, EventArgs e) {

@@ -66,11 +66,42 @@ public class Frequency {
         }
     }
 
+
+    //*** ADD Glide Amount
+
+
+    public void Tick(float interval) {
+        if (_oldNoteCV != _noteCV) {
+            if (_oldNoteCV < _noteCV) {
+                _oldNoteCV += .01f;
+                if (_oldNoteCV > _noteCV)       // Deals with overshoot !
+                    _noteCV = _oldNoteCV;
+            } else {
+                _oldNoteCV -= .01f;
+                if (_oldNoteCV < _noteCV)
+                    _noteCV = _oldNoteCV;       // Deals with undershoot !
+
+            }
+
+            setFrequency();
+        }
+        else
+            _oldNoteCV = _noteCV;
+
+
+    
+        // If done
+    
+    }
+
+    float _oldNoteCV = 0;
+    float _noteCV;          // New Note
     private Utils.Note _Note = new Utils.Note();
     internal Utils.Note Note {
         get { return _Note; }
         set {
             _Note = value;
+            _noteCV = _Note.Frequency;
             setFrequency();
         }
     }
@@ -90,14 +121,14 @@ public class Frequency {
     private void setFrequency() {
         // Whenever one of the frequency controlling properties change, we update Pre Mod Frequency
         if(Kbd)
-            PreModFrequency = _Note.Frequency;                                  // Base Frequency
+            PreModFrequency = _oldNoteCV;                                  // Base Frequency
         else
             PreModFrequency = DEFAULT_FREQUENCY;                                  // Base Frequency
 
-        PreModFrequency = PreModFrequency * (float)Math.Pow(2, _Octave);    // Adjust Octave
+        PreModFrequency = PreModFrequency * MathF.Pow(2, _Octave);    // Adjust Octave
         // Both Tune and FineTune are 1 per octave, however they have separate values as they'll normally have separate UI controls
-        PreModFrequency = PreModFrequency * (float)Math.Pow(2, _Tune);      // Tune within octave
-        PreModFrequency = PreModFrequency * (float)Math.Pow(2, _FineTune);  // Tune within semitone
+        PreModFrequency = PreModFrequency * MathF.Pow(2, _Tune);      // Tune within octave
+        PreModFrequency = PreModFrequency * MathF.Pow(2, _FineTune);  // Tune within semitone
     }
 
     public float GetFrequency() {

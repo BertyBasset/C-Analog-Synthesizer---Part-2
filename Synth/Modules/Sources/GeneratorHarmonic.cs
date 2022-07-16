@@ -23,8 +23,8 @@ internal class GeneratorHarmonic : iGenerator {
     }
 
 
-    // Uses phaseIncrement to maintain it's own Phase Accumulators
-    float iGenerator.GenerateSample(float Phase, float Duty, float PhaseIncrement) {
+    // Uses phaseIncrement to maintain it's own Phase Accumulators                 not used
+    float iGenerator.GenerateSample(float Phase, float Duty, float PhaseIncrement, bool IsZeroCrossing) {
         // This will take an array of floats, each element correspondong to the amplitude of
         // succesive harmonics, element 0 being amplitude of the fundamental
 

@@ -10,13 +10,18 @@ using System.Windows.Forms;
 using Synth.Modules.Sources;
 using Synth.Modules.Properties;
 using Synth.Utils;
-
+using Synth.Modules.Modifiers;
 
 namespace UI {
 
 
 
     public partial class frmSelectFourierCoefficients : Form {
+        //   Ref to oscillator in synthenngne so we can change Fourier coefficients
+        Oscillator _osc;
+
+
+
         // Might need to have Phase in here as well ?
 
 
@@ -26,7 +31,7 @@ namespace UI {
         // Allow maximum of 10 coefficients, 1 fundamental and up to 9 overtones
 
 
-
+        Synth.SynthEngine synth;
 
         static float[] _Coefficients = new float[] { 0f };
 
@@ -38,8 +43,21 @@ namespace UI {
             return _Coefficients;
         }
 
+
+
         public frmSelectFourierCoefficients() {
             InitializeComponent();
+
+            synth = new Synth.SynthEngine(new Synth.Config() { Channels = 2, SampleRate = 16000 });
+            _osc = new Oscillator(WaveForm.GetByType(WaveformType.Harmonic));
+            var audioOut = new AudioOut() { Source = _osc };
+            synth.Modules.Add(audioOut);
+            synth.Modules.Add(_osc);
+
+
+            if (chkPlayPreview.Checked)
+                synth.Start();
+
 
 
             Init();
@@ -152,6 +170,9 @@ namespace UI {
             txtH7.LostFocus += (o, e) => TextChanged(txtH7, sldH7);
             txtH8.LostFocus += (o, e) => TextChanged(txtH8, sldH8);
             txtH9.LostFocus += (o, e) => TextChanged(txtH9, sldH9);
+
+            this.FormClosing += (o, e) => { synth.Stop(); };
+            chkPlayPreview.CheckedChanged += (o, e) => { if (chkPlayPreview.Checked) synth.Start(); else synth.Stop(); };
 
             timPreview.Tick += (o, e) => { timPreview.Enabled = false;  UpdateWaveForm(); };
             cboPresets.SelectedIndexChanged += CboPresets_SelectedIndexChanged;
@@ -335,7 +356,7 @@ namespace UI {
         }
 
         private void UpdateWaveForm() {
-            //synth.Oscillators[0].FourierCoefficients = getArray();
+            _osc.FourierCoefficients = getArray();
 
 
 

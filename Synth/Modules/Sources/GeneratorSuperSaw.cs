@@ -14,7 +14,8 @@ internal class GeneratorSuperSaw : iGenerator {
         }
     }
 
-    float iGenerator.GenerateSample(float Phase, float Duty, float PhaseIncrement) {
+    //                                                                                  not used
+    float iGenerator.GenerateSample(float Phase, float Duty, float PhaseIncrement, bool IsZeroCrossing) {
         // Advance each Phase accumulator by PhaseIncrement time RelativeFrequenices to give 7 wave detuned SuperSaw
 
         // Phase Distortion

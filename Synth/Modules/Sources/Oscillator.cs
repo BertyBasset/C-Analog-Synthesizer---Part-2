@@ -126,6 +126,8 @@ public class Oscillator : iModule {
 
 
 
+
+    float _OldPhase;        // Use to detect zero crossing
     public void Tick(float timeIncrement) {
         // Advance Phase Accumulator acording to timeIncrement and current frequency
         float delta = timeIncrement * Frequency.GetFrequency() * 360f; 
@@ -138,13 +140,16 @@ public class Oscillator : iModule {
             TriggerSync();
 
         // Use Generator to return wave value for current state of the Phase Accumulator
-            
+
 
         // ** Pass in Zero Crossing to Generator for Phase Dist
+        bool isZeroCrossing = _OldPhase > _Phase ? true : false;
+        _OldPhase = _Phase;
 
+        Value = _Generator.GenerateSample(_Phase, Duty.GetDuty(), delta, isZeroCrossing);
 
-        Value = _Generator.GenerateSample(_Phase, Duty.GetDuty(), delta);
-             
+        Frequency.Tick(timeIncrement);
+
     }
 
     private void TriggerSync() { 

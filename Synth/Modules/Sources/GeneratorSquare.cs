@@ -2,7 +2,7 @@
     internal class GeneratorSquare : iGenerator{
         const float AMPLITUDE_NORMALISATION = .7f;
         //                                                             Not Used
-        float iGenerator.GenerateSample(float Phase, float Duty, float PhaseIncrement) {
+        float iGenerator.GenerateSample(float Phase, float Duty, float PhaseIncrement, bool IsZeroCrossing) {
 
             float sample;
             if (Phase > 360 * ((Duty + 1f)/2f))
