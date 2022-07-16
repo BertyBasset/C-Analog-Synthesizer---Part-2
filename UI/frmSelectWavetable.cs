@@ -14,8 +14,6 @@ using Synth.Utils;
 
 namespace UI {
     public partial class frmSelectWavetable : Form {
-        Synth.SynthEngine synth; 
-        
 
         static string _FileName = "";
         string path = "";
@@ -32,10 +30,6 @@ namespace UI {
         public frmSelectWavetable() {
             InitializeComponent();
 
-            synth= new Synth.SynthEngine(new Synth.Config() { Channels = 2, SampleRate = 16000 });
-            synth.Oscillators.Add(new Oscillator(WaveForm.GetByType(WaveformType.WaveTable)));
-            if(chkPlayPreview.Checked)
-                synth.Start();
 
             Init();
 
@@ -63,8 +57,7 @@ namespace UI {
             tvWaveTables.NodeMouseDoubleClick += TvWaveTables_NodeMousefloatClick;
             tvWaveTables.KeyUp += TvWaveTables_KeyUp;
             timShowPreviousWave.Tick += (o, e) => { ShowPreviouslySelectedWave(); timShowPreviousWave.Enabled = false; };
-            this.FormClosing += (o, e) => {synth.Stop(); };
-            chkPlayPreview.CheckedChanged += (o, e) => { if (chkPlayPreview.Checked) synth.Start(); else synth.Stop(); };
+
 
 
         }
@@ -169,8 +162,6 @@ namespace UI {
         }
 
         private async void DrawGraph(float[] wave, string fileName) {
-            if (fileName != "" && chkPlayPreview.Checked)
-                synth.Oscillators[0].WaveTableFileName = fileName;
 
             var p = new Pen(Color.Green);
 

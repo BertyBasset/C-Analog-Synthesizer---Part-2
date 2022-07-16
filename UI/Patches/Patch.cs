@@ -81,12 +81,12 @@ namespace UI {
 
             }
 
-            Synth.Oscillators[0].WaveTableFileName = patch.WaveTableName ?? "";
-            Synth.Oscillators[1].WaveTableFileName = patch.WaveTableName1 ?? "";
-            Synth.Oscillators[2].WaveTableFileName = patch.WaveTableName2 ?? "";
-            Synth.Oscillators[0].FourierCoefficients = patch.FourierCoefficients;
-            Synth.Oscillators[1].FourierCoefficients = patch.FourierCoefficients1;
-            Synth.Oscillators[2].FourierCoefficients = patch.FourierCoefficients2;
+            //Synth.Oscillators[0].WaveTableFileName = patch.WaveTableName ?? "";
+            //Synth.Oscillators[1].WaveTableFileName = patch.WaveTableName1 ?? "";
+            //Synth.Oscillators[2].WaveTableFileName = patch.WaveTableName2 ?? "";
+            //Synth.Oscillators[0].FourierCoefficients = patch.FourierCoefficients;
+            //Synth.Oscillators[1].FourierCoefficients = patch.FourierCoefficients1;
+            //Synth.Oscillators[2].FourierCoefficients = patch.FourierCoefficients2;
         }
 
         // Need to pass Fourier arrays etc in as well. 
@@ -129,12 +129,12 @@ namespace UI {
             }
 
             // Get Fourier etc from Oscillators passed in SynthEngine, they aren't stored in Controls on the form
-            newPatch.WaveTableName = Synth.Oscillators[0].WaveTableFileName;
-            newPatch.WaveTableName1 = Synth.Oscillators[1].WaveTableFileName; ;
-            newPatch.WaveTableName2 = Synth.Oscillators[2].WaveTableFileName; ;
-            newPatch.FourierCoefficients = Synth.Oscillators[0].FourierCoefficients;
-            newPatch.FourierCoefficients1 = Synth.Oscillators[1].FourierCoefficients;
-            newPatch.FourierCoefficients2 = Synth.Oscillators[2].FourierCoefficients;
+            //newPatch.WaveTableName = Synth.Oscillators[0].WaveTableFileName;
+            //newPatch.WaveTableName1 = Synth.Oscillators[1].WaveTableFileName; ;
+            //newPatch.WaveTableName2 = Synth.Oscillators[2].WaveTableFileName; ;
+            //newPatch.FourierCoefficients = Synth.Oscillators[0].FourierCoefficients;
+            //newPatch.FourierCoefficients1 = Synth.Oscillators[1].FourierCoefficients;
+            //newPatch.FourierCoefficients2 = Synth.Oscillators[2].FourierCoefficients;
 
             patches.Add(newPatch);
             Save(patches);

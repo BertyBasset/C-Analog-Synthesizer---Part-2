@@ -4,59 +4,20 @@ using Synth.Modules.Sources;
 using Synth.Modules.Properties;
 using System.Diagnostics;
 using FftSharp;
+using Synth.Modules.Modifiers;
 
 
 /* To Do:
- *  Oscillator selector                                                  DONE
- *  Duty                                                                 DONE
- *  Modify Fine Tune to go up/down one semitone                          DONE
- *  Live Graph                                                           DONE
- *  WaveTable file select                                                DONE
- *  Harmonics Oscillator                                                 DONE
- *  UI for Fourier Coeffs                                                DONE
- *  Preview for Wavetable and Fourier                                    DONE
- *  Fourier dropdown                                                     DONE
- *  Keyboard control + keystroke trigger                                 DONE
- *  Re-investigate super-saw with multiple phase gens - Go 7 oscs!!      DONE
- *  Get more wavetables                                                  DONE
- *  Put public Note property in SynthEngine i.e. all oscs share the note DONE
- *  Separate Tune and Fine Tune properties                               DONE
- *  Rename keyboard virtual keyboard control                             DONE
- *  Move key events into virtual keyboard control                        DONE
- *  Live FFT                                                             DONE
- *  Sync                                                                 DONE
- *  FM                                                                   DONE
- *  Phase Distortion                                                     DONE
- *  Add KBD switch                                                       DONE
- *  Change Sync and FM from Dest to Source                               DONE
- *  Delete Patch                                                         DONE
- *  Save Patch                                                           DONE
- *  Select newly saved patch in ddl                                      DONE
- *  Sort patch on load                                                   DONE    
- *  Include WaveTable and Harmonics in patch save/recall                 DONE
- *  Weird wavtable filename bug - old dodge patches                      DONE
- *  Midi In                                                              DONE
- *  See how to plug in +/-1 (PW range) modulation into Phase Distprtion  DONE does it anyway
- *  Double check sine wave distortion - looks wrong                      DONE
- *  Oscillators Write Up Part 1                                          DONE
- *  SynthEngine pitchbend property (similar to Note)                     DONE
- *  Pitch Bend event                                                     DONE
- *  Modwheel event                                                       DONE
- *  Oscillators Write Up Part 2                                          DONE
- *  Internal Setabble knee point sin ovveride                            DONE
- *  Phase distortion for harmonic wave                                   REMOVED
- *  Fourier Glitch                                                       DONE
- *  Record Video with Audio                                              DONE
- *  Weird glitch on PD around 70%                                        DONE
- *  Remove Volumes from Oscillators
- *  Add n way mixer
- *  DEfault Wavetable to first available wave                            -
+ *  Remove Volumes from Oscillators                                      DONE
+ *  Add n way mixer                                                      DONE
+ *  Observable maybe to dynamically size Level property of Mixer ?       -
+ *  Glitch  (2 phase Tick or triple buffer)                              -
+ *  Tidy PD - do more in Osc                                             -
+ *  Default Wavetable to first available wave                            -
+ *  Wavetable/Harmonic Preview                                           -
+ *  Glide                                                                -
  
- *  Oscillator video demos - WP Part 3
- *  Resurrect Glide!     Maybe Note to CV module in SynthEngine netween Note and f                                                       
- *  
- *  Part 2 - Modulators
- *  Modulators
+ *  Part 2 Modulators
  *  LFOs
  *  SH
  *  VCAs
@@ -81,6 +42,15 @@ public partial class SimpleTest : Form {
 
     List<Synth.Utils.Note> _NoteList = Synth.Utils.Note.GetNoteList();
 
+
+
+    Oscillator o1;
+    Oscillator o2;
+    Oscillator o3;
+    Mixer m;
+    AudioOut audioOut;
+    
+
     void InitSynth() {
         // Get Synth module config, and inject into constructor
         var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: false);
@@ -88,16 +58,38 @@ public partial class SimpleTest : Form {
         var synthConfig = config.GetSection("Synth").Get<Synth.Config>();
         synth = new Synth.SynthEngine(synthConfig);
 
-        // Inject 3 oscillators into synth engine
-        synth.Oscillators.Add(new Oscillator() { WaveForm = WaveForm.GetByType(WaveformType.Sine), Amplitude = 1f});
-        synth.Oscillators.Add(new Oscillator() { WaveForm = WaveForm.GetByType(WaveformType.Sine), Amplitude = 0f});
-        synth.Oscillators.Add(new Oscillator() { WaveForm = WaveForm.GetByType(WaveformType.Sine), Amplitude = 0f});
+
+
+        o1 = new Oscillator() { WaveForm = WaveForm.GetByType(WaveformType.Sine) };
+        o2 = new Oscillator() { WaveForm = WaveForm.GetByType(WaveformType.Sine) };
+        o3 = new Oscillator() { WaveForm = WaveForm.GetByType(WaveformType.Sine) };
+        m = new Mixer();
+        m.Sources.Add(o1);
+        m.Sources.Add(o2);
+        m.Sources.Add(o3);
+        m.Level[0] = 1;
+
+        audioOut = new AudioOut() { Source = m };
+        
+
+
+        // Add ALL modules to synth
+        synth.Modules.Add(o1);
+        synth.Modules.Add(o2);
+        synth.Modules.Add(o3);
+        synth.Modules.Add(m);
+        synth.Modules.Add(audioOut);
+        
+
+
+
+
 
 
         // Temporarfy hard coded mod wheel 
-        synth.Oscillators[0].Duty.Modulator = synth.ModWheel;
-        synth.Oscillators[1].Duty.Modulator = synth.ModWheel;
-        synth.Oscillators[2].Duty.Modulator = synth.ModWheel;
+        o1.Duty.Modulator = synth.ModWheel;
+        o2.Duty.Modulator = synth.ModWheel;
+        o3.Duty.Modulator = synth.ModWheel;
 
 
     }
@@ -115,9 +107,9 @@ public partial class SimpleTest : Form {
 
         Debug.Assert(synth != null);
 
-        lblFrequency.Text = FormatFrequency(synth.Oscillators[0].Frequency.PreModFrequency);
-        lblFrequency1.Text = FormatFrequency(synth.Oscillators[1].Frequency.PreModFrequency);
-        lblFrequency2.Text = FormatFrequency(synth.Oscillators[2].Frequency.PreModFrequency);
+        lblFrequency.Text = FormatFrequency(o1.Frequency.PreModFrequency);
+        lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency);
+        lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency);
 
         SetToolTips();
         ddlSyncSource.SelectedIndex = 0;
@@ -235,9 +227,9 @@ public partial class SimpleTest : Form {
         virtualKeyboard.KeyStateChanged += keyboard_KeyStateChanged;
         virtualKeyboard.PitchWheelChanged += (o, e) => {
             synth.PitchWheel = virtualKeyboard.CurrentPitchWheel;
-            lblFrequency.Invoke(new Action(() => lblFrequency.Text = FormatFrequency(synth.Oscillators[0].Frequency.PreModFrequency)));
-            lblFrequency1.Invoke(new Action(() => lblFrequency1.Text = FormatFrequency(synth.Oscillators[1].Frequency.PreModFrequency)));
-            lblFrequency2.Invoke(new Action(() => lblFrequency2.Text = FormatFrequency(synth.Oscillators[2].Frequency.PreModFrequency)));
+            lblFrequency.Invoke(new Action(()  => lblFrequency.Text  = FormatFrequency(o1.Frequency.PreModFrequency)));
+            lblFrequency1.Invoke(new Action(() => lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency)));
+            lblFrequency2.Invoke(new Action(() => lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency)));
         };
         virtualKeyboard.ModWheelChanged += (o, e) => 
             synth.ModWheel.Value = virtualKeyboard.CurrentModWheel;
@@ -297,14 +289,14 @@ public partial class SimpleTest : Form {
 
         // We can't set label text directly as the NAudio Midi  stuff appears to be running on a different thread to the UI controls
         // Therefore a cross task Action is required
-        lblFrequency.Invoke(new Action(() => lblFrequency.Text = FormatFrequency(synth.Oscillators[0].Frequency.PreModFrequency)));
-        lblFrequency1.Invoke(new Action(() => lblFrequency1.Text = FormatFrequency(synth.Oscillators[1].Frequency.PreModFrequency)));
-        lblFrequency2.Invoke(new Action(() => lblFrequency2.Text = FormatFrequency(synth.Oscillators[2].Frequency.PreModFrequency)));
+        lblFrequency.Invoke(new Action(()  => lblFrequency.Text  = FormatFrequency(o1.Frequency.PreModFrequency)));
+        lblFrequency1.Invoke(new Action(() => lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency)));
+        lblFrequency2.Invoke(new Action(() => lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency)));
 
     }
 
     private void SldWaveForm_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[0].WaveFormSelectByID(sldWaveForm.Value);
+        o1.WaveFormSelectByID(sldWaveForm.Value);
         lblWaveform.Text = (WaveForm.GetByID(sldWaveForm.Value)).Name;
 
         lblWaveTable.Visible = sldWaveForm.Value == (int)WaveformType.WaveTable;
@@ -324,19 +316,19 @@ public partial class SimpleTest : Form {
     }
 
     private void SldOctave_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[0].Frequency.Octave = sldOctave.Value;
-        lblFrequency.Text = FormatFrequency(synth.Oscillators[0].Frequency.PreModFrequency);
+        o1.Frequency.Octave = sldOctave.Value;
+        lblFrequency.Text = FormatFrequency(o1.Frequency.PreModFrequency);
     }
 
     private void SldTune_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[0].Frequency.Tune = (float)sldTune.Value / 12f;
-        lblFrequency.Text = FormatFrequency(synth.Oscillators[0].Frequency.PreModFrequency);
+        o1.Frequency.Tune = (float)sldTune.Value / 12f;
+        lblFrequency.Text = FormatFrequency(o1.Frequency.PreModFrequency);
     }
 
     private void SldFineTune_ValueChanged(object? sender, EventArgs e) {
         // sldFineTune value -100 to +100, so for +/- 1 semitone:  Value / 1200f
-        synth.Oscillators[0].Frequency.FineTune = (float)sldFineTune.Value / 1200f;
-        lblFrequency.Text = FormatFrequency(synth.Oscillators[0].Frequency.PreModFrequency);
+        o1.Frequency.FineTune = (float)sldFineTune.Value / 1200f;
+        lblFrequency.Text = FormatFrequency(o1.Frequency.PreModFrequency);
     }
 
     private void CmdReset_Click(object? sender, EventArgs e) {
@@ -344,11 +336,11 @@ public partial class SimpleTest : Form {
     }
 
     private void SldPWM_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[0].Duty.Value = (float)sldPWM.Value / 1000f;
+        o1.Duty.Value = (float)sldPWM.Value / 1000f;
     }
 
     private void SldLevel_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[0].Amplitude = sldLevel.Value / 100f;
+        m.Level[0] = sldLevel.Value / 100f;
     }
     private void CmdOsctSetting_Click(object? sender, EventArgs e) {
         bool originalSynthStateStarted = synth.Started;
@@ -356,16 +348,16 @@ public partial class SimpleTest : Form {
 
         switch ((WaveformType)sldWaveForm.Value) {
             case WaveformType.WaveTable:
-                var fileName = frmSelectWavetable.Show(synth.Oscillators[0].WaveTableFileName);
+                var fileName = frmSelectWavetable.Show(o1.WaveTableFileName);
                 if (fileName != "") {
                     lblWaveTable.Text = truncateFileName(fileName, 14);
-                    synth.Oscillators[0].WaveTableFileName = fileName;
+                    o1.WaveTableFileName = fileName;
                 }
                 break;
             case WaveformType.Harmonic:
-                var coefficients = frmSelectFourierCoefficients.Show(synth.Oscillators[0].FourierCoefficients);
+                var coefficients = frmSelectFourierCoefficients.Show(o1.FourierCoefficients);
                 if (!coefficients.All(c => c==0)) {         // All coeffs 0 is Cancel pressed
-                    synth.Oscillators[0].FourierCoefficients = coefficients;
+                    o1.FourierCoefficients = coefficients;
                 }
                 break;
             default: break;  // Do Nothing
@@ -380,46 +372,46 @@ public partial class SimpleTest : Form {
             return;
 
         var sawSettings = (Data.SuperSaw)ddlSuperSaw.SelectedItem;
-        synth.Oscillators[0].FrequencyRatios = sawSettings.FrequencyRatios;
+        o1.FrequencyRatios = sawSettings.FrequencyRatios;
     }
     private void DdlSyncSource_SelectedIndexChanged(object? sender, EventArgs e) {
         switch (ddlSyncSource.SelectedIndex) {
             case 1:
-                synth.Oscillators[1].SyncDestination = synth.Oscillators[0]; break;
+                o2.SyncDestination = o1; break;
             case 2:
-                synth.Oscillators[2].SyncDestination = synth.Oscillators[0]; break;
+                o3.SyncDestination = o1; break;
             default:
-                if (synth.Oscillators[1].SyncDestination == synth.Oscillators[0])
-                    synth.Oscillators[1].SyncDestination = null;
-                if (synth.Oscillators[2].SyncDestination == synth.Oscillators[0])
-                    synth.Oscillators[2].SyncDestination = null;
+                if (o2.SyncDestination == o1)
+                    o2.SyncDestination = null;
+                if (o3.SyncDestination == o1)
+                    o3.SyncDestination = null;
                 break;
         }
     }
     private void SldModAmount_ValueChanged(object? sender, EventArgs e) {
         // Not sure what max value should be, so let's cap at 1 for now
-        synth.Oscillators[0].Frequency.ModulationAmount = sldModAmount.Value;
+        o1.Frequency.ModulationAmount = sldModAmount.Value;
     }
 
     private void DdlModSource_SelectedIndexChanged(object? sender, EventArgs e) {
         switch (ddlModSource.SelectedIndex) {
             case 1:
-                synth.Oscillators[0].Frequency.Modulator = synth.Oscillators[1]; break;
+                o1.Frequency.Modulator = o2; break;
             case 2:
-                synth.Oscillators[0].Frequency.Modulator = synth.Oscillators[2]; break;
+                o1.Frequency.Modulator = o3; break;
             default:
-                synth.Oscillators[0].Frequency.Modulator = null; break;
+                o1.Frequency.Modulator = null; break;
         }
     }
 
     private void ChkKbd_CheckedChanged(object? sender, EventArgs e) {
-        synth.Oscillators[0].Frequency.Kbd = chkKbd.Checked;
-        lblFrequency.Text = FormatFrequency(synth.Oscillators[0].Frequency.PreModFrequency);
+        o1.Frequency.Kbd = chkKbd.Checked;
+        lblFrequency.Text = FormatFrequency(o1.Frequency.PreModFrequency);
     }
 
 
     private void SldWaveForm1_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[1].WaveFormSelectByID(sldWaveForm1.Value);
+        o2.WaveFormSelectByID(sldWaveForm1.Value);
         lblWaveform1.Text = (WaveForm.GetByID(sldWaveForm1.Value)).Name;
 
         lblWaveTable1.Visible = sldWaveForm1.Value == (int)WaveformType.WaveTable;
@@ -438,18 +430,18 @@ public partial class SimpleTest : Form {
     }
 
     private void SldOctave1_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[1].Frequency.Octave = sldOctave1.Value;
-        lblFrequency1.Text = FormatFrequency(synth.Oscillators[1].Frequency.PreModFrequency);
+        o2.Frequency.Octave = sldOctave1.Value;
+        lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency);
     }
     private void SldTune1_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[1].Frequency.Tune = (float)sldTune1.Value / 12f;
-        lblFrequency1.Text = FormatFrequency(synth.Oscillators[1].Frequency.PreModFrequency);
+        o2.Frequency.Tune = (float)sldTune1.Value / 12f;
+        lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency);
     }
 
     private void SldFineTune1_ValueChanged(object? sender, EventArgs e) {
         // sldFineTune value -100 to +100, so for +/- 1 semitone:  Value / 1200f
-        synth.Oscillators[1].Frequency.FineTune = (float)sldFineTune1.Value / 1200f;
-        lblFrequency1.Text = FormatFrequency(synth.Oscillators[1].Frequency.PreModFrequency);
+        o2.Frequency.FineTune = (float)sldFineTune1.Value / 1200f;
+        lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency);
     }
 
     private void CmdReset1_Click(object? sender, EventArgs e) {
@@ -457,10 +449,10 @@ public partial class SimpleTest : Form {
     }
 
     private void SldPWM1_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[1].Duty.Value = (float)sldPWM1.Value / 100f;
+        o2.Duty.Value = (float)sldPWM1.Value / 100f;
     }
     private void SldLevel1_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[1].Amplitude = sldLevel1.Value / 100f;
+        m.Level[1] = sldLevel1.Value / 100f;
     }
 
     private void CmdOsctSetting1_Click(object? sender, EventArgs e) {
@@ -469,16 +461,16 @@ public partial class SimpleTest : Form {
 
         switch ((WaveformType)sldWaveForm1.Value) {
             case WaveformType.WaveTable:
-                var fileName = frmSelectWavetable.Show(synth.Oscillators[1].WaveTableFileName);
+                var fileName = frmSelectWavetable.Show(o2.WaveTableFileName);
                 if (fileName != "") {
                     lblWaveTable1.Text = truncateFileName(fileName, 14);
-                    synth.Oscillators[1].WaveTableFileName = fileName;
+                    o2.WaveTableFileName = fileName;
                 }
                 break;
             case WaveformType.Harmonic:
-                var coefficients = frmSelectFourierCoefficients.Show(synth.Oscillators[1].FourierCoefficients);
+                var coefficients = frmSelectFourierCoefficients.Show(o2.FourierCoefficients);
                 if (!coefficients.All(c => c == 0)) {               // All coeffs 0 is Cancel pressed
-                    synth.Oscillators[1].FourierCoefficients = coefficients;
+                    o2.FourierCoefficients = coefficients;
                 }
                 break;
             default: break;  // Do Nothing
@@ -493,47 +485,47 @@ public partial class SimpleTest : Form {
             return;
 
         var sawSettings = (Data.SuperSaw)ddlSuperSaw1.SelectedItem;
-        synth.Oscillators[1].FrequencyRatios = sawSettings.FrequencyRatios;
+        o2.FrequencyRatios = sawSettings.FrequencyRatios;
     }
 
     private void DdlSyncSource1_SelectedIndexChanged(object? sender, EventArgs e) {
         switch (ddlSyncSource1.SelectedIndex) {
             case 1:
-                synth.Oscillators[0].SyncDestination = synth.Oscillators[1]; break;
+                o1.SyncDestination = o2; break;
             case 2:
-                synth.Oscillators[2].SyncDestination = synth.Oscillators[1]; break;
+                o3.SyncDestination = o2; break;
             default:
-                if (synth.Oscillators[0].SyncDestination == synth.Oscillators[1])
-                    synth.Oscillators[0].SyncDestination = null;
-                if (synth.Oscillators[2].SyncDestination == synth.Oscillators[1])
-                    synth.Oscillators[2].SyncDestination = null;
+                if (o1.SyncDestination == o2)
+                    o1.SyncDestination = null;
+                if (o3.SyncDestination == o2)
+                    o3.SyncDestination = null;
                 break;
         }
     }
     private void SldModAmount1_ValueChanged(object? sender, EventArgs e) {
         // Not sure what max value should be, so let's cap at 1 for now
-        synth.Oscillators[1].Frequency.ModulationAmount = sldModAmount1.Value;
+        o2.Frequency.ModulationAmount = sldModAmount1.Value;
     }
 
     private void DdlModSource1_SelectedIndexChanged(object? sender, EventArgs e) {
         switch (ddlModSource1.SelectedIndex) {
             case 1:
-                synth.Oscillators[1].Frequency.Modulator = synth.Oscillators[0]; break;
+                o2.Frequency.Modulator = o1; break;
             case 2:
-                synth.Oscillators[1].Frequency.Modulator = synth.Oscillators[2]; break;
+                o2.Frequency.Modulator = o3; break;
             default:
-                synth.Oscillators[1].Frequency.Modulator = null; break;
+                o2.Frequency.Modulator = null; break;
         }
     }
 
     private void ChkKbd1_CheckedChanged(object? sender, EventArgs e) {
-        synth.Oscillators[1].Frequency.Kbd = chkKbd1.Checked;
-        lblFrequency1.Text = FormatFrequency(synth.Oscillators[1].Frequency.PreModFrequency);
+        o2.Frequency.Kbd = chkKbd1.Checked;
+        lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency);
     }
 
 
     private void SldWaveForm2_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[2].WaveFormSelectByID(sldWaveForm2.Value);
+        o3.WaveFormSelectByID(sldWaveForm2.Value);
         lblWaveform2.Text = (WaveForm.GetByID(sldWaveForm2.Value)).Name;
 
         lblWaveTable2.Visible = sldWaveForm2.Value == (int)WaveformType.WaveTable;
@@ -552,19 +544,19 @@ public partial class SimpleTest : Form {
     }
 
     private void SldOctave2_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[2].Frequency.Octave = sldOctave2.Value;
-        lblFrequency2.Text = FormatFrequency(synth.Oscillators[2].Frequency.PreModFrequency);
+        o3.Frequency.Octave = sldOctave2.Value;
+        lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency);
     }
 
     private void SldTune2_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[2].Frequency.Tune = (float)sldTune2.Value / 12f;
-        lblFrequency2.Text = FormatFrequency(synth.Oscillators[2].Frequency.PreModFrequency);
+        o3.Frequency.Tune = (float)sldTune2.Value / 12f;
+        lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency);
     }
 
     private void SldFineTune2_ValueChanged(object? sender, EventArgs e) {
         // sldFineTune value -100 to +100, so for +/- 1 semitone:  Value / 1200f
-        synth.Oscillators[2].Frequency.FineTune = (float)sldFineTune2.Value / 1200f;
-        lblFrequency2.Text = FormatFrequency(synth.Oscillators[2].Frequency.PreModFrequency);
+        o3.Frequency.FineTune = (float)sldFineTune2.Value / 1200f;
+        lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency);
     }
 
     private void CmdReset2_Click(object? sender, EventArgs e) {
@@ -572,10 +564,10 @@ public partial class SimpleTest : Form {
     }
 
     private void SldPWM2_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[2].Duty.Value = (float)sldPWM2.Value / 100f;
+        o3.Duty.Value = (float)sldPWM2.Value / 100f;
     }
     private void SldLevel2_ValueChanged(object? sender, EventArgs e) {
-        synth.Oscillators[2].Amplitude = sldLevel2.Value / 100f;
+        m.Level[2] = sldLevel2.Value / 100f;
     }
 
     private void CmdOsctSetting2_Click(object? sender, EventArgs e) {
@@ -584,16 +576,16 @@ public partial class SimpleTest : Form {
 
         switch ((WaveformType)sldWaveForm2.Value) {
             case WaveformType.WaveTable:
-                var fileName = frmSelectWavetable.Show(synth.Oscillators[2].WaveTableFileName);
+                var fileName = frmSelectWavetable.Show(o3.WaveTableFileName);
                 if (fileName != "") {
                     lblWaveTable2.Text = truncateFileName(fileName, 14);
-                    synth.Oscillators[2].WaveTableFileName = fileName;
+                    o3.WaveTableFileName = fileName;
                 }
                 break;
             case WaveformType.Harmonic:
-                var coefficients = frmSelectFourierCoefficients.Show(synth.Oscillators[2].FourierCoefficients);
+                var coefficients = frmSelectFourierCoefficients.Show(o3.FourierCoefficients);
                 if (!coefficients.All(c => c == 0)) {                   // All coeffs 0 is Cancel pressed
-                    synth.Oscillators[2].FourierCoefficients = coefficients;
+                    o3.FourierCoefficients = coefficients;
                 }
                 break;
             default: break;  // Do Nothing
@@ -608,43 +600,43 @@ public partial class SimpleTest : Form {
             return;
 
         var sawSettings = (Data.SuperSaw)ddlSuperSaw2.SelectedItem;
-        synth.Oscillators[2].FrequencyRatios = sawSettings.FrequencyRatios;
+        o3.FrequencyRatios = sawSettings.FrequencyRatios;
     }
 
     void DdlSyncSource2_SelectedIndexChanged(object? sender, EventArgs e) {
         switch (ddlSyncSource2.SelectedIndex) {
             case 1:
-                synth.Oscillators[0].SyncDestination = synth.Oscillators[2]; break;
+                o1.SyncDestination = o3; break;
             case 2:
-                synth.Oscillators[1].SyncDestination = synth.Oscillators[2]; break;
+                o2.SyncDestination = o3; break;
             default:
-                if (synth.Oscillators[0].SyncDestination == synth.Oscillators[2])
-                    synth.Oscillators[0].SyncDestination = null;
-                if (synth.Oscillators[1].SyncDestination == synth.Oscillators[2])
-                    synth.Oscillators[1].SyncDestination = null;
+                if (o1.SyncDestination == o3)
+                    o1.SyncDestination = null;
+                if (o2.SyncDestination == o3)
+                    o2.SyncDestination = null;
                 break;
         }
     }
 
     private void SldModAmount2_ValueChanged(object? sender, EventArgs e) {
         // Not sure what max value should be, so let's cap at 1 for now
-        synth.Oscillators[2].Frequency.ModulationAmount = sldModAmount2.Value;
+        o3.Frequency.ModulationAmount = sldModAmount2.Value;
     }
 
     private void DdlModSource2_SelectedIndexChanged(object? sender, EventArgs e) {
         switch (ddlModSource2.SelectedIndex) {
             case 1:
-                synth.Oscillators[2].Frequency.Modulator = synth.Oscillators[0]; break;
+                o3.Frequency.Modulator = o1; break;
             case 2:
-                synth.Oscillators[2].Frequency.Modulator = synth.Oscillators[1]; break;
+                o3.Frequency.Modulator = o2; break;
             default:
-                synth.Oscillators[2].Frequency.Modulator = null; break;
+                o3.Frequency.Modulator = null; break;
         }
     }
 
     private void ChkKbd2_CheckedChanged(object? sender, EventArgs e) {
-        synth.Oscillators[2].Frequency.Kbd = chkKbd2.Checked;
-        lblFrequency2.Text = FormatFrequency(synth.Oscillators[2].Frequency.PreModFrequency);
+        o3.Frequency.Kbd = chkKbd2.Checked;
+        lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency);
     }
 
     private void CmdSavePatch_Click(object? sender, EventArgs e) {

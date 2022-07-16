@@ -1,9 +1,8 @@
-﻿using Synth.Modules.Modulators;
-using Synth.Modules.Properties;
+﻿using Synth.Modules.Properties;
 
 namespace Synth.Modules.Sources;
 // Implement iModulator so an Oscillator can also be a modulator via its Value property
-public class Oscillator : iModulator {
+public class Oscillator : iModule {
 
     #region Private Members
     // Generator class will change according to selected waveform
@@ -33,15 +32,6 @@ public class Oscillator : iModulator {
 
 
     public float Value { get; internal set; }         // This is pre amplitude modified value suitable as modulation source  
-
-    private float _Amplitude = 1f;
-    public float Amplitude { 
-        get { return _Amplitude; }
-        set {
-            _Amplitude = Utils.Misc.Constrain(value, 0f, 1f);
-        }
-    }
-
 
     public Duty Duty = new Duty();
 
@@ -136,7 +126,7 @@ public class Oscillator : iModulator {
 
 
 
-    public float Read(float timeIncrement) {
+    public void Tick(float timeIncrement) {
         // Advance Phase Accumulator acording to timeIncrement and current frequency
         float delta = timeIncrement * Frequency.GetFrequency() * 360f; 
         _Phase += delta;
@@ -149,17 +139,18 @@ public class Oscillator : iModulator {
 
         // Use Generator to return wave value for current state of the Phase Accumulator
             
-        // Place un attenuatted version in public Value property for use elsewhere
+
+        // ** Pass in Zero Crossing to Generator for Phase Dist
+
+
         Value = _Generator.GenerateSample(_Phase, Duty.GetDuty(), delta);
-              
-        return Value * Amplitude;
+             
     }
 
     private void TriggerSync() { 
         if(SyncDestination != null)
             SyncDestination.Sync(); 
     }
-
 
     #endregion
 

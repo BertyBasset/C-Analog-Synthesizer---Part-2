@@ -38,3 +38,9 @@ UI/obj/project.nuget.cache
 UI/obj/UI.csproj.nuget.dgspec.json
 UI/obj/UI.csproj.nuget.g.props
 UI/obj/UI.csproj.nuget.g.targets
+/.vs
+/BasicDemo/obj/Debug/net6.0
+/Synth/bin/Debug/net6.0
+/Synth/obj/Debug/net6.0
+/UI/bin/Debug/net6.0-windows
+/UI/obj/Debug/net6.0-windows

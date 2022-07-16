@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NAudio.Wave;
+using Synth.Modules;
 using Synth.Modules.Modulators;
+using Synth.Modules.Modifiers;
 using Synth.Modules.Sources;
 
 namespace Synth {
@@ -77,7 +79,8 @@ namespace Synth {
         #region Public Synth Properties
         public bool Started;            // Is synth running or not
         public float Volume { get; set; } = .25f;
-        public List<Oscillator> Oscillators = new List<Oscillator>();
+        public List<iModule> Modules = new List<iModule>();
+
 
         public ModWheel ModWheel { get; set; } = new ModWheel();
 
@@ -87,8 +90,8 @@ namespace Synth {
             get => _PitchWheel;
             set {
                 _PitchWheel = value;
-                foreach (var o in Oscillators)
-                    o.Frequency.PitchWheel = _PitchWheel;
+                //foreach (var o in Oscillators)
+                //  o.Frequency.PitchWheel = _PitchWheel;
             }
         }
 
@@ -97,8 +100,10 @@ namespace Synth {
             get { return _Note; }
             set {
                 _Note = value;
-                foreach(var o in Oscillators)
-                    o.Frequency.Note = _Note;
+
+                // **** Can probably do thi more tidilly
+                foreach(var o in Modules.Where(m => m.GetType() == typeof(Oscillator)))
+                  ((Oscillator)o).Frequency.Note = _Note;
             }
         }
 
@@ -118,38 +123,39 @@ namespace Synth {
         public override int Read(float[] buffer, int offset, int sampleCount) {
             float timeIncrement = 1f / (float)_SampleRate;
             for (int n = 0; n < sampleCount; n++) {
+
+                foreach (var m in Modules)
+                    m.Tick(timeIncrement);
+
+                // Aggregate outputs from all AudioOut modules
                 float wave = 0;
-
-
-                // Process oscillators
-                foreach (var osc in Oscillators) {
-                    wave += osc.Read(timeIncrement);
-                }
-
-
-                // More processing here
+                foreach (var m in Modules.Where(m => m.GetType() == typeof(AudioOut)))
+                    wave += m.Value;
 
 
                 // Housekeeping - set final sample value with overall Volume
                 float currentSample = (Volume * wave);
                 buffer[n + offset] = currentSample;
 
-
-                // Populate array for displaying waveform
-                if (n % 2 == 0) {
-                    //_DisplayGraph[_DisplayGraphCounter] = currentSample;
-                    _DisplayGraph[_DisplayGraphCounter] = buffer[n + offset];
-                    _DisplayGraphCounter++;
-                    if(_DisplayGraphCounter >= _DisplayGraph.Length - 1)
-                        _DisplayGraphCounter =0;
-
-
-                }
-
+                populateGraphArray(n, buffer[n + offset]);
             }
             return sampleCount;
         }
         #endregion
+
+        #region Private Methods
+        private void populateGraphArray(int n, float value) {
+            // Populate array for displaying waveform
+            if (n % 2 == 0) {
+                //_DisplayGraph[_DisplayGraphCounter] = currentSample;
+                _DisplayGraph[_DisplayGraphCounter] = value;
+                _DisplayGraphCounter++;
+                if(_DisplayGraphCounter >= _DisplayGraph.Length - 1)
+                    _DisplayGraphCounter =0;
+            }
+        }
+        #endregion
+
 
     }
 }

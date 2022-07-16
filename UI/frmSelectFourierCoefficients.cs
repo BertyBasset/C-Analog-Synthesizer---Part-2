@@ -26,7 +26,7 @@ namespace UI {
         // Allow maximum of 10 coefficients, 1 fundamental and up to 9 overtones
 
 
-        Synth.SynthEngine synth;
+
 
         static float[] _Coefficients = new float[] { 0f };
 
@@ -41,10 +41,6 @@ namespace UI {
         public frmSelectFourierCoefficients() {
             InitializeComponent();
 
-            synth = new Synth.SynthEngine(new Synth.Config() { Channels = 2, SampleRate = 16000 });
-            synth.Oscillators.Add(new Oscillator(WaveForm.GetByType(WaveformType.Harmonic)));
-            if (chkPlayPreview.Checked)
-                synth.Start();
 
             Init();
             AddEventHandlers();
@@ -158,10 +154,6 @@ namespace UI {
             txtH9.LostFocus += (o, e) => TextChanged(txtH9, sldH9);
 
             timPreview.Tick += (o, e) => { timPreview.Enabled = false;  UpdateWaveForm(); };
-
-            this.FormClosing += (o, e) => { synth.Stop(); };
-            chkPlayPreview.CheckedChanged += (o, e) => { if (chkPlayPreview.Checked) synth.Start(); else synth.Stop(); };
-
             cboPresets.SelectedIndexChanged += CboPresets_SelectedIndexChanged;
 
         }
@@ -343,7 +335,7 @@ namespace UI {
         }
 
         private void UpdateWaveForm() {
-            synth.Oscillators[0].FourierCoefficients = getArray();
+            //synth.Oscillators[0].FourierCoefficients = getArray();
 
 
 

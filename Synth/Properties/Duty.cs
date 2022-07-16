@@ -1,5 +1,4 @@
-﻿using Synth.Modules.Modulators;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,7 @@ namespace Synth.Modules.Properties
     public class Duty {
         public float Value;
 
-        public iModulator? Modulator;
+        public iModule? Modulator;
 
         private float _ModulationAmount;
         public float ModulationAmount {                            // 0 to 10000

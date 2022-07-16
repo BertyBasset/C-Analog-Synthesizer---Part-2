@@ -1,5 +1,4 @@
 ﻿using Synth.Utils;
-using Synth.Modules.Modulators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,7 +76,7 @@ public class Frequency {
     }
 
 
-    public iModulator? Modulator;
+    public iModule? Modulator;
 
     private float _ModulationAmount;
     public float ModulationAmount {                            // 0 to 10000
