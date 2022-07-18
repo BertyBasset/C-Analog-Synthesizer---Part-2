@@ -8,9 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Synth.Utils;
+using Synth.Properties;
 
-namespace UI {
+namespace UI
+{
     public partial class Keyboard : UserControl {
         public event EventHandler? NoteChanged;
         public event EventHandler? KeyStateChanged;

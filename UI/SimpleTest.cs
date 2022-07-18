@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Synth;
 using Synth.Modules.Sources;
-using Synth.Modules.Properties;
+using Synth.Properties;
 using System.Diagnostics;
 using FftSharp;
 using Synth.Modules.Modifiers;
+using Synth.IO;
+using Synth.Modules.Modulators;
 
 
 /* To Do:
@@ -17,16 +19,16 @@ using Synth.Modules.Modifiers;
  *  Observable maybe to dynamically size Level property of Mixer ?       DONE
  *  Glitch  (2 phase Tick or triple buffer)                              Park
  *  Glitches on harmonic                                                 Park
- *  Glide (add Tick to frequecny)                                        -
- 
+ *  Glide (add Tick to frequecny)                                        DONE
+ *  VCA                                                                  DONE
+ * Modulate PWM
  *  Part 2 Modulators
  *  LFOs
- *  SH
  *  ADSRs
+ *  SH
  *  
  *  Part 3 - Modifiers 
  *  Filters
- *  VCA
  *  
  *  Part 4 - Effects
  *  Phasers
@@ -42,16 +44,20 @@ public partial class SimpleTest : Form {
     #region Init Synth
     Synth.SynthEngine synth;
 
-    List<Synth.Utils.Note> _NoteList = Synth.Utils.Note.GetNoteList();
+    List<Note> _NoteList = Note.GetNoteList();
 
 
 
-    Oscillator o1;
-    Oscillator o2;
-    Oscillator o3;
-    Mixer m;
+    Oscillator osc1;
+    Oscillator osc2;
+    Oscillator osc3;
+    Mixer oscMixer;
     AudioOut audioOut;
-    
+    Synth.IO.Keyboard keyboard;
+    EnvGen vcaEnvGen;
+    VCA vca;
+    EnvGen pdEnvGen;
+
 
     void InitSynth() {
         // Get Synth module config, and inject into constructor
@@ -62,39 +68,63 @@ public partial class SimpleTest : Form {
 
 
 
-        o1 = new Oscillator() { WaveForm = WaveForm.GetByType(WaveformType.Sine) };
-        o2 = new Oscillator() { WaveForm = WaveForm.GetByType(WaveformType.Sine) };
-        o3 = new Oscillator() { WaveForm = WaveForm.GetByType(WaveformType.Sine) };
-        m = new Mixer();
-        m.Sources.Add(o1);
-        m.Sources.Add(o2);
-        m.Sources.Add(o3);
-        m.Levels[0] = 1;
+        // Interconnect Modules in code here
 
-        audioOut = new AudioOut() { Source = m };
+        osc1 = new Oscillator() { WaveForm = WaveForm.GetByType(WaveformType.Sine) };
+        osc2 = new Oscillator() { WaveForm = WaveForm.GetByType(WaveformType.Sine) };
+        osc3 = new Oscillator() { WaveForm = WaveForm.GetByType(WaveformType.Sine) };
+
+
+
+        // Create mixer, and connect three oscillators to it, first one with Level up
+        oscMixer = new Mixer();
+        oscMixer.Sources.Add(osc1);
+        oscMixer.Sources.Add(osc2);
+        oscMixer.Sources.Add(osc3);
+        oscMixer.Levels[0] = 1;
         
+        // Created keyboard and connect to oscillators - we can set to null to make keyboard independent
+        keyboard = new Synth.IO.Keyboard();
+        osc1.Frequency.Keyboard = keyboard;
+        osc2.Frequency.Keyboard = keyboard;
+        osc3.Frequency.Keyboard = keyboard;
+
+        vcaEnvGen = new EnvGen() { Keyboard = keyboard };
+
+        pdEnvGen = new EnvGen() { Keyboard = keyboard };
+        osc1.Duty.Modulator = pdEnvGen;
+        osc2.Duty.Modulator = pdEnvGen;
+        osc3.Duty.Modulator = pdEnvGen;
+
+        vca = new VCA() { Modulator = vcaEnvGen, Source = oscMixer };
+
+        // Hook mixer output to VCA
+        audioOut = new AudioOut() { Source = vca };
+
+
 
 
         // Add ALL modules to synth, even if they are children of other modules as SynthEngine needs to enumarate ALL modules
-        synth.Modules.Add(o1);
-        synth.Modules.Add(o2);
-        synth.Modules.Add(o3);
-        synth.Modules.Add(m);
+        // Might be able to do away with this at some point
+        synth.Modules.Add(osc1);
+        synth.Modules.Add(osc2);
+        synth.Modules.Add(osc3);
+        synth.Modules.Add(oscMixer);
         synth.Modules.Add(audioOut);
-        
-
-
-
-
+        synth.Modules.Add(keyboard);
+        synth.Modules.Add(vcaEnvGen);
+        synth.Modules.Add(vca);
+        synth.Modules.Add(pdEnvGen);
 
 
         // Temporarfy hard coded mod wheel 
-        o1.Duty.Modulator = synth.ModWheel;
-        o2.Duty.Modulator = synth.ModWheel;
-        o3.Duty.Modulator = synth.ModWheel;
+        //osc1.Duty.Modulator = synth.ModWheel;
+       // osc2.Duty.Modulator = synth.ModWheel;
+        //osc3.Duty.Modulator = synth.ModWheel;
 
 
     }
+
     #endregion
 
     #region Init Form
@@ -107,11 +137,17 @@ public partial class SimpleTest : Form {
         InitSynth();
         LoadPatchList();
 
+        #region not null asserts
         Debug.Assert(synth != null);
+        Debug.Assert(osc1 != null);
+        Debug.Assert(osc2 != null);
+        Debug.Assert(osc3 != null);
+        Debug.Assert(oscMixer != null);
+        Debug.Assert(audioOut != null);
+        Debug.Assert(keyboard != null);
+        #endregion
 
-        lblFrequency.Text = FormatFrequency(o1.Frequency.PreModFrequency);
-        lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency);
-        lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency);
+
 
         SetToolTips();
         ddlSyncSource.SelectedIndex = 0;
@@ -124,6 +160,10 @@ public partial class SimpleTest : Form {
 
         timDisplay.Enabled = true;
         virtualKeyboard.Focus();
+
+        cmdStart.Enabled = false;
+        cmdStop.Enabled = true;
+        synth.Start();
     }
 
     private void SetToolTips() {
@@ -216,6 +256,8 @@ public partial class SimpleTest : Form {
         ddlModSource2.SelectedIndexChanged += DdlModSource2_SelectedIndexChanged;
         chkKbd2.CheckedChanged += ChkKbd2_CheckedChanged;
 
+        sldGlide.ValueChanged += (o, e) => keyboard.Glide = sldGlide.Value / 10f;
+
 
         // Refresh display every 2s
         timDisplay.Tick += TimDisplay_Tick;
@@ -225,14 +267,29 @@ public partial class SimpleTest : Form {
         cmdSelectOscSetting1.Click += CmdOsctSetting1_Click;
         cmdSelectOscSetting2.Click += CmdOsctSetting2_Click;
 
-        virtualKeyboard.NoteChanged += keyboard_NoteChanged;
-        virtualKeyboard.KeyStateChanged += keyboard_KeyStateChanged;
-        virtualKeyboard.PitchWheelChanged += (o, e) => {
-            synth.PitchWheel = virtualKeyboard.CurrentPitchWheel;
-            lblFrequency.Invoke(new Action(()  => lblFrequency.Text  = FormatFrequency(o1.Frequency.PreModFrequency)));
-            lblFrequency1.Invoke(new Action(() => lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency)));
-            lblFrequency2.Invoke(new Action(() => lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency)));
+        // VCA Env Gen
+        sldAttack.ValueChanged += (o, e) => vcaEnvGen.Attack = sldAttack.Value / 100f;
+        sldDecay.ValueChanged += (o, e) => vcaEnvGen.Decay = sldDecay.Value / 100f;
+        sldSustain.ValueChanged += (o, e) => vcaEnvGen.Sustain = sldSustain.Value / 1000f;
+        sldRelease.ValueChanged += (o, e) => vcaEnvGen.Release = sldRelease.Value / 100f;
+
+        // PD Env Gen
+        sldPDAttack.ValueChanged += (o, e) => pdEnvGen.Attack = sldPDAttack.Value / 100f;
+        sldPDDecay.ValueChanged += (o, e) => pdEnvGen.Decay = sldPDDecay.Value / 100f;
+        sldPDSustain.ValueChanged += (o, e) => pdEnvGen.Sustain = sldPDSustain.Value / 1000f;
+        sldPDRelease.ValueChanged += (o, e) => pdEnvGen.Release = sldPDRelease.Value / 100f;
+
+        sldPDModAmount.ValueChanged += (o, e) => {
+            osc1.Duty.ModulationAmount = sldPDModAmount.Value / 1000f;
+            osc2.Duty.ModulationAmount = sldPDModAmount.Value / 1000f;
+            osc3.Duty.ModulationAmount = sldPDModAmount.Value / 1000f;
         };
+        
+
+
+        virtualKeyboard.NoteChanged += virtualKeyboard_NoteChanged;
+        virtualKeyboard.KeyStateChanged += virtualKeyboard_KeyStateChanged;
+        virtualKeyboard.PitchWheelChanged += (o, e) => synth.PitchWheel = virtualKeyboard.CurrentPitchWheel;
         virtualKeyboard.ModWheelChanged += (o, e) => 
             synth.ModWheel.Value = virtualKeyboard.CurrentModWheel;
 
@@ -243,6 +300,8 @@ public partial class SimpleTest : Form {
         cmdSavePatch.Click += CmdSavePatch_Click;
         cmdDeletePatch.Click += CmdDeletePatch_Click;
     }
+
+
 
     #endregion
 
@@ -259,16 +318,19 @@ public partial class SimpleTest : Form {
     // Global 'Key Up' handler. We've set Form KeyPreview property to true so that form rather than controls can capture this event
     private void SimpleTest_KeyUp(object? sender, KeyEventArgs e) {
         virtualKeyboard.CurrentKeyState = VirtualKeyboard.KeyState.Up;
+        virtualKeyboard_KeyStateChanged(null, null);
     }
     #endregion
 
     #region Event Handlers
-    private void keyboard_KeyStateChanged(object? sender, EventArgs e) {
-        // We don't do anything with this at the moment
-        // We will when we introduce a Gate
+    private void virtualKeyboard_KeyStateChanged(object? sender, EventArgs e) {
+        if (virtualKeyboard.CurrentKeyState == VirtualKeyboard.KeyState.Up)
+            keyboard.KeyUp = true;
+        else
+            keyboard.KeyDown = true;
     }
 
-    private void keyboard_NoteChanged(object? sender, EventArgs e) {
+    private void virtualKeyboard_NoteChanged(object? sender, EventArgs e) {
         ddlNote.SelectedIndex = virtualKeyboard.CurrentNote.ID - 1;
     }
 
@@ -287,18 +349,13 @@ public partial class SimpleTest : Form {
     }
 
     private void DdlNote_SelectedIndexChanged(object? sender, EventArgs e) {
-        synth.Note = (Synth.Utils.Note)ddlNote.SelectedItem;
+        keyboard.Note = (Note)ddlNote.SelectedItem;
 
-        // We can't set label text directly as the NAudio Midi  stuff appears to be running on a different thread to the UI controls
-        // Therefore a cross task Action is required
-        lblFrequency.Invoke(new Action(()  => lblFrequency.Text  = FormatFrequency(o1.Frequency.PreModFrequency)));
-        lblFrequency1.Invoke(new Action(() => lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency)));
-        lblFrequency2.Invoke(new Action(() => lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency)));
 
     }
 
     private void SldWaveForm_ValueChanged(object? sender, EventArgs e) {
-        o1.WaveFormSelectByID(sldWaveForm.Value);
+        osc1.WaveFormSelectByID(sldWaveForm.Value);
         lblWaveform.Text = (WaveForm.GetByID(sldWaveForm.Value)).Name;
 
         lblWaveTable.Visible = sldWaveForm.Value == (int)WaveformType.WaveTable;
@@ -318,19 +375,16 @@ public partial class SimpleTest : Form {
     }
 
     private void SldOctave_ValueChanged(object? sender, EventArgs e) {
-        o1.Frequency.Octave = sldOctave.Value;
-        lblFrequency.Text = FormatFrequency(o1.Frequency.PreModFrequency);
+        osc1.Frequency.Octave = sldOctave.Value;
     }
 
     private void SldTune_ValueChanged(object? sender, EventArgs e) {
-        o1.Frequency.Tune = (float)sldTune.Value / 12f;
-        lblFrequency.Text = FormatFrequency(o1.Frequency.PreModFrequency);
+        osc1.Frequency.Tune = (float)sldTune.Value / 12f;
     }
 
     private void SldFineTune_ValueChanged(object? sender, EventArgs e) {
         // sldFineTune value -100 to +100, so for +/- 1 semitone:  Value / 1200f
-        o1.Frequency.FineTune = (float)sldFineTune.Value / 1200f;
-        lblFrequency.Text = FormatFrequency(o1.Frequency.PreModFrequency);
+        osc1.Frequency.FineTune = (float)sldFineTune.Value / 1200f;
     }
 
     private void CmdReset_Click(object? sender, EventArgs e) {
@@ -338,11 +392,11 @@ public partial class SimpleTest : Form {
     }
 
     private void SldPWM_ValueChanged(object? sender, EventArgs e) {
-        o1.Duty.Value = (float)sldPWM.Value / 1000f;
+        osc1.Duty.Value = (float)sldPWM.Value / 1000f;
     }
 
     private void SldLevel_ValueChanged(object? sender, EventArgs e) {
-        m.Levels[0] = sldLevel.Value / 100f;
+        oscMixer.Levels[0] = sldLevel.Value / 100f;
     }
     private void CmdOsctSetting_Click(object? sender, EventArgs e) {
         bool originalSynthStateStarted = synth.Started;
@@ -350,16 +404,16 @@ public partial class SimpleTest : Form {
 
         switch ((WaveformType)sldWaveForm.Value) {
             case WaveformType.WaveTable:
-                var fileName = frmSelectWavetable.Show(o1.WaveTableFileName);
+                var fileName = frmSelectWavetable.Show(osc1.WaveTableFileName);
                 if (fileName != "") {
                     lblWaveTable.Text = truncateFileName(fileName, 14);
-                    o1.WaveTableFileName = fileName;
+                    osc1.WaveTableFileName = fileName;
                 }
                 break;
             case WaveformType.Harmonic:
-                var coefficients = frmSelectFourierCoefficients.Show(o1.FourierCoefficients);
+                var coefficients = frmSelectFourierCoefficients.Show(osc1.FourierCoefficients);
                 if (!coefficients.All(c => c==0)) {         // All coeffs 0 is Cancel pressed
-                    o1.FourierCoefficients = coefficients;
+                    osc1.FourierCoefficients = coefficients;
                 }
                 break;
             default: break;  // Do Nothing
@@ -374,46 +428,45 @@ public partial class SimpleTest : Form {
             return;
 
         var sawSettings = (Data.SuperSaw)ddlSuperSaw.SelectedItem;
-        o1.FrequencyRatios = sawSettings.FrequencyRatios;
+        osc1.FrequencyRatios = sawSettings.FrequencyRatios;
     }
     private void DdlSyncSource_SelectedIndexChanged(object? sender, EventArgs e) {
         switch (ddlSyncSource.SelectedIndex) {
             case 1:
-                o2.SyncDestination = o1; break;
+                osc2.SyncDestination = osc1; break;
             case 2:
-                o3.SyncDestination = o1; break;
+                osc3.SyncDestination = osc1; break;
             default:
-                if (o2.SyncDestination == o1)
-                    o2.SyncDestination = null;
-                if (o3.SyncDestination == o1)
-                    o3.SyncDestination = null;
+                if (osc2.SyncDestination == osc1)
+                    osc2.SyncDestination = null;
+                if (osc3.SyncDestination == osc1)
+                    osc3.SyncDestination = null;
                 break;
         }
     }
     private void SldModAmount_ValueChanged(object? sender, EventArgs e) {
         // Not sure what max value should be, so let's cap at 1 for now
-        o1.Frequency.ModulationAmount = sldModAmount.Value;
+        osc1.Frequency.ModulationAmount = sldModAmount.Value;
     }
 
     private void DdlModSource_SelectedIndexChanged(object? sender, EventArgs e) {
         switch (ddlModSource.SelectedIndex) {
             case 1:
-                o1.Frequency.Modulator = o2; break;
+                osc1.Frequency.Modulator = osc2; break;
             case 2:
-                o1.Frequency.Modulator = o3; break;
+                osc1.Frequency.Modulator = osc3; break;
             default:
-                o1.Frequency.Modulator = null; break;
+                osc1.Frequency.Modulator = null; break;
         }
     }
 
     private void ChkKbd_CheckedChanged(object? sender, EventArgs e) {
-        o1.Frequency.Kbd = chkKbd.Checked;
-        lblFrequency.Text = FormatFrequency(o1.Frequency.PreModFrequency);
+        if (chkKbd.Checked) osc1.Frequency.Keyboard = keyboard; else osc1.Frequency.Keyboard = null;
     }
 
 
     private void SldWaveForm1_ValueChanged(object? sender, EventArgs e) {
-        o2.WaveFormSelectByID(sldWaveForm1.Value);
+        osc2.WaveFormSelectByID(sldWaveForm1.Value);
         lblWaveform1.Text = (WaveForm.GetByID(sldWaveForm1.Value)).Name;
 
         lblWaveTable1.Visible = sldWaveForm1.Value == (int)WaveformType.WaveTable;
@@ -432,18 +485,15 @@ public partial class SimpleTest : Form {
     }
 
     private void SldOctave1_ValueChanged(object? sender, EventArgs e) {
-        o2.Frequency.Octave = sldOctave1.Value;
-        lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency);
+        osc2.Frequency.Octave = sldOctave1.Value;
     }
     private void SldTune1_ValueChanged(object? sender, EventArgs e) {
-        o2.Frequency.Tune = (float)sldTune1.Value / 12f;
-        lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency);
+        osc2.Frequency.Tune = (float)sldTune1.Value / 12f;
     }
 
     private void SldFineTune1_ValueChanged(object? sender, EventArgs e) {
         // sldFineTune value -100 to +100, so for +/- 1 semitone:  Value / 1200f
-        o2.Frequency.FineTune = (float)sldFineTune1.Value / 1200f;
-        lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency);
+        osc2.Frequency.FineTune = (float)sldFineTune1.Value / 1200f;
     }
 
     private void CmdReset1_Click(object? sender, EventArgs e) {
@@ -451,10 +501,10 @@ public partial class SimpleTest : Form {
     }
 
     private void SldPWM1_ValueChanged(object? sender, EventArgs e) {
-        o2.Duty.Value = (float)sldPWM1.Value / 100f;
+        osc2.Duty.Value = (float)sldPWM1.Value / 100f;
     }
     private void SldLevel1_ValueChanged(object? sender, EventArgs e) {
-        m.Levels[1] = sldLevel1.Value / 100f;
+        oscMixer.Levels[1] = sldLevel1.Value / 100f;
     }
 
     private void CmdOsctSetting1_Click(object? sender, EventArgs e) {
@@ -463,16 +513,16 @@ public partial class SimpleTest : Form {
 
         switch ((WaveformType)sldWaveForm1.Value) {
             case WaveformType.WaveTable:
-                var fileName = frmSelectWavetable.Show(o2.WaveTableFileName);
+                var fileName = frmSelectWavetable.Show(osc2.WaveTableFileName);
                 if (fileName != "") {
                     lblWaveTable1.Text = truncateFileName(fileName, 14);
-                    o2.WaveTableFileName = fileName;
+                    osc2.WaveTableFileName = fileName;
                 }
                 break;
             case WaveformType.Harmonic:
-                var coefficients = frmSelectFourierCoefficients.Show(o2.FourierCoefficients);
+                var coefficients = frmSelectFourierCoefficients.Show(osc2.FourierCoefficients);
                 if (!coefficients.All(c => c == 0)) {               // All coeffs 0 is Cancel pressed
-                    o2.FourierCoefficients = coefficients;
+                    osc2.FourierCoefficients = coefficients;
                 }
                 break;
             default: break;  // Do Nothing
@@ -487,47 +537,46 @@ public partial class SimpleTest : Form {
             return;
 
         var sawSettings = (Data.SuperSaw)ddlSuperSaw1.SelectedItem;
-        o2.FrequencyRatios = sawSettings.FrequencyRatios;
+        osc2.FrequencyRatios = sawSettings.FrequencyRatios;
     }
 
     private void DdlSyncSource1_SelectedIndexChanged(object? sender, EventArgs e) {
         switch (ddlSyncSource1.SelectedIndex) {
             case 1:
-                o1.SyncDestination = o2; break;
+                osc1.SyncDestination = osc2; break;
             case 2:
-                o3.SyncDestination = o2; break;
+                osc3.SyncDestination = osc2; break;
             default:
-                if (o1.SyncDestination == o2)
-                    o1.SyncDestination = null;
-                if (o3.SyncDestination == o2)
-                    o3.SyncDestination = null;
+                if (osc1.SyncDestination == osc2)
+                    osc1.SyncDestination = null;
+                if (osc3.SyncDestination == osc2)
+                    osc3.SyncDestination = null;
                 break;
         }
     }
     private void SldModAmount1_ValueChanged(object? sender, EventArgs e) {
         // Not sure what max value should be, so let's cap at 1 for now
-        o2.Frequency.ModulationAmount = sldModAmount1.Value;
+        osc2.Frequency.ModulationAmount = sldModAmount1.Value;
     }
 
     private void DdlModSource1_SelectedIndexChanged(object? sender, EventArgs e) {
         switch (ddlModSource1.SelectedIndex) {
             case 1:
-                o2.Frequency.Modulator = o1; break;
+                osc2.Frequency.Modulator = osc1; break;
             case 2:
-                o2.Frequency.Modulator = o3; break;
+                osc2.Frequency.Modulator = osc3; break;
             default:
-                o2.Frequency.Modulator = null; break;
+                osc2.Frequency.Modulator = null; break;
         }
     }
 
     private void ChkKbd1_CheckedChanged(object? sender, EventArgs e) {
-        o2.Frequency.Kbd = chkKbd1.Checked;
-        lblFrequency1.Text = FormatFrequency(o2.Frequency.PreModFrequency);
+        if (chkKbd1.Checked) osc2.Frequency.Keyboard = keyboard; else osc2.Frequency.Keyboard = null;
     }
 
 
     private void SldWaveForm2_ValueChanged(object? sender, EventArgs e) {
-        o3.WaveFormSelectByID(sldWaveForm2.Value);
+        osc3.WaveFormSelectByID(sldWaveForm2.Value);
         lblWaveform2.Text = (WaveForm.GetByID(sldWaveForm2.Value)).Name;
 
         lblWaveTable2.Visible = sldWaveForm2.Value == (int)WaveformType.WaveTable;
@@ -546,19 +595,16 @@ public partial class SimpleTest : Form {
     }
 
     private void SldOctave2_ValueChanged(object? sender, EventArgs e) {
-        o3.Frequency.Octave = sldOctave2.Value;
-        lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency);
+        osc3.Frequency.Octave = sldOctave2.Value;
     }
 
     private void SldTune2_ValueChanged(object? sender, EventArgs e) {
-        o3.Frequency.Tune = (float)sldTune2.Value / 12f;
-        lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency);
+        osc3.Frequency.Tune = (float)sldTune2.Value / 12f;
     }
 
     private void SldFineTune2_ValueChanged(object? sender, EventArgs e) {
         // sldFineTune value -100 to +100, so for +/- 1 semitone:  Value / 1200f
-        o3.Frequency.FineTune = (float)sldFineTune2.Value / 1200f;
-        lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency);
+        osc3.Frequency.FineTune = (float)sldFineTune2.Value / 1200f;
     }
 
     private void CmdReset2_Click(object? sender, EventArgs e) {
@@ -566,10 +612,10 @@ public partial class SimpleTest : Form {
     }
 
     private void SldPWM2_ValueChanged(object? sender, EventArgs e) {
-        o3.Duty.Value = (float)sldPWM2.Value / 100f;
+        osc3.Duty.Value = (float)sldPWM2.Value / 100f;
     }
     private void SldLevel2_ValueChanged(object? sender, EventArgs e) {
-        m.Levels[2] = sldLevel2.Value / 100f;
+        oscMixer.Levels[2] = sldLevel2.Value / 100f;
     }
 
     private void CmdOsctSetting2_Click(object? sender, EventArgs e) {
@@ -578,16 +624,16 @@ public partial class SimpleTest : Form {
 
         switch ((WaveformType)sldWaveForm2.Value) {
             case WaveformType.WaveTable:
-                var fileName = frmSelectWavetable.Show(o3.WaveTableFileName);
+                var fileName = frmSelectWavetable.Show(osc3.WaveTableFileName);
                 if (fileName != "") {
                     lblWaveTable2.Text = truncateFileName(fileName, 14);
-                    o3.WaveTableFileName = fileName;
+                    osc3.WaveTableFileName = fileName;
                 }
                 break;
             case WaveformType.Harmonic:
-                var coefficients = frmSelectFourierCoefficients.Show(o3.FourierCoefficients);
+                var coefficients = frmSelectFourierCoefficients.Show(osc3.FourierCoefficients);
                 if (!coefficients.All(c => c == 0)) {                   // All coeffs 0 is Cancel pressed
-                    o3.FourierCoefficients = coefficients;
+                    osc3.FourierCoefficients = coefficients;
                 }
                 break;
             default: break;  // Do Nothing
@@ -602,49 +648,48 @@ public partial class SimpleTest : Form {
             return;
 
         var sawSettings = (Data.SuperSaw)ddlSuperSaw2.SelectedItem;
-        o3.FrequencyRatios = sawSettings.FrequencyRatios;
+        osc3.FrequencyRatios = sawSettings.FrequencyRatios;
     }
 
     void DdlSyncSource2_SelectedIndexChanged(object? sender, EventArgs e) {
         switch (ddlSyncSource2.SelectedIndex) {
             case 1:
-                o1.SyncDestination = o3; break;
+                osc1.SyncDestination = osc3; break;
             case 2:
-                o2.SyncDestination = o3; break;
+                osc2.SyncDestination = osc3; break;
             default:
-                if (o1.SyncDestination == o3)
-                    o1.SyncDestination = null;
-                if (o2.SyncDestination == o3)
-                    o2.SyncDestination = null;
+                if (osc1.SyncDestination == osc3)
+                    osc1.SyncDestination = null;
+                if (osc2.SyncDestination == osc3)
+                    osc2.SyncDestination = null;
                 break;
         }
     }
 
     private void SldModAmount2_ValueChanged(object? sender, EventArgs e) {
         // Not sure what max value should be, so let's cap at 1 for now
-        o3.Frequency.ModulationAmount = sldModAmount2.Value;
+        osc3.Frequency.ModulationAmount = sldModAmount2.Value;
     }
 
     private void DdlModSource2_SelectedIndexChanged(object? sender, EventArgs e) {
         switch (ddlModSource2.SelectedIndex) {
             case 1:
-                o3.Frequency.Modulator = o1; break;
+                osc3.Frequency.Modulator = osc1; break;
             case 2:
-                o3.Frequency.Modulator = o2; break;
+                osc3.Frequency.Modulator = osc2; break;
             default:
-                o3.Frequency.Modulator = null; break;
+                osc3.Frequency.Modulator = null; break;
         }
     }
 
     private void ChkKbd2_CheckedChanged(object? sender, EventArgs e) {
-        o3.Frequency.Kbd = chkKbd2.Checked;
-        lblFrequency2.Text = FormatFrequency(o3.Frequency.PreModFrequency);
+        if (chkKbd2.Checked) osc3.Frequency.Keyboard = keyboard; else osc3.Frequency.Keyboard = null;
     }
 
     private void CmdSavePatch_Click(object? sender, EventArgs e) {
         // Get Patch Name
 
-        var savedPatch = Patch.SaveNewPatch(this, o1, o2, o3);           // Pass form across so control settings can be scraped
+        var savedPatch = Patch.SaveNewPatch(this, osc1, osc2, osc3);           // Pass form across so control settings can be scraped
 
         // Patch object returned if sucesfull. Select from ddl if so, otherwise, just return
         if (savedPatch == null)
@@ -662,13 +707,13 @@ public partial class SimpleTest : Form {
     private void DdlPatches_SelectedIndexChanged(object? sender, EventArgs e) {
         var p = (Patch)ddlPatches.SelectedItem;
         if (p.PatchName != "")
-            Patch.RecallPatch(this, p, o1, o2, o3);
+            Patch.RecallPatch(this, p, osc1, osc2, osc3);
     }
 
     private void CmdInitPatch_Click(object? sender, EventArgs e) {
         var p = Patch.GetInitPatch();
 
-        Patch.RecallPatch(this, p, o1, o2, o3);
+        Patch.RecallPatch(this, p, osc1, osc2, osc3);
     }
 
     private void CmdDeletePatch_Click(object? sender, EventArgs e) {
@@ -747,7 +792,7 @@ public partial class SimpleTest : Form {
         // Uses nuget package from https://github.com/swharden/FftSharp
 
         // Begin with an array containing sample data
-        //double[] signal = FftSharp.SampleData.SampleAudio1();
+        //double[] signal = FftSharp.SampleData.SampleAudiosc1();
 
         // Shape the signal using a Hanning window
         var window = new FftSharp.Windows.Hanning();

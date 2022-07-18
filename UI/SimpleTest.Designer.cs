@@ -61,7 +61,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.sldPWM = new System.Windows.Forms.TrackBar();
             this.lblPWM = new System.Windows.Forms.Label();
-            this.lblFrequency = new System.Windows.Forms.Label();
             this.cmdReset = new System.Windows.Forms.Button();
             this.sldFineTune = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
@@ -92,7 +91,6 @@
             this.picSaw1 = new System.Windows.Forms.PictureBox();
             this.lblPWM1 = new System.Windows.Forms.Label();
             this.picSine1 = new System.Windows.Forms.PictureBox();
-            this.lblFrequency1 = new System.Windows.Forms.Label();
             this.sldWaveForm1 = new System.Windows.Forms.TrackBar();
             this.cmdReset1 = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
@@ -126,7 +124,6 @@
             this.picSaw2 = new System.Windows.Forms.PictureBox();
             this.lblPWM2 = new System.Windows.Forms.Label();
             this.picSine2 = new System.Windows.Forms.PictureBox();
-            this.lblFrequency2 = new System.Windows.Forms.Label();
             this.sldWaveForm2 = new System.Windows.Forms.TrackBar();
             this.cmdReset2 = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
@@ -145,6 +142,31 @@
             this.cmdSavePatch = new System.Windows.Forms.Button();
             this.ddlPatches = new System.Windows.Forms.ComboBox();
             this.cmdDeletePatch = new System.Windows.Forms.Button();
+            this.sldGlide = new System.Windows.Forms.TrackBar();
+            this.label5 = new System.Windows.Forms.Label();
+            this.sldAttack = new System.Windows.Forms.TrackBar();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.sldRelease = new System.Windows.Forms.TrackBar();
+            this.sldSustain = new System.Windows.Forms.TrackBar();
+            this.sldDecay = new System.Windows.Forms.TrackBar();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.chkPDOsc3 = new System.Windows.Forms.CheckBox();
+            this.chkPDOsc2 = new System.Windows.Forms.CheckBox();
+            this.chkPDOsc1 = new System.Windows.Forms.CheckBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.sldPDModAmount = new System.Windows.Forms.TrackBar();
+            this.label31 = new System.Windows.Forms.Label();
+            this.sss = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.sldPDRelease = new System.Windows.Forms.TrackBar();
+            this.sldPDSustain = new System.Windows.Forms.TrackBar();
+            this.sldPDDecay = new System.Windows.Forms.TrackBar();
+            this.sldPDAttack = new System.Windows.Forms.TrackBar();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sldModAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSuperSaw)).BeginInit();
@@ -194,6 +216,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.sldFineTune2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldOctave2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWaveGraph)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldGlide)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldAttack)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sldRelease)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldSustain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldDecay)).BeginInit();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sldPDModAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldPDRelease)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldPDSustain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldPDDecay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldPDAttack)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdStart
@@ -247,7 +281,6 @@
             this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Controls.Add(this.sldPWM);
             this.groupBox1.Controls.Add(this.lblPWM);
-            this.groupBox1.Controls.Add(this.lblFrequency);
             this.groupBox1.Controls.Add(this.cmdReset);
             this.groupBox1.Controls.Add(this.sldFineTune);
             this.groupBox1.Controls.Add(this.label3);
@@ -557,17 +590,6 @@
             this.lblPWM.TabIndex = 9;
             this.lblPWM.Text = "Phase Dist:";
             // 
-            // lblFrequency
-            // 
-            this.lblFrequency.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblFrequency.ForeColor = System.Drawing.Color.Blue;
-            this.lblFrequency.Location = new System.Drawing.Point(291, 10);
-            this.lblFrequency.Name = "lblFrequency";
-            this.lblFrequency.Size = new System.Drawing.Size(67, 15);
-            this.lblFrequency.TabIndex = 16;
-            this.lblFrequency.Text = "x";
-            this.lblFrequency.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // cmdReset
             // 
             this.cmdReset.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -638,7 +660,6 @@
             this.groupBox2.Controls.Add(this.picSaw1);
             this.groupBox2.Controls.Add(this.lblPWM1);
             this.groupBox2.Controls.Add(this.picSine1);
-            this.groupBox2.Controls.Add(this.lblFrequency1);
             this.groupBox2.Controls.Add(this.sldWaveForm1);
             this.groupBox2.Controls.Add(this.cmdReset1);
             this.groupBox2.Controls.Add(this.label14);
@@ -920,17 +941,6 @@
             this.picSine1.TabIndex = 35;
             this.picSine1.TabStop = false;
             // 
-            // lblFrequency1
-            // 
-            this.lblFrequency1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblFrequency1.ForeColor = System.Drawing.Color.Blue;
-            this.lblFrequency1.Location = new System.Drawing.Point(291, 10);
-            this.lblFrequency1.Name = "lblFrequency1";
-            this.lblFrequency1.Size = new System.Drawing.Size(68, 15);
-            this.lblFrequency1.TabIndex = 16;
-            this.lblFrequency1.Text = "x";
-            this.lblFrequency1.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // sldWaveForm1
             // 
             this.sldWaveForm1.LargeChange = 1;
@@ -1032,7 +1042,6 @@
             this.groupBox3.Controls.Add(this.picSaw2);
             this.groupBox3.Controls.Add(this.lblPWM2);
             this.groupBox3.Controls.Add(this.picSine2);
-            this.groupBox3.Controls.Add(this.lblFrequency2);
             this.groupBox3.Controls.Add(this.sldWaveForm2);
             this.groupBox3.Controls.Add(this.cmdReset2);
             this.groupBox3.Controls.Add(this.label15);
@@ -1311,17 +1320,6 @@
             this.picSine2.TabIndex = 35;
             this.picSine2.TabStop = false;
             // 
-            // lblFrequency2
-            // 
-            this.lblFrequency2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblFrequency2.ForeColor = System.Drawing.Color.Blue;
-            this.lblFrequency2.Location = new System.Drawing.Point(292, 10);
-            this.lblFrequency2.Name = "lblFrequency2";
-            this.lblFrequency2.Size = new System.Drawing.Size(68, 15);
-            this.lblFrequency2.TabIndex = 16;
-            this.lblFrequency2.Text = "x";
-            this.lblFrequency2.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // sldWaveForm2
             // 
             this.sldWaveForm2.LargeChange = 1;
@@ -1425,7 +1423,7 @@
             // 
             this.ddlNote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddlNote.FormattingEnabled = true;
-            this.ddlNote.Location = new System.Drawing.Point(1088, 180);
+            this.ddlNote.Location = new System.Drawing.Point(1107, 5);
             this.ddlNote.Name = "ddlNote";
             this.ddlNote.Size = new System.Drawing.Size(92, 23);
             this.ddlNote.TabIndex = 34;
@@ -1479,12 +1477,317 @@
             this.cmdDeletePatch.Text = "Delete Patch";
             this.cmdDeletePatch.UseVisualStyleBackColor = true;
             // 
+            // sldGlide
+            // 
+            this.sldGlide.LargeChange = 1;
+            this.sldGlide.Location = new System.Drawing.Point(777, 14);
+            this.sldGlide.Maximum = 1000;
+            this.sldGlide.Name = "sldGlide";
+            this.sldGlide.Size = new System.Drawing.Size(160, 45);
+            this.sldGlide.TabIndex = 58;
+            this.sldGlide.TickFrequency = 100;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.Color.Blue;
+            this.label5.Location = new System.Drawing.Point(744, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(37, 15);
+            this.label5.TabIndex = 59;
+            this.label5.Text = "Glide:";
+            // 
+            // sldAttack
+            // 
+            this.sldAttack.LargeChange = 1;
+            this.sldAttack.Location = new System.Drawing.Point(9, 12);
+            this.sldAttack.Maximum = 1000;
+            this.sldAttack.Name = "sldAttack";
+            this.sldAttack.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldAttack.Size = new System.Drawing.Size(45, 129);
+            this.sldAttack.TabIndex = 21;
+            this.sldAttack.TickFrequency = 200;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label30);
+            this.groupBox4.Controls.Add(this.label29);
+            this.groupBox4.Controls.Add(this.label13);
+            this.groupBox4.Controls.Add(this.label9);
+            this.groupBox4.Controls.Add(this.sldRelease);
+            this.groupBox4.Controls.Add(this.sldSustain);
+            this.groupBox4.Controls.Add(this.sldDecay);
+            this.groupBox4.Controls.Add(this.sldAttack);
+            this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.groupBox4.ForeColor = System.Drawing.Color.Blue;
+            this.groupBox4.Location = new System.Drawing.Point(1113, 44);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(188, 158);
+            this.groupBox4.TabIndex = 60;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "VCA";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label30.ForeColor = System.Drawing.Color.Blue;
+            this.label30.Location = new System.Drawing.Point(130, 140);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(46, 15);
+            this.label30.TabIndex = 28;
+            this.label30.Text = "Release";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label29.ForeColor = System.Drawing.Color.Blue;
+            this.label29.Location = new System.Drawing.Point(85, 140);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(45, 15);
+            this.label29.TabIndex = 27;
+            this.label29.Text = "Sustain";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label13.ForeColor = System.Drawing.Color.Blue;
+            this.label13.Location = new System.Drawing.Point(46, 140);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(39, 15);
+            this.label13.TabIndex = 26;
+            this.label13.Text = "Decay";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label9.ForeColor = System.Drawing.Color.Blue;
+            this.label9.Location = new System.Drawing.Point(1, 140);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(41, 15);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "Attack";
+            // 
+            // sldRelease
+            // 
+            this.sldRelease.LargeChange = 1;
+            this.sldRelease.Location = new System.Drawing.Point(139, 11);
+            this.sldRelease.Maximum = 1000;
+            this.sldRelease.Name = "sldRelease";
+            this.sldRelease.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldRelease.Size = new System.Drawing.Size(45, 129);
+            this.sldRelease.TabIndex = 24;
+            this.sldRelease.TickFrequency = 200;
+            // 
+            // sldSustain
+            // 
+            this.sldSustain.LargeChange = 1;
+            this.sldSustain.Location = new System.Drawing.Point(95, 12);
+            this.sldSustain.Maximum = 1000;
+            this.sldSustain.Name = "sldSustain";
+            this.sldSustain.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldSustain.Size = new System.Drawing.Size(45, 129);
+            this.sldSustain.TabIndex = 23;
+            this.sldSustain.TickFrequency = 200;
+            this.sldSustain.Value = 1000;
+            // 
+            // sldDecay
+            // 
+            this.sldDecay.LargeChange = 1;
+            this.sldDecay.Location = new System.Drawing.Point(52, 12);
+            this.sldDecay.Maximum = 1000;
+            this.sldDecay.Name = "sldDecay";
+            this.sldDecay.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldDecay.Size = new System.Drawing.Size(45, 129);
+            this.sldDecay.TabIndex = 22;
+            this.sldDecay.TickFrequency = 200;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.chkPDOsc3);
+            this.groupBox5.Controls.Add(this.chkPDOsc2);
+            this.groupBox5.Controls.Add(this.chkPDOsc1);
+            this.groupBox5.Controls.Add(this.label35);
+            this.groupBox5.Controls.Add(this.sldPDModAmount);
+            this.groupBox5.Controls.Add(this.label31);
+            this.groupBox5.Controls.Add(this.sss);
+            this.groupBox5.Controls.Add(this.label33);
+            this.groupBox5.Controls.Add(this.label34);
+            this.groupBox5.Controls.Add(this.sldPDRelease);
+            this.groupBox5.Controls.Add(this.sldPDSustain);
+            this.groupBox5.Controls.Add(this.sldPDDecay);
+            this.groupBox5.Controls.Add(this.sldPDAttack);
+            this.groupBox5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.groupBox5.ForeColor = System.Drawing.Color.Blue;
+            this.groupBox5.Location = new System.Drawing.Point(1113, 208);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(188, 241);
+            this.groupBox5.TabIndex = 61;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Phase Distortion";
+            // 
+            // chkPDOsc3
+            // 
+            this.chkPDOsc3.AutoSize = true;
+            this.chkPDOsc3.Checked = true;
+            this.chkPDOsc3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPDOsc3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkPDOsc3.Location = new System.Drawing.Point(126, 205);
+            this.chkPDOsc3.Name = "chkPDOsc3";
+            this.chkPDOsc3.Size = new System.Drawing.Size(55, 19);
+            this.chkPDOsc3.TabIndex = 37;
+            this.chkPDOsc3.Text = "Osc 3";
+            this.chkPDOsc3.UseVisualStyleBackColor = true;
+            // 
+            // chkPDOsc2
+            // 
+            this.chkPDOsc2.AutoSize = true;
+            this.chkPDOsc2.Checked = true;
+            this.chkPDOsc2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPDOsc2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkPDOsc2.Location = new System.Drawing.Point(68, 205);
+            this.chkPDOsc2.Name = "chkPDOsc2";
+            this.chkPDOsc2.Size = new System.Drawing.Size(55, 19);
+            this.chkPDOsc2.TabIndex = 36;
+            this.chkPDOsc2.Text = "Osc 2";
+            this.chkPDOsc2.UseVisualStyleBackColor = true;
+            // 
+            // chkPDOsc1
+            // 
+            this.chkPDOsc1.AutoSize = true;
+            this.chkPDOsc1.Checked = true;
+            this.chkPDOsc1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPDOsc1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkPDOsc1.Location = new System.Drawing.Point(7, 206);
+            this.chkPDOsc1.Name = "chkPDOsc1";
+            this.chkPDOsc1.Size = new System.Drawing.Size(55, 19);
+            this.chkPDOsc1.TabIndex = 35;
+            this.chkPDOsc1.Text = "Osc 1";
+            this.chkPDOsc1.UseVisualStyleBackColor = true;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label35.ForeColor = System.Drawing.Color.Blue;
+            this.label35.Location = new System.Drawing.Point(1, 168);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(54, 15);
+            this.label35.TabIndex = 30;
+            this.label35.Text = "Amount:";
+            // 
+            // sldPDModAmount
+            // 
+            this.sldPDModAmount.LargeChange = 1;
+            this.sldPDModAmount.Location = new System.Drawing.Point(53, 164);
+            this.sldPDModAmount.Maximum = 1000;
+            this.sldPDModAmount.Name = "sldPDModAmount";
+            this.sldPDModAmount.Size = new System.Drawing.Size(129, 45);
+            this.sldPDModAmount.TabIndex = 29;
+            this.sldPDModAmount.TickFrequency = 200;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label31.ForeColor = System.Drawing.Color.Blue;
+            this.label31.Location = new System.Drawing.Point(130, 140);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(46, 15);
+            this.label31.TabIndex = 28;
+            this.label31.Text = "Release";
+            // 
+            // sss
+            // 
+            this.sss.AutoSize = true;
+            this.sss.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.sss.ForeColor = System.Drawing.Color.Blue;
+            this.sss.Location = new System.Drawing.Point(85, 140);
+            this.sss.Name = "sss";
+            this.sss.Size = new System.Drawing.Size(45, 15);
+            this.sss.TabIndex = 27;
+            this.sss.Text = "Sustain";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label33.ForeColor = System.Drawing.Color.Blue;
+            this.label33.Location = new System.Drawing.Point(46, 140);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(39, 15);
+            this.label33.TabIndex = 26;
+            this.label33.Text = "Decay";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label34.ForeColor = System.Drawing.Color.Blue;
+            this.label34.Location = new System.Drawing.Point(1, 140);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(41, 15);
+            this.label34.TabIndex = 25;
+            this.label34.Text = "Attack";
+            // 
+            // sldPDRelease
+            // 
+            this.sldPDRelease.LargeChange = 1;
+            this.sldPDRelease.Location = new System.Drawing.Point(139, 11);
+            this.sldPDRelease.Maximum = 1000;
+            this.sldPDRelease.Name = "sldPDRelease";
+            this.sldPDRelease.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldPDRelease.Size = new System.Drawing.Size(45, 129);
+            this.sldPDRelease.TabIndex = 24;
+            this.sldPDRelease.TickFrequency = 200;
+            // 
+            // sldPDSustain
+            // 
+            this.sldPDSustain.LargeChange = 1;
+            this.sldPDSustain.Location = new System.Drawing.Point(95, 12);
+            this.sldPDSustain.Maximum = 1000;
+            this.sldPDSustain.Name = "sldPDSustain";
+            this.sldPDSustain.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldPDSustain.Size = new System.Drawing.Size(45, 129);
+            this.sldPDSustain.TabIndex = 23;
+            this.sldPDSustain.TickFrequency = 200;
+            this.sldPDSustain.Value = 1000;
+            // 
+            // sldPDDecay
+            // 
+            this.sldPDDecay.LargeChange = 1;
+            this.sldPDDecay.Location = new System.Drawing.Point(52, 12);
+            this.sldPDDecay.Maximum = 1000;
+            this.sldPDDecay.Name = "sldPDDecay";
+            this.sldPDDecay.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldPDDecay.Size = new System.Drawing.Size(45, 129);
+            this.sldPDDecay.TabIndex = 22;
+            this.sldPDDecay.TickFrequency = 200;
+            // 
+            // sldPDAttack
+            // 
+            this.sldPDAttack.LargeChange = 1;
+            this.sldPDAttack.Location = new System.Drawing.Point(9, 12);
+            this.sldPDAttack.Maximum = 1000;
+            this.sldPDAttack.Name = "sldPDAttack";
+            this.sldPDAttack.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldPDAttack.Size = new System.Drawing.Size(45, 129);
+            this.sldPDAttack.TabIndex = 21;
+            this.sldPDAttack.TickFrequency = 200;
+            // 
             // SimpleTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(1192, 653);
+            this.ClientSize = new System.Drawing.Size(1328, 653);
+            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmdDeletePatch);
             this.Controls.Add(this.ddlPatches);
@@ -1499,6 +1802,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.cmdStop);
             this.Controls.Add(this.cmdStart);
+            this.Controls.Add(this.sldGlide);
             this.KeyPreview = true;
             this.Name = "SimpleTest";
             this.Text = "Oscillator Demo";
@@ -1554,6 +1858,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.sldFineTune2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldOctave2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWaveGraph)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldGlide)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldAttack)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sldRelease)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldSustain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldDecay)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sldPDModAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldPDRelease)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldPDSustain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldPDDecay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldPDAttack)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1564,21 +1882,18 @@
         private Button cmdStart;
         private Button cmdStop;
         private GroupBox groupBox1;
-        private Label lblFrequency;
         private Button cmdReset;
         private TrackBar sldFineTune;
         private TrackBar sldOctave;
         private Label label3;
         private Label label2;
         private GroupBox groupBox2;
-        private Label lblFrequency1;
         private Button cmdReset1;
         private TrackBar sldFineTune1;
         private TrackBar sldOctave1;
         private Label label7;
         private Label label8;
         private GroupBox groupBox3;
-        private Label lblFrequency2;
         private Button cmdReset2;
         private TrackBar sldFineTune2;
         private TrackBar sldOctave2;
@@ -1676,6 +1991,33 @@
         private ComboBox ddlPatches;
         private Button cmdDeletePatch;
         private TrackBar sldPWM2;
+        private TrackBar sldGlide;
+        private Label label5;
+        private TrackBar sldAttack;
+        private GroupBox groupBox4;
+        private Label label30;
+        private Label label29;
+        private Label label13;
+        private Label label9;
+        private TrackBar sldRelease;
+        private TrackBar sldSustain;
+        private TrackBar sldDecay;
+        private GroupBox groupBox5;
+        private CheckBox chkPDOsc3;
+        private CheckBox chkPDOsc2;
+        private CheckBox chkPDOsc1;
+        private Label label35;
+        private TrackBar sldPDAmount;
+        private Label label31;
+        private Label sss;
+        private Label label33;
+        private Label label34;
+        private TrackBar slsPDRelease;
+        private TrackBar sldPDSustain;
+        private TrackBar sldPDDecay;
+        private TrackBar sldPDAttack;
+        private TrackBar sldPDRelease;
+        private TrackBar sldPDModAmount;
         //private UI.Keyboard keyboard1;
     }
 }

@@ -1,17 +1,19 @@
-﻿using Synth.Utils;
+﻿using Synth.IO;
+using Synth.Modules;
+using Synth.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Synth.Modules.Properties;
+namespace Synth.Properties;
 public class Frequency {
-    private const float DEFAULT_FREQUENCY = 110f;
+    // Keyboard and Frequecny classes should be dealing with logarithmic digital
+    // equivalent of CV, however we've already gone down frequency route
+    // However, consider changing, esp if we go down C++ pico route
 
-    public Frequency(Note Note) {
-        this.Note = Note;
-    }
+    private const float DEFAULT_FREQUENCY = 110f;
 
 
     // Keyboard Control
@@ -21,7 +23,7 @@ public class Frequency {
         get { return _Kbd; }
         set { 
             _Kbd = value;
-            setFrequency();
+            //setFrequency();
         }
     }
 
@@ -34,7 +36,7 @@ public class Frequency {
         get { return _Octave; }
         set {
             _Octave = Utils.Misc.Constrain(value, -3, 3);
-            setFrequency();
+            //setFrequency();
         }
     }
 
@@ -43,7 +45,7 @@ public class Frequency {
         get { return _Tune; }
         set {
             _Tune = Utils.Misc.Constrain(value, -1f, 1f);
-            setFrequency();
+            //setFrequency();
         }
     }
 
@@ -52,7 +54,7 @@ public class Frequency {
         get { return _FineTune; }
         set {
             _FineTune = Utils.Misc.Constrain(value, -1f, 1f);
-            setFrequency();
+            //setFrequency();
         }
     }
 
@@ -62,49 +64,11 @@ public class Frequency {
         set {
             float semitone = (value - 8192f) / 4096 / 12;
             _PitchWheel = semitone * MathF.Pow(2, 1 / 12);
-            setFrequency();
+            //setFrequency();
         }
     }
 
-
-    //*** ADD Glide Amount
-
-
-    public void Tick(float interval) {
-        if (_oldNoteCV != _noteCV) {
-            if (_oldNoteCV < _noteCV) {
-                _oldNoteCV += .01f;
-                if (_oldNoteCV > _noteCV)       // Deals with overshoot !
-                    _noteCV = _oldNoteCV;
-            } else {
-                _oldNoteCV -= .01f;
-                if (_oldNoteCV < _noteCV)
-                    _noteCV = _oldNoteCV;       // Deals with undershoot !
-
-            }
-
-            setFrequency();
-        }
-        else
-            _oldNoteCV = _noteCV;
-
-
-    
-        // If done
-    
-    }
-
-    float _oldNoteCV = 0;
-    float _noteCV;          // New Note
-    private Utils.Note _Note = new Utils.Note();
-    internal Utils.Note Note {
-        get { return _Note; }
-        set {
-            _Note = value;
-            _noteCV = _Note.Frequency;
-            setFrequency();
-        }
-    }
+    public Keyboard? Keyboard { get; set; }
 
 
     public iModule? Modulator;
@@ -117,28 +81,28 @@ public class Frequency {
         }   
     }
 
-    //  Frequency scaling is 1.0 per octave
-    private void setFrequency() {
+    //  Modulation Frequency scaling is 1.0 per octave
+    
+    public float GetFrequency() {
+        // NB     / 2 because of stereo interleaving
+        // This is final frequency used for driving Phase Accumulator
+
         // Whenever one of the frequency controlling properties change, we update Pre Mod Frequency
-        if(Kbd)
-            PreModFrequency = _oldNoteCV;                                  // Base Frequency
-        else
+        if (Keyboard == null)
             PreModFrequency = DEFAULT_FREQUENCY;                                  // Base Frequency
+        else
+            PreModFrequency = Keyboard.Value;
 
         PreModFrequency = PreModFrequency * MathF.Pow(2, _Octave);    // Adjust Octave
         // Both Tune and FineTune are 1 per octave, however they have separate values as they'll normally have separate UI controls
         PreModFrequency = PreModFrequency * MathF.Pow(2, _Tune);      // Tune within octave
         PreModFrequency = PreModFrequency * MathF.Pow(2, _FineTune);  // Tune within semitone
-    }
-
-    public float GetFrequency() {
-        // NB     / 2 because of stereo interleaving
-        // This is final frequency used for driving Phase Accumulator
         var f = PreModFrequency / 2f;
-        
-        
+
+
+
         // <<-- ** Apply modulation here
-        if(Modulator != null)
+        if (Modulator != null)
             f = f + _ModulationAmount * Modulator.Value;
 
         return f;

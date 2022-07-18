@@ -1,4 +1,4 @@
-﻿using Synth.Modules.Properties;
+﻿using Synth.Properties;
 
 namespace Synth.Modules.Sources;
 // Implement iModulator so an Oscillator can also be a modulator via its Value property
@@ -28,7 +28,7 @@ public class Oscillator : iModule {
 
 
     // To simplify Oscillator, delegate all Frequency operations to containment class Frequecny
-    public Frequency Frequency = new Frequency(Utils.Note.GetByDesc("A2"));     // Default to A2
+    public Frequency Frequency = new Frequency();
 
 
     public float Value { get; internal set; }         // This is pre amplitude modified value suitable as modulation source  
@@ -148,7 +148,6 @@ public class Oscillator : iModule {
 
         Value = _Generator.GenerateSample(_Phase, Duty.GetDuty(), delta, isZeroCrossing);
 
-        Frequency.Tick(timeIncrement);
 
     }
 

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Synth.Modules.Sources;
 
-namespace Synth.Modules.Properties {
+namespace Synth.Properties {
     public enum WaveformType {
         Sine = 0,
         Saw,
@@ -21,21 +22,21 @@ namespace Synth.Modules.Properties {
         public int ID;
         public string Name = "";
         public WaveformType Type;
-        internal Sources.iGenerator? _Generator;
+        internal Modules.Sources.iGenerator? _Generator;
 
-        internal Sources.iGenerator Generator {
+        internal Modules.Sources.iGenerator Generator {
             get {
                 if (_Generator == null) {
                     switch (Type) {
-                        case WaveformType.Sine: _Generator = new Sources.GeneratorSine(); break;
-                        case WaveformType.Saw: _Generator = new Sources.GeneratorSaw(); break;
-                        case WaveformType.Triangle: _Generator = new Sources.GeneratorTriangle(); break;
-                        case WaveformType.Square: _Generator = new Sources.GeneratorSquare(); break;
-                        case WaveformType.Noise: _Generator = new Sources.GeneratorNoise(); break;
-                        case WaveformType.WaveTable: _Generator = new Sources.GeneratorWaveTable(); break;
-                        case WaveformType.Harmonic: _Generator = new Sources.GeneratorHarmonic(); break;
-                        case WaveformType.SuperSaw: _Generator = new Sources.GeneratorSuperSaw(); break;
-                        default: _Generator = new Sources.GeneratorSine(); break;
+                        case WaveformType.Sine: _Generator = new GeneratorSine(); break;
+                        case WaveformType.Saw: _Generator = new GeneratorSaw(); break;
+                        case WaveformType.Triangle: _Generator = new GeneratorTriangle(); break;
+                        case WaveformType.Square: _Generator = new GeneratorSquare(); break;
+                        case WaveformType.Noise: _Generator = new GeneratorNoise(); break;
+                        case WaveformType.WaveTable: _Generator = new GeneratorWaveTable(); break;
+                        case WaveformType.Harmonic: _Generator = new GeneratorHarmonic(); break;
+                        case WaveformType.SuperSaw: _Generator = new GeneratorSuperSaw(); break;
+                        default: _Generator = new GeneratorSine(); break;
                     }
                 }
 

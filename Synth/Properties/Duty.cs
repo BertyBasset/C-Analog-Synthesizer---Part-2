@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Synth.Modules;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Synth.Modules.Properties
+namespace Synth.Properties
 {
     public class Duty {
         public float Value;
@@ -12,7 +13,7 @@ namespace Synth.Modules.Properties
         public iModule? Modulator;
 
         private float _ModulationAmount;
-        public float ModulationAmount {                            // 0 to 10000
+        public float ModulationAmount {         
             get { return _ModulationAmount; }
             set {
                 _ModulationAmount = Utils.Misc.Constrain(value, -1f, 1f);           // not sure what this should be at the moment

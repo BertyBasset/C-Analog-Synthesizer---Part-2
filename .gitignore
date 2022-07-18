@@ -44,3 +44,5 @@ UI/obj/UI.csproj.nuget.g.targets
 /Synth/obj/Debug/net6.0
 /UI/bin/Debug/net6.0-windows
 /UI/obj/Debug/net6.0-windows
+*/obj/
+*/bin/

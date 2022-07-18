@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio.Midi;
-using Synth.Utils;
+using Synth.Properties;
 
 namespace UI;
 public partial class VirtualKeyboard : UserControl {
@@ -310,53 +310,59 @@ public partial class VirtualKeyboard : UserControl {
         //  \   z   x   c   v   b   n   m   ,   .   /
         //  C2  D2  E2  F2  G2  A3  B3  C3  D3  E3  F3 
 
-        Synth.Utils.Note? note = null;
+        Note? note = null;
         switch (keyData) {
             case Keys.OemPipe:
-                note = Synth.Utils.Note.GetByDesc("C2"); break;
+                note = Note.GetByDesc("C2"); break;
             case Keys.A:
-                note = Synth.Utils.Note.GetByDesc("C♯2/D♭2"); break;
+                note = Note.GetByDesc("C♯2/D♭2"); break;
             case Keys.Z:
-                note = Synth.Utils.Note.GetByDesc("D2"); break;
+                note = Note.GetByDesc("D2"); break;
             case Keys.S:
-                note = Synth.Utils.Note.GetByDesc("D♯2E♭2"); break;
+                note = Note.GetByDesc("D♯2E♭2"); break;
             case Keys.X:
-                note = Synth.Utils.Note.GetByDesc("E2"); break;
+                note = Note.GetByDesc("E2"); break;
             case Keys.C:
-                note = Synth.Utils.Note.GetByDesc("F2"); break;
+                note = Note.GetByDesc("F2"); break;
             case Keys.F:
-                note = Synth.Utils.Note.GetByDesc("F♯2G♭2"); break;
+                note = Note.GetByDesc("F♯2G♭2"); break;
             case Keys.V:
-                note = Synth.Utils.Note.GetByDesc("G2"); break;
+                note = Note.GetByDesc("G2"); break;
             case Keys.G:
-                note = Synth.Utils.Note.GetByDesc("G♯2A♭2"); break;
+                note = Note.GetByDesc("G♯2A♭2"); break;
             case Keys.B:
-                note = Synth.Utils.Note.GetByDesc("A3"); break;
+                note = Note.GetByDesc("A3"); break;
             case Keys.H:
-                note = Synth.Utils.Note.GetByDesc("A♯3B♭3"); break;
+                note = Note.GetByDesc("A♯3B♭3"); break;
             case Keys.N:
-                note = Synth.Utils.Note.GetByDesc("B3"); break;
+                note = Note.GetByDesc("B3"); break;
             case Keys.M:
-                note = Synth.Utils.Note.GetByDesc("C3"); break;
+                note = Note.GetByDesc("C3"); break;
             case Keys.K:
-                note = Synth.Utils.Note.GetByDesc("C♯3/D♭3"); break;
+                note = Note.GetByDesc("C♯3/D♭3"); break;
             case Keys.Oemcomma:
-                note = Synth.Utils.Note.GetByDesc("D3"); break;
+                note = Note.GetByDesc("D3"); break;
             case Keys.L:
-                note = Synth.Utils.Note.GetByDesc("D♯3E♭3"); break;
+                note = Note.GetByDesc("D♯3E♭3"); break;
             case Keys.OemPeriod:
-                note = Synth.Utils.Note.GetByDesc("E3"); break;
+                note = Note.GetByDesc("E3"); break;
             case Keys.OemQuestion:
-                note = Synth.Utils.Note.GetByDesc("F3"); break;
+                note = Note.GetByDesc("F3"); break;
             case Keys.Oem3:
-                note = Synth.Utils.Note.GetByDesc("F♯3G♭3"); break;
+                note = Note.GetByDesc("F♯3G♭3"); break;
             default:
                 return false;
         }
 
         CurrentNote = note;
-        CurrentKeyState = VirtualKeyboard.KeyState.Down;
-        return true;
+
+
+        if (CurrentKeyState == VirtualKeyboard.KeyState.Up) {
+
+            CurrentKeyState = VirtualKeyboard.KeyState.Down;
+            _KeyStateChanged();
+            return true;
+        } return false;
     }
     #endregion
 
@@ -383,6 +389,8 @@ public partial class VirtualKeyboard : UserControl {
                     }
                 }
             }
+            EventHandler handler = KeyStateChanged;
+            handler?.Invoke(this, new EventArgs());
         }
     }
 
@@ -529,6 +537,7 @@ public partial class VirtualKeyboard : UserControl {
     void _KeyStateChanged() {
         Debug.Assert(KeyStateChanged != null);   
         KeyStateChanged?.Invoke(this, new EventArgs());
+
     }
 
     void _NoteChanged() {
@@ -536,13 +545,11 @@ public partial class VirtualKeyboard : UserControl {
         NoteChanged?.Invoke(this, new EventArgs());
     }
 
-    void _PitchWheelChanged()
-    {
+    void _PitchWheelChanged() {
         PitchWheelChanged?.Invoke(this, new EventArgs());
     }
 
-    void _ModWheelChanged()
-    {
+    void _ModWheelChanged() {
         ModWheelChanged?.Invoke(this, new EventArgs());
     }
     #endregion

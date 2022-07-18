@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 using NAudio.Wave;
 using Synth.Modules;
 using Synth.Modules.Modulators;
-using Synth.Modules.Modifiers;
 using Synth.Modules.Sources;
+using Synth.IO;
 
-namespace Synth {
+namespace Synth
+{
     // Reworking of Synth Engine using Phase Accumulators for shaping oscillator waveform
     // Old technique of using Time Accumulator was leading to waveform discontinuities
     // when changin frequecny.
 
     public class SynthEngine : WaveProvider32 {
-        private DirectSoundOut? asioOut;
+        //private DirectSoundOut? asioOut;
+        private WaveOut? asioOut;
 
         // These config settings are injected into constructor by client application
         int _SampleRate;
@@ -61,6 +63,10 @@ namespace Synth {
             SetWaveFormat(_SampleRate, _Channels);                   // 16kHz stereo
 
             asioOut = new();
+
+            asioOut.DesiredLatency = 100;
+            asioOut.NumberOfBuffers = 3;
+
             asioOut.Init(this);
             asioOut.Play();
             Started = true;
@@ -95,17 +101,12 @@ namespace Synth {
             }
         }
 
-        private Utils.Note _Note = new Utils.Note();
-        public Utils.Note Note {
-            get { return _Note; }
-            set {
-                _Note = value;
 
-                // **** Can probably do thi more tidilly
-                foreach(var o in Modules.Where(m => m.GetType() == typeof(Oscillator)))
-                  ((Oscillator)o).Frequency.Note = _Note;
-            }
-        }
+
+
+        
+
+
 
         #endregion
 

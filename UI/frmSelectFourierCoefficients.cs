@@ -8,9 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Synth.Modules.Sources;
-using Synth.Modules.Properties;
+using Synth.Properties;
 using Synth.Utils;
 using Synth.Modules.Modifiers;
+using Synth.IO;
 
 namespace UI {
 
