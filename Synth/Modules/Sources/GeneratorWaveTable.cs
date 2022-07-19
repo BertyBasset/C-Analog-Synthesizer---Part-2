@@ -18,7 +18,7 @@
 
         //                                                             Not Used             Used
         float iGenerator.GenerateSample(float Phase, float Duty, float PhaseIncrement, bool IsZeroCrossing) {
-            if (_WaveTable == null)
+            if (_WaveTable == null || _WaveTable.Length == 0)
                 return 0f;
 
             // Phase Distortion

@@ -106,27 +106,36 @@ namespace UI {
                 return null;
             }
 
-            // Use Init patch as a template for new patch, clone, then overwrite values
-            var newPatch = (Patch)GetInitPatch().MemberwiseClone();
-
+            // Do away with Init Patch,
+            //just save the three types of controls - can add more types
+            
+            Patch newPatch = new ();
             newPatch.IsInit = false;
             newPatch.PatchName = patchName;
-            foreach (var c in newPatch.Controls) {
-                var control = Form.Controls.Find(c.ControlName, true)[0];
 
-                switch (control.GetType().Name) {
+            foreach (var c in GetAllControls(Form)) {
+                if (c.Name.ToLower() == "ddlpatches" || c.Name.ToLower() == "ddlnote")
+                    continue;
+
+                var ctl = new Control();
+                ctl.ControlName = c.Name;
+                
+
+                switch (c.GetType().Name) {
                     case "TrackBar":
-                        c.Value = ((TrackBar)control).Value;
+                        ctl.Value = ((TrackBar)c).Value;
                         break;
                     case "ComboBox":
-                        c.SelectedIndex = ((ComboBox)control).SelectedIndex;
+                        ctl.SelectedIndex = ((ComboBox)c).SelectedIndex;
                         break;
                     case "CheckBox":
-                        c.Checked = ((CheckBox)control).Checked;
+                        ctl.Checked = ((CheckBox)c).Checked;
                         break;
                     default:
                         break;
                 }
+                newPatch.Controls.Add(ctl);
+
             }
 
             // Get Fourier etc from Oscillators passed in SynthEngine, they aren't stored in Controls on the form
@@ -140,6 +149,16 @@ namespace UI {
             patches.Add(newPatch);
             Save(patches);
             return newPatch;
+        }
+
+        private static IEnumerable<System.Windows.Forms.Control> GetAllControls(System.Windows.Forms.Control container) {
+            List<System.Windows.Forms.Control> controlList = new();
+            foreach (System.Windows.Forms.Control c in container.Controls) {
+                controlList.AddRange(GetAllControls(c));
+                if (c is TrackBar || c is CheckBox || c is ComboBox || c is TextBox)
+                    controlList.Add(c);
+            }
+            return controlList;
         }
 
         internal static bool DeletePatch(string PatchName) {

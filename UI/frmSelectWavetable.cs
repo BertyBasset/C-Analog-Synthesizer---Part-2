@@ -214,8 +214,7 @@ namespace UI {
             g.DrawLines(p, spectrum);
 
         }
-        private async Task<double[]> GetSpectrum(double[] signal)
-        {
+        private double[] GetSpectrum(double[] signal) {
             // Uses nuget package from https://github.com/swharden/FftSharp
 
             // Begin with an array containing sample data

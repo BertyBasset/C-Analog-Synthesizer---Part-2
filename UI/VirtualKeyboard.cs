@@ -389,6 +389,8 @@ public partial class VirtualKeyboard : UserControl {
                     }
                 }
             }
+
+            Debug.Assert(KeyStateChanged != null);
             EventHandler handler = KeyStateChanged;
             handler?.Invoke(this, new EventArgs());
         }

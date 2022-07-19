@@ -17,14 +17,18 @@ using Synth.Modules.Modulators;
  *  Re-add wavetable/harmonic/sawtooth info to pathc save/load           DONE
  *  Default Wavetable to first available wave - init array to [1024]     DONE
  *  Observable maybe to dynamically size Level property of Mixer ?       DONE
- *  Glitch  (2 phase Tick or triple buffer)                              Park
+ *  Glitch  (2 phase Tick or triple buffer)                              DONE
  *  Glitches on harmonic                                                 Park
  *  Glide (add Tick to frequecny)                                        DONE
  *  VCA                                                                  DONE
- * Modulate PWM
+ *  Modulate PWM                                                         DONE
+ *  ADSRs                                                                DONE
+ *  FM patch bug                                                         Park
+ *  Wavtable freeze                                                      DONE
+ *  FM Mod - level mod
+ *  Sequencer
  *  Part 2 Modulators
  *  LFOs
- *  ADSRs
  *  SH
  *  
  *  Part 3 - Modifiers 
@@ -57,6 +61,7 @@ public partial class SimpleTest : Form {
     EnvGen vcaEnvGen;
     VCA vca;
     EnvGen pdEnvGen;
+    EnvGen fmEnvGen;
 
 
     void InitSynth() {
@@ -96,6 +101,12 @@ public partial class SimpleTest : Form {
         osc2.Duty.Modulator = pdEnvGen;
         osc3.Duty.Modulator = pdEnvGen;
 
+        fmEnvGen = new EnvGen() { Keyboard = keyboard };
+        osc1.Frequency.ModulationAmountModulator = fmEnvGen;
+        osc2.Frequency.ModulationAmountModulator = fmEnvGen;
+        osc3.Frequency.ModulationAmountModulator = fmEnvGen;
+
+
         vca = new VCA() { Modulator = vcaEnvGen, Source = oscMixer };
 
         // Hook mixer output to VCA
@@ -115,7 +126,7 @@ public partial class SimpleTest : Form {
         synth.Modules.Add(vcaEnvGen);
         synth.Modules.Add(vca);
         synth.Modules.Add(pdEnvGen);
-
+        synth.Modules.Add(fmEnvGen);
 
         // Temporarfy hard coded mod wheel 
         //osc1.Duty.Modulator = synth.ModWheel;
@@ -145,6 +156,10 @@ public partial class SimpleTest : Form {
         Debug.Assert(oscMixer != null);
         Debug.Assert(audioOut != null);
         Debug.Assert(keyboard != null);
+        Debug.Assert(pdEnvGen != null);
+        Debug.Assert(vca != null);
+        Debug.Assert(vcaEnvGen != null);
+        Debug.Assert(fmEnvGen != null);
         #endregion
 
 
@@ -284,7 +299,61 @@ public partial class SimpleTest : Form {
             osc2.Duty.ModulationAmount = sldPDModAmount.Value / 1000f;
             osc3.Duty.ModulationAmount = sldPDModAmount.Value / 1000f;
         };
-        
+
+        chkPDOsc1.CheckStateChanged += (o, e) => {
+            if (chkPDOsc1.Checked)
+                osc1.Duty.Modulator = pdEnvGen;
+            else
+                osc1.Duty.Modulator = null;
+        };
+
+        chkPDOsc2.CheckStateChanged += (o, e) => {
+            if (chkPDOsc2.Checked)
+                osc2.Duty.Modulator = pdEnvGen;
+            else
+                osc2.Duty.Modulator = null;
+        };
+
+        chkPDOsc3.CheckStateChanged += (o, e) => {
+            if (chkPDOsc3.Checked)
+                osc3.Duty.Modulator = pdEnvGen;
+            else
+                osc3.Duty.Modulator = null;
+        };
+
+        // FM Env Gen
+        sldFMAttack.ValueChanged += (o, e) => fmEnvGen.Attack = sldFMAttack.Value / 100f;
+        sldFMDecay.ValueChanged += (o, e) => fmEnvGen.Decay = sldFMDecay.Value / 100f;
+        sldFMSustain.ValueChanged += (o, e) => fmEnvGen.Sustain = sldFMSustain.Value / 1000f;
+        sldFMRelease.ValueChanged += (o, e) => fmEnvGen.Release = sldFMRelease.Value / 100f;
+
+        sldFMModAmount.ValueChanged += (o, e) => {
+            osc1.Frequency.ModulationAmountModulatorAmount = sldFMModAmount.Value / 1000f;
+            osc2.Frequency.ModulationAmountModulatorAmount = sldFMModAmount.Value / 1000f;
+            osc3.Frequency.ModulationAmountModulatorAmount = sldFMModAmount.Value / 1000f;
+        };
+
+        chkFMOsc1.CheckStateChanged += (o, e) => {
+            if (chkFMOsc1.Checked)
+                osc1.Frequency.ModulationAmountModulator = fmEnvGen;
+            else
+                osc1.Frequency.ModulationAmountModulator = null;
+        };
+
+        chkFMOsc2.CheckStateChanged += (o, e) => {
+            if (chkFMOsc2.Checked)
+                osc2.Frequency.ModulationAmountModulator = fmEnvGen;
+            else
+                osc2.Frequency.ModulationAmountModulator = null;
+        };
+
+        chkFMOsc3.CheckStateChanged += (o, e) => {
+            if (chkFMOsc3.Checked)
+                osc3.Frequency.ModulationAmountModulator = fmEnvGen;
+            else
+                osc3.Frequency.ModulationAmountModulator = null;
+        };
+
 
 
         virtualKeyboard.NoteChanged += virtualKeyboard_NoteChanged;
@@ -318,7 +387,7 @@ public partial class SimpleTest : Form {
     // Global 'Key Up' handler. We've set Form KeyPreview property to true so that form rather than controls can capture this event
     private void SimpleTest_KeyUp(object? sender, KeyEventArgs e) {
         virtualKeyboard.CurrentKeyState = VirtualKeyboard.KeyState.Up;
-        virtualKeyboard_KeyStateChanged(null, null);
+        virtualKeyboard_KeyStateChanged(null, new EventArgs());
     }
     #endregion
 
@@ -788,7 +857,7 @@ public partial class SimpleTest : Form {
         graphData = null;           // Nullify these to ensure they get caught by GC
     }
 
-    private async Task<double[]> GetSpectrum(double[] signal) {
+    private double[] GetSpectrum(double[] signal) {
         // Uses nuget package from https://github.com/swharden/FftSharp
 
         // Begin with an array containing sample data

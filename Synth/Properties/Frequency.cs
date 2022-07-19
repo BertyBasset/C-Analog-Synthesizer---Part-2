@@ -81,8 +81,20 @@ public class Frequency {
         }   
     }
 
+
+    // We've got a modulator to modulate the modulation amount!!  
+    public iModule? ModulationAmountModulator;
+    private float _ModulationAmountModulatorAmount;
+    public float ModulationAmountModulatorAmount {                            // 0 to 10000
+        get { return _ModulationAmountModulatorAmount; }
+        set {
+            _ModulationAmountModulatorAmount = Utils.Misc.Constrain(value, 0f, 10000f);
+        }
+    }
+
+
     //  Modulation Frequency scaling is 1.0 per octave
-    
+
     public float GetFrequency() {
         // NB     / 2 because of stereo interleaving
         // This is final frequency used for driving Phase Accumulator
@@ -102,8 +114,16 @@ public class Frequency {
 
 
         // <<-- ** Apply modulation here
-        if (Modulator != null)
-            f = f + _ModulationAmount * Modulator.Value;
+        if (Modulator != null) {
+            float modAmountMod = 0;
+            if (ModulationAmountModulator != null)
+                modAmountMod = ModulationAmountModulator.Value * 1000f * _ModulationAmountModulatorAmount;      // <<< Not sure what value to give a good effect
+
+
+            f = f + (_ModulationAmount + modAmountMod) * Modulator.Value;
+
+
+        }
 
         return f;
     }
