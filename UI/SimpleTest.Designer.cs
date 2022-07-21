@@ -182,6 +182,55 @@
             this.sldFMDecay = new System.Windows.Forms.TrackBar();
             this.sldFMAttack = new System.Windows.Forms.TrackBar();
             this.label40 = new System.Windows.Forms.Label();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.sldLfoVibAmount = new System.Windows.Forms.TrackBar();
+            this.chkLfoVibOsc3 = new System.Windows.Forms.CheckBox();
+            this.chkLfoVibOsc2 = new System.Windows.Forms.CheckBox();
+            this.chkLfoVibOsc1 = new System.Windows.Forms.CheckBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.sldLfoVibFreq = new System.Windows.Forms.TrackBar();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.sldLfoVibWave = new System.Windows.Forms.TrackBar();
+            this.sldLfoVibDelay = new System.Windows.Forms.TrackBar();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.sldLfoVcfAmount = new System.Windows.Forms.TrackBar();
+            this.label46 = new System.Windows.Forms.Label();
+            this.sldLfoVcfFreq = new System.Windows.Forms.TrackBar();
+            this.label47 = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
+            this.sldLfoVcfWave = new System.Windows.Forms.TrackBar();
+            this.sldLfoVcfDelay = new System.Windows.Forms.TrackBar();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.sldLfoFMFreq = new System.Windows.Forms.TrackBar();
+            this.sldLfoFMAmount = new System.Windows.Forms.TrackBar();
+            this.pictureBox13 = new System.Windows.Forms.PictureBox();
+            this.pictureBox14 = new System.Windows.Forms.PictureBox();
+            this.pictureBox15 = new System.Windows.Forms.PictureBox();
+            this.pictureBox16 = new System.Windows.Forms.PictureBox();
+            this.pictureBox17 = new System.Windows.Forms.PictureBox();
+            this.pictureBox18 = new System.Windows.Forms.PictureBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.sldLfoFMWave = new System.Windows.Forms.TrackBar();
+            this.sldLfoFMDelay = new System.Windows.Forms.TrackBar();
+            this.sldVcfCutoff = new System.Windows.Forms.TrackBar();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sldModAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSuperSaw)).BeginInit();
@@ -249,6 +298,40 @@
             ((System.ComponentModel.ISupportInitialize)(this.sldFMSustain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldFMDecay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldFMAttack)).BeginInit();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVibAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVibFreq)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVibWave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVibDelay)).BeginInit();
+            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVcfAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVcfFreq)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVcfWave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVcfDelay)).BeginInit();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMFreq)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMWave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMDelay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldVcfCutoff)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdStart
@@ -1542,9 +1625,9 @@
             this.groupBox4.Controls.Add(this.sldAttack);
             this.groupBox4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox4.ForeColor = System.Drawing.Color.Blue;
-            this.groupBox4.Location = new System.Drawing.Point(1113, 44);
+            this.groupBox4.Location = new System.Drawing.Point(1116, 291);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(188, 158);
+            this.groupBox4.Size = new System.Drawing.Size(188, 168);
             this.groupBox4.TabIndex = 60;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "VCA";
@@ -1644,7 +1727,7 @@
             this.groupBox5.Controls.Add(this.sldPDAttack);
             this.groupBox5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox5.ForeColor = System.Drawing.Color.Blue;
-            this.groupBox5.Location = new System.Drawing.Point(1113, 208);
+            this.groupBox5.Location = new System.Drawing.Point(1116, 45);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(188, 241);
             this.groupBox5.TabIndex = 61;
@@ -1654,26 +1737,22 @@
             // chkPDOsc3
             // 
             this.chkPDOsc3.AutoSize = true;
-            this.chkPDOsc3.Checked = true;
-            this.chkPDOsc3.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPDOsc3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.chkPDOsc3.Location = new System.Drawing.Point(126, 205);
+            this.chkPDOsc3.Location = new System.Drawing.Point(128, 205);
             this.chkPDOsc3.Name = "chkPDOsc3";
             this.chkPDOsc3.Size = new System.Drawing.Size(55, 19);
-            this.chkPDOsc3.TabIndex = 37;
+            this.chkPDOsc3.TabIndex = 40;
             this.chkPDOsc3.Text = "Osc 3";
             this.chkPDOsc3.UseVisualStyleBackColor = true;
             // 
             // chkPDOsc2
             // 
             this.chkPDOsc2.AutoSize = true;
-            this.chkPDOsc2.Checked = true;
-            this.chkPDOsc2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPDOsc2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.chkPDOsc2.Location = new System.Drawing.Point(68, 205);
+            this.chkPDOsc2.Location = new System.Drawing.Point(70, 205);
             this.chkPDOsc2.Name = "chkPDOsc2";
             this.chkPDOsc2.Size = new System.Drawing.Size(55, 19);
-            this.chkPDOsc2.TabIndex = 36;
+            this.chkPDOsc2.TabIndex = 39;
             this.chkPDOsc2.Text = "Osc 2";
             this.chkPDOsc2.UseVisualStyleBackColor = true;
             // 
@@ -1683,10 +1762,10 @@
             this.chkPDOsc1.Checked = true;
             this.chkPDOsc1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPDOsc1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.chkPDOsc1.Location = new System.Drawing.Point(7, 206);
+            this.chkPDOsc1.Location = new System.Drawing.Point(9, 206);
             this.chkPDOsc1.Name = "chkPDOsc1";
             this.chkPDOsc1.Size = new System.Drawing.Size(55, 19);
-            this.chkPDOsc1.TabIndex = 35;
+            this.chkPDOsc1.TabIndex = 38;
             this.chkPDOsc1.Text = "Osc 1";
             this.chkPDOsc1.UseVisualStyleBackColor = true;
             // 
@@ -1817,7 +1896,7 @@
             this.groupBox6.Controls.Add(this.sldFMAttack);
             this.groupBox6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox6.ForeColor = System.Drawing.Color.Blue;
-            this.groupBox6.Location = new System.Drawing.Point(1316, 208);
+            this.groupBox6.Location = new System.Drawing.Point(1310, 45);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(188, 241);
             this.groupBox6.TabIndex = 62;
@@ -1827,8 +1906,6 @@
             // chkFMOsc3
             // 
             this.chkFMOsc3.AutoSize = true;
-            this.chkFMOsc3.Checked = true;
-            this.chkFMOsc3.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkFMOsc3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.chkFMOsc3.Location = new System.Drawing.Point(126, 205);
             this.chkFMOsc3.Name = "chkFMOsc3";
@@ -1840,8 +1917,6 @@
             // chkFMOsc2
             // 
             this.chkFMOsc2.AutoSize = true;
-            this.chkFMOsc2.Checked = true;
-            this.chkFMOsc2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkFMOsc2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.chkFMOsc2.Location = new System.Drawing.Point(68, 205);
             this.chkFMOsc2.Name = "chkFMOsc2";
@@ -1984,12 +2059,565 @@
             this.label40.TabIndex = 63;
             this.label40.Text = "*** MODULATION ***";
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.pictureBox7);
+            this.groupBox7.Controls.Add(this.pictureBox8);
+            this.groupBox7.Controls.Add(this.pictureBox9);
+            this.groupBox7.Controls.Add(this.pictureBox10);
+            this.groupBox7.Controls.Add(this.pictureBox11);
+            this.groupBox7.Controls.Add(this.pictureBox12);
+            this.groupBox7.Controls.Add(this.label42);
+            this.groupBox7.Controls.Add(this.sldLfoVibAmount);
+            this.groupBox7.Controls.Add(this.chkLfoVibOsc3);
+            this.groupBox7.Controls.Add(this.chkLfoVibOsc2);
+            this.groupBox7.Controls.Add(this.chkLfoVibOsc1);
+            this.groupBox7.Controls.Add(this.label41);
+            this.groupBox7.Controls.Add(this.sldLfoVibFreq);
+            this.groupBox7.Controls.Add(this.label43);
+            this.groupBox7.Controls.Add(this.label44);
+            this.groupBox7.Controls.Add(this.sldLfoVibWave);
+            this.groupBox7.Controls.Add(this.sldLfoVibDelay);
+            this.groupBox7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.groupBox7.ForeColor = System.Drawing.Color.Blue;
+            this.groupBox7.Location = new System.Drawing.Point(1504, 45);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(195, 241);
+            this.groupBox7.TabIndex = 64;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "LFO 1 - Vibrato";
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
+            this.pictureBox7.Location = new System.Drawing.Point(74, 19);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox7.TabIndex = 75;
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
+            this.pictureBox8.Location = new System.Drawing.Point(74, 39);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox8.TabIndex = 70;
+            this.pictureBox8.TabStop = false;
+            // 
+            // pictureBox9
+            // 
+            this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
+            this.pictureBox9.Location = new System.Drawing.Point(74, 59);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox9.TabIndex = 74;
+            this.pictureBox9.TabStop = false;
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
+            this.pictureBox10.Location = new System.Drawing.Point(74, 99);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox10.TabIndex = 71;
+            this.pictureBox10.TabStop = false;
+            // 
+            // pictureBox11
+            // 
+            this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
+            this.pictureBox11.Location = new System.Drawing.Point(74, 79);
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox11.TabIndex = 72;
+            this.pictureBox11.TabStop = false;
+            // 
+            // pictureBox12
+            // 
+            this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
+            this.pictureBox12.Location = new System.Drawing.Point(74, 119);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox12.TabIndex = 73;
+            this.pictureBox12.TabStop = false;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label42.ForeColor = System.Drawing.Color.Blue;
+            this.label42.Location = new System.Drawing.Point(132, 140);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(51, 15);
+            this.label42.TabIndex = 67;
+            this.label42.Text = "Amount";
+            // 
+            // sldLfoVibAmount
+            // 
+            this.sldLfoVibAmount.LargeChange = 1;
+            this.sldLfoVibAmount.Location = new System.Drawing.Point(142, 12);
+            this.sldLfoVibAmount.Maximum = 1000;
+            this.sldLfoVibAmount.Name = "sldLfoVibAmount";
+            this.sldLfoVibAmount.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldLfoVibAmount.Size = new System.Drawing.Size(45, 129);
+            this.sldLfoVibAmount.TabIndex = 43;
+            this.sldLfoVibAmount.TickFrequency = 200;
+            // 
+            // chkLfoVibOsc3
+            // 
+            this.chkLfoVibOsc3.AutoSize = true;
+            this.chkLfoVibOsc3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkLfoVibOsc3.Location = new System.Drawing.Point(126, 205);
+            this.chkLfoVibOsc3.Name = "chkLfoVibOsc3";
+            this.chkLfoVibOsc3.Size = new System.Drawing.Size(55, 19);
+            this.chkLfoVibOsc3.TabIndex = 42;
+            this.chkLfoVibOsc3.Text = "Osc 3";
+            this.chkLfoVibOsc3.UseVisualStyleBackColor = true;
+            // 
+            // chkLfoVibOsc2
+            // 
+            this.chkLfoVibOsc2.AutoSize = true;
+            this.chkLfoVibOsc2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkLfoVibOsc2.Location = new System.Drawing.Point(68, 205);
+            this.chkLfoVibOsc2.Name = "chkLfoVibOsc2";
+            this.chkLfoVibOsc2.Size = new System.Drawing.Size(55, 19);
+            this.chkLfoVibOsc2.TabIndex = 41;
+            this.chkLfoVibOsc2.Text = "Osc 2";
+            this.chkLfoVibOsc2.UseVisualStyleBackColor = true;
+            // 
+            // chkLfoVibOsc1
+            // 
+            this.chkLfoVibOsc1.AutoSize = true;
+            this.chkLfoVibOsc1.Checked = true;
+            this.chkLfoVibOsc1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLfoVibOsc1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chkLfoVibOsc1.Location = new System.Drawing.Point(7, 206);
+            this.chkLfoVibOsc1.Name = "chkLfoVibOsc1";
+            this.chkLfoVibOsc1.Size = new System.Drawing.Size(55, 19);
+            this.chkLfoVibOsc1.TabIndex = 40;
+            this.chkLfoVibOsc1.Text = "Osc 1";
+            this.chkLfoVibOsc1.UseVisualStyleBackColor = true;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label41.ForeColor = System.Drawing.Color.Blue;
+            this.label41.Location = new System.Drawing.Point(96, 140);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(30, 15);
+            this.label41.TabIndex = 28;
+            this.label41.Text = "Freq";
+            // 
+            // sldLfoVibFreq
+            // 
+            this.sldLfoVibFreq.LargeChange = 1;
+            this.sldLfoVibFreq.Location = new System.Drawing.Point(99, 12);
+            this.sldLfoVibFreq.Maximum = 1000;
+            this.sldLfoVibFreq.Name = "sldLfoVibFreq";
+            this.sldLfoVibFreq.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldLfoVibFreq.Size = new System.Drawing.Size(45, 129);
+            this.sldLfoVibFreq.TabIndex = 27;
+            this.sldLfoVibFreq.TickFrequency = 200;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label43.ForeColor = System.Drawing.Color.Blue;
+            this.label43.Location = new System.Drawing.Point(46, 140);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(36, 15);
+            this.label43.TabIndex = 26;
+            this.label43.Text = "Wave";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label44.ForeColor = System.Drawing.Color.Blue;
+            this.label44.Location = new System.Drawing.Point(1, 140);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(36, 15);
+            this.label44.TabIndex = 25;
+            this.label44.Text = "Delay";
+            // 
+            // sldLfoVibWave
+            // 
+            this.sldLfoVibWave.LargeChange = 1;
+            this.sldLfoVibWave.Location = new System.Drawing.Point(52, 12);
+            this.sldLfoVibWave.Maximum = 5;
+            this.sldLfoVibWave.Name = "sldLfoVibWave";
+            this.sldLfoVibWave.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldLfoVibWave.Size = new System.Drawing.Size(45, 129);
+            this.sldLfoVibWave.TabIndex = 22;
+            this.sldLfoVibWave.TickFrequency = 200;
+            // 
+            // sldLfoVibDelay
+            // 
+            this.sldLfoVibDelay.LargeChange = 1;
+            this.sldLfoVibDelay.Location = new System.Drawing.Point(9, 12);
+            this.sldLfoVibDelay.Maximum = 1000;
+            this.sldLfoVibDelay.Name = "sldLfoVibDelay";
+            this.sldLfoVibDelay.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldLfoVibDelay.Size = new System.Drawing.Size(45, 129);
+            this.sldLfoVibDelay.TabIndex = 21;
+            this.sldLfoVibDelay.TickFrequency = 200;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.pictureBox6);
+            this.groupBox8.Controls.Add(this.pictureBox4);
+            this.groupBox8.Controls.Add(this.pictureBox5);
+            this.groupBox8.Controls.Add(this.pictureBox3);
+            this.groupBox8.Controls.Add(this.pictureBox2);
+            this.groupBox8.Controls.Add(this.pictureBox1);
+            this.groupBox8.Controls.Add(this.label45);
+            this.groupBox8.Controls.Add(this.sldLfoVcfAmount);
+            this.groupBox8.Controls.Add(this.label46);
+            this.groupBox8.Controls.Add(this.sldLfoVcfFreq);
+            this.groupBox8.Controls.Add(this.label47);
+            this.groupBox8.Controls.Add(this.label48);
+            this.groupBox8.Controls.Add(this.sldLfoVcfWave);
+            this.groupBox8.Controls.Add(this.sldLfoVcfDelay);
+            this.groupBox8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.groupBox8.ForeColor = System.Drawing.Color.Blue;
+            this.groupBox8.Location = new System.Drawing.Point(1311, 291);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(187, 168);
+            this.groupBox8.TabIndex = 65;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "LFO 2 - Filter Cutoff - NOT DONE";
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
+            this.pictureBox6.Location = new System.Drawing.Point(75, 20);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox6.TabIndex = 69;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Location = new System.Drawing.Point(75, 40);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox4.TabIndex = 67;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
+            this.pictureBox5.Location = new System.Drawing.Point(75, 60);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox5.TabIndex = 68;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(75, 100);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox3.TabIndex = 67;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(75, 80);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.TabIndex = 67;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(75, 120);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.TabIndex = 67;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label45.ForeColor = System.Drawing.Color.Blue;
+            this.label45.Location = new System.Drawing.Point(127, 140);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(51, 15);
+            this.label45.TabIndex = 66;
+            this.label45.Text = "Amount";
+            // 
+            // sldLfoVcfAmount
+            // 
+            this.sldLfoVcfAmount.LargeChange = 1;
+            this.sldLfoVcfAmount.Location = new System.Drawing.Point(139, 13);
+            this.sldLfoVcfAmount.Maximum = 1000;
+            this.sldLfoVcfAmount.Name = "sldLfoVcfAmount";
+            this.sldLfoVcfAmount.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldLfoVcfAmount.Size = new System.Drawing.Size(45, 129);
+            this.sldLfoVcfAmount.TabIndex = 66;
+            this.sldLfoVcfAmount.TickFrequency = 200;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label46.ForeColor = System.Drawing.Color.Blue;
+            this.label46.Location = new System.Drawing.Point(95, 140);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(30, 15);
+            this.label46.TabIndex = 28;
+            this.label46.Text = "Freq";
+            // 
+            // sldLfoVcfFreq
+            // 
+            this.sldLfoVcfFreq.LargeChange = 1;
+            this.sldLfoVcfFreq.Location = new System.Drawing.Point(98, 12);
+            this.sldLfoVcfFreq.Maximum = 1000;
+            this.sldLfoVcfFreq.Name = "sldLfoVcfFreq";
+            this.sldLfoVcfFreq.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldLfoVcfFreq.Size = new System.Drawing.Size(45, 129);
+            this.sldLfoVcfFreq.TabIndex = 27;
+            this.sldLfoVcfFreq.TickFrequency = 200;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label47.ForeColor = System.Drawing.Color.Blue;
+            this.label47.Location = new System.Drawing.Point(46, 140);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(36, 15);
+            this.label47.TabIndex = 26;
+            this.label47.Text = "Wave";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label48.ForeColor = System.Drawing.Color.Blue;
+            this.label48.Location = new System.Drawing.Point(1, 140);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(36, 15);
+            this.label48.TabIndex = 25;
+            this.label48.Text = "Delay";
+            // 
+            // sldLfoVcfWave
+            // 
+            this.sldLfoVcfWave.LargeChange = 1;
+            this.sldLfoVcfWave.Location = new System.Drawing.Point(52, 12);
+            this.sldLfoVcfWave.Maximum = 5;
+            this.sldLfoVcfWave.Name = "sldLfoVcfWave";
+            this.sldLfoVcfWave.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldLfoVcfWave.Size = new System.Drawing.Size(45, 129);
+            this.sldLfoVcfWave.TabIndex = 22;
+            this.sldLfoVcfWave.TickFrequency = 200;
+            // 
+            // sldLfoVcfDelay
+            // 
+            this.sldLfoVcfDelay.LargeChange = 1;
+            this.sldLfoVcfDelay.Location = new System.Drawing.Point(9, 12);
+            this.sldLfoVcfDelay.Maximum = 1000;
+            this.sldLfoVcfDelay.Name = "sldLfoVcfDelay";
+            this.sldLfoVcfDelay.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldLfoVcfDelay.Size = new System.Drawing.Size(45, 129);
+            this.sldLfoVcfDelay.TabIndex = 21;
+            this.sldLfoVcfDelay.TickFrequency = 200;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.label49);
+            this.groupBox9.Controls.Add(this.label50);
+            this.groupBox9.Controls.Add(this.sldLfoFMFreq);
+            this.groupBox9.Controls.Add(this.sldLfoFMAmount);
+            this.groupBox9.Controls.Add(this.pictureBox13);
+            this.groupBox9.Controls.Add(this.pictureBox14);
+            this.groupBox9.Controls.Add(this.pictureBox15);
+            this.groupBox9.Controls.Add(this.pictureBox16);
+            this.groupBox9.Controls.Add(this.pictureBox17);
+            this.groupBox9.Controls.Add(this.pictureBox18);
+            this.groupBox9.Controls.Add(this.label51);
+            this.groupBox9.Controls.Add(this.label52);
+            this.groupBox9.Controls.Add(this.sldLfoFMWave);
+            this.groupBox9.Controls.Add(this.sldLfoFMDelay);
+            this.groupBox9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.groupBox9.ForeColor = System.Drawing.Color.Blue;
+            this.groupBox9.Location = new System.Drawing.Point(1504, 292);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(195, 167);
+            this.groupBox9.TabIndex = 66;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "LFO 3 - VCO FM";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label49.ForeColor = System.Drawing.Color.Blue;
+            this.label49.Location = new System.Drawing.Point(129, 117);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(51, 15);
+            this.label49.TabIndex = 70;
+            this.label49.Text = "Amount";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label50.ForeColor = System.Drawing.Color.Blue;
+            this.label50.Location = new System.Drawing.Point(95, 117);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(30, 15);
+            this.label50.TabIndex = 28;
+            this.label50.Text = "Freq";
+            // 
+            // sldLfoFMFreq
+            // 
+            this.sldLfoFMFreq.LargeChange = 1;
+            this.sldLfoFMFreq.Location = new System.Drawing.Point(98, 12);
+            this.sldLfoFMFreq.Maximum = 1000;
+            this.sldLfoFMFreq.Name = "sldLfoFMFreq";
+            this.sldLfoFMFreq.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldLfoFMFreq.Size = new System.Drawing.Size(45, 113);
+            this.sldLfoFMFreq.TabIndex = 27;
+            this.sldLfoFMFreq.TickFrequency = 200;
+            // 
+            // sldLfoFMAmount
+            // 
+            this.sldLfoFMAmount.LargeChange = 1;
+            this.sldLfoFMAmount.Location = new System.Drawing.Point(140, 13);
+            this.sldLfoFMAmount.Maximum = 1000;
+            this.sldLfoFMAmount.Name = "sldLfoFMAmount";
+            this.sldLfoFMAmount.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldLfoFMAmount.Size = new System.Drawing.Size(45, 112);
+            this.sldLfoFMAmount.TabIndex = 66;
+            this.sldLfoFMAmount.TickFrequency = 200;
+            // 
+            // pictureBox13
+            // 
+            this.pictureBox13.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox13.Image")));
+            this.pictureBox13.Location = new System.Drawing.Point(74, 14);
+            this.pictureBox13.Name = "pictureBox13";
+            this.pictureBox13.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox13.TabIndex = 76;
+            this.pictureBox13.TabStop = false;
+            // 
+            // pictureBox14
+            // 
+            this.pictureBox14.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox14.Image")));
+            this.pictureBox14.Location = new System.Drawing.Point(74, 32);
+            this.pictureBox14.Name = "pictureBox14";
+            this.pictureBox14.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox14.TabIndex = 71;
+            this.pictureBox14.TabStop = false;
+            // 
+            // pictureBox15
+            // 
+            this.pictureBox15.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox15.Image")));
+            this.pictureBox15.Location = new System.Drawing.Point(74, 50);
+            this.pictureBox15.Name = "pictureBox15";
+            this.pictureBox15.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox15.TabIndex = 75;
+            this.pictureBox15.TabStop = false;
+            // 
+            // pictureBox16
+            // 
+            this.pictureBox16.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox16.Image")));
+            this.pictureBox16.Location = new System.Drawing.Point(74, 86);
+            this.pictureBox16.Name = "pictureBox16";
+            this.pictureBox16.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox16.TabIndex = 72;
+            this.pictureBox16.TabStop = false;
+            // 
+            // pictureBox17
+            // 
+            this.pictureBox17.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox17.Image")));
+            this.pictureBox17.Location = new System.Drawing.Point(74, 68);
+            this.pictureBox17.Name = "pictureBox17";
+            this.pictureBox17.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox17.TabIndex = 73;
+            this.pictureBox17.TabStop = false;
+            // 
+            // pictureBox18
+            // 
+            this.pictureBox18.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox18.Image")));
+            this.pictureBox18.Location = new System.Drawing.Point(74, 104);
+            this.pictureBox18.Name = "pictureBox18";
+            this.pictureBox18.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox18.TabIndex = 74;
+            this.pictureBox18.TabStop = false;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label51.ForeColor = System.Drawing.Color.Blue;
+            this.label51.Location = new System.Drawing.Point(46, 117);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(36, 15);
+            this.label51.TabIndex = 26;
+            this.label51.Text = "Wave";
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label52.ForeColor = System.Drawing.Color.Blue;
+            this.label52.Location = new System.Drawing.Point(1, 117);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(36, 15);
+            this.label52.TabIndex = 25;
+            this.label52.Text = "Delay";
+            // 
+            // sldLfoFMWave
+            // 
+            this.sldLfoFMWave.LargeChange = 1;
+            this.sldLfoFMWave.Location = new System.Drawing.Point(52, 12);
+            this.sldLfoFMWave.Maximum = 5;
+            this.sldLfoFMWave.Name = "sldLfoFMWave";
+            this.sldLfoFMWave.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldLfoFMWave.Size = new System.Drawing.Size(45, 113);
+            this.sldLfoFMWave.TabIndex = 22;
+            this.sldLfoFMWave.TickFrequency = 0;
+            // 
+            // sldLfoFMDelay
+            // 
+            this.sldLfoFMDelay.LargeChange = 1;
+            this.sldLfoFMDelay.Location = new System.Drawing.Point(9, 12);
+            this.sldLfoFMDelay.Maximum = 1000;
+            this.sldLfoFMDelay.Name = "sldLfoFMDelay";
+            this.sldLfoFMDelay.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.sldLfoFMDelay.Size = new System.Drawing.Size(45, 113);
+            this.sldLfoFMDelay.TabIndex = 21;
+            this.sldLfoFMDelay.TickFrequency = 200;
+            // 
+            // sldVcfCutoff
+            // 
+            this.sldVcfCutoff.LargeChange = 1;
+            this.sldVcfCutoff.Location = new System.Drawing.Point(1246, 500);
+            this.sldVcfCutoff.Maximum = 1000;
+            this.sldVcfCutoff.Name = "sldVcfCutoff";
+            this.sldVcfCutoff.Size = new System.Drawing.Size(129, 45);
+            this.sldVcfCutoff.TabIndex = 67;
+            this.sldVcfCutoff.TickFrequency = 200;
+            // 
             // SimpleTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(1521, 653);
+            this.ClientSize = new System.Drawing.Size(1728, 653);
+            this.Controls.Add(this.sldVcfCutoff);
+            this.Controls.Add(this.groupBox9);
+            this.Controls.Add(this.groupBox8);
+            this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.label40);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
@@ -2086,6 +2714,43 @@
             ((System.ComponentModel.ISupportInitialize)(this.sldFMSustain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldFMDecay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldFMAttack)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVibAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVibFreq)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVibWave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVibDelay)).EndInit();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVcfAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVcfFreq)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVcfWave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoVcfDelay)).EndInit();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMFreq)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMWave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMDelay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldVcfCutoff)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2217,9 +2882,6 @@
         private TrackBar sldSustain;
         private TrackBar sldDecay;
         private GroupBox groupBox5;
-        private CheckBox chkPDOsc3;
-        private CheckBox chkPDOsc2;
-        private CheckBox chkPDOsc1;
         private Label label35;
         private Label label31;
         private Label sss;
@@ -2245,6 +2907,58 @@
         private TrackBar sldFMDecay;
         private TrackBar sldFMAttack;
         private Label label40;
+        private GroupBox groupBox7;
+        private CheckBox chkLfoVibOsc3;
+        private CheckBox chkLfoVibOsc2;
+        private CheckBox chkLfoVibOsc1;
+        private Label label41;
+        private TrackBar sldLfoVibFreq;
+        private Label label43;
+        private Label label44;
+        private TrackBar sldLfoVibWave;
+        private TrackBar sldLfoVibDelay;
+        private GroupBox groupBox8;
+        private Label label46;
+        private TrackBar sldLfoVcfFreq;
+        private Label label47;
+        private Label label48;
+        private TrackBar sldLfoVcfWave;
+        private TrackBar sldLfoVcfDelay;
+        private Label label42;
+        private TrackBar sldLfoVibAmount;
+        private Label label45;
+        private TrackBar sldLfoVcfAmount;
+        private GroupBox groupBox9;
+        private Label label49;
+        private TrackBar sldLfoFMAmount;
+        private Label label50;
+        private TrackBar sldLfoFMFreq;
+        private Label label51;
+        private Label label52;
+        private TrackBar sldLfoFMWave;
+        private TrackBar sldLfoFMDelay;
+        private PictureBox pictureBox4;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox7;
+        private PictureBox pictureBox8;
+        private PictureBox pictureBox9;
+        private PictureBox pictureBox10;
+        private PictureBox pictureBox11;
+        private PictureBox pictureBox12;
+        private PictureBox pictureBox6;
+        private PictureBox pictureBox5;
+        private PictureBox pictureBox13;
+        private PictureBox pictureBox14;
+        private PictureBox pictureBox15;
+        private PictureBox pictureBox16;
+        private PictureBox pictureBox17;
+        private PictureBox pictureBox18;
+        private CheckBox chkPDOsc3;
+        private CheckBox chkPDOsc2;
+        private CheckBox chkPDOsc1;
+        private TrackBar sldVcfCutoff;
         //private UI.Keyboard keyboard1;
     }
 }

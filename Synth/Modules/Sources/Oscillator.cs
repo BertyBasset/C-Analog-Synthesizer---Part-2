@@ -146,7 +146,12 @@ public class Oscillator : iModule {
         bool isZeroCrossing = _OldPhase > _Phase ? true : false;
         _OldPhase = _Phase;
 
-        Value = _Generator.GenerateSample(_Phase, Duty.GetDuty(), delta, isZeroCrossing);
+
+
+        if(_WaveForm.Type == WaveformType.SawFalling)
+            Value = 1-_Generator.GenerateSample(_Phase, Duty.GetDuty(), delta, isZeroCrossing);
+        else    
+            Value = _Generator.GenerateSample(_Phase, Duty.GetDuty(), delta, isZeroCrossing);
 
 
     }

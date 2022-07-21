@@ -18,7 +18,7 @@
 
             }
 
-            var sample = phase / 180f - 1;
+            var sample = 1 -phase / 180f;
             return sample * AMPLITUDE_NORMALISATION;
         }
 

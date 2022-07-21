@@ -1,5 +1,6 @@
 ﻿using Synth.IO;
 using Synth.Modules;
+using Synth.Modules.Modulators;
 using Synth.Utils;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,19 @@ public class Frequency {
     }
 
 
+    public LFO? ModulatorLFO;
+
+    private float _LFOAmount;
+    public float LFOAmount {                            // 0 to 100
+        get { return _LFOAmount; }
+        set {
+            _LFOAmount = Utils.Misc.Constrain(value /1000f, 0f, 100f);
+        }
+    }
+
+
+
+
     // We've got a modulator to modulate the modulation amount!!  
     public iModule? ModulationAmountModulator;
     private float _ModulationAmountModulatorAmount;
@@ -120,10 +134,13 @@ public class Frequency {
                 modAmountMod = ModulationAmountModulator.Value * 1000f * _ModulationAmountModulatorAmount;      // <<< Not sure what value to give a good effect
 
 
-            f = f + (_ModulationAmount + modAmountMod) * Modulator.Value;
+            f = f + (_ModulationAmount + modAmountMod) * Modulator.Value;           // Vibrato here << 
+       }
 
+        if (ModulatorLFO != null)
+            //f = f + _LFOAmount * ModulatorLFO.Value;
+            f *= 1 + (ModulatorLFO.Value * _LFOAmount / 10);
 
-        }
 
         return f;
     }

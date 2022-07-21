@@ -14,7 +14,9 @@ namespace Synth.Properties {
         Noise,
         WaveTable,
         Harmonic,
-        SuperSaw
+        SuperSaw,
+        SawFalling,
+        SH
     }
 
     public class WaveForm {
@@ -30,12 +32,14 @@ namespace Synth.Properties {
                     switch (Type) {
                         case WaveformType.Sine: _Generator = new GeneratorSine(); break;
                         case WaveformType.Saw: _Generator = new GeneratorSaw(); break;
+                        case WaveformType.SawFalling: _Generator = new GeneratorSaw(); break;
                         case WaveformType.Triangle: _Generator = new GeneratorTriangle(); break;
                         case WaveformType.Square: _Generator = new GeneratorSquare(); break;
                         case WaveformType.Noise: _Generator = new GeneratorNoise(); break;
                         case WaveformType.WaveTable: _Generator = new GeneratorWaveTable(); break;
                         case WaveformType.Harmonic: _Generator = new GeneratorHarmonic(); break;
                         case WaveformType.SuperSaw: _Generator = new GeneratorSuperSaw(); break;
+                        // No generator for Sample and Hold. LFO will take care of it.
                         default: _Generator = new GeneratorSine(); break;
                     }
                 }
@@ -68,6 +72,8 @@ namespace Synth.Properties {
             waveforms.Add(new WaveForm() { ID = 5, Name = "WaveTable", Type = WaveformType.WaveTable });
             waveforms.Add(new WaveForm() { ID = 6, Name = "Harmonic", Type = WaveformType.Harmonic });
             waveforms.Add(new WaveForm() { ID = 7, Name = "SuperSaw", Type = WaveformType.SuperSaw });
+            waveforms.Add(new WaveForm() { ID = 8, Name = "Saw-Falling", Type = WaveformType.SawFalling});
+            waveforms.Add(new WaveForm() { ID = 9, Name = "Sample and Hold", Type = WaveformType.SH });
 
             return waveforms;
         }
