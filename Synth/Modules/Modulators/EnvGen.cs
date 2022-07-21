@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace Synth.Modules.Modulators;
 
 public class EnvGen : iModule {
-    private bool _gate = false;
-    public event EventHandler StageChanged;
+    public event EventHandler? StageChanged;
 
     private Stage _currentStage = Stage.Release;
     public Stage CurrentStage {
@@ -116,12 +115,10 @@ public class EnvGen : iModule {
     }
 
     private void _Keyboard_TriggerOff(object? sender, EventArgs e) {
-        _gate = false;
         CurrentStage = Stage.Release;
     }
 
     private void _Keyboard_TriggerOn(object? sender, EventArgs e) {
-        _gate = true;
         CurrentStage = Stage.Attack;
     }
     #endregion

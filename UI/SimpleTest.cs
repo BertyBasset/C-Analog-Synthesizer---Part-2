@@ -30,11 +30,15 @@ using Synth.Modules.Modulators;
  *  Unhook oscs                                                          DONE
  *  LFO Delay                                                            DONE
  *  FM LFO                                                               DONE
- *  S+H
- *  LFOs
- *  
+ *  S+H                                                                  DONE
+ *  LFOs                                                                 DONE
+ *  Filter Envelope
+ *  Package filter as 4 pole unit state var
+ *  Analog Switch
+ *  Conditioner.   Gain 0.1 to 10, shift -10 to +10
+ *  Filter Q
  *  Part 3 - Modifiers 
- *  Filters
+ *  Filters 
  *  
  *  Part 4 - Effects
  *  Sequencer
@@ -77,9 +81,9 @@ public partial class SimpleTest : Form {
     Mixer mixerVcoPdAmount3;
 
     VCF vcf;
-    VCF vcf1;
-    VCF vcf2;
-    VCF vcf3;
+    //VCF1Pole vcf1;
+    //VCF1Pole vcf2;
+    //VCF1Pole vcf3;
 
 
     void InitSynth() {
@@ -170,15 +174,15 @@ public partial class SimpleTest : Form {
         osc3.Frequency.ModulationAmountModulator = mixerVcoFmAmount3;
 
 
-        vcf = new VCF() { Source = vca, Modulator = vcfLFO };
-        vcf1 = new VCF() { Source = vcf, Modulator = vcfLFO };
-        vcf2 = new VCF() { Source = vcf1, Modulator = vcfLFO };
-        vcf3 = new VCF() { Source = vcf2, Modulator = vcfLFO };
+        vcf = new() { Source = vca, Modulator = vcfLFO };
+        //vcf1 = new() { Source = vcf, Modulator = vcfLFO };
+        //vcf2 = new() { Source = vcf1, Modulator = vcfLFO };
+        //vcf3 = new() { Source = vcf2, Modulator = vcfLFO };
 
 
 
         // Hook mixer output to VCA
-        audioOut = new AudioOut() { Source = vcf3 };
+        audioOut = new AudioOut() { Source = vcf };
 
 
 
@@ -205,9 +209,9 @@ public partial class SimpleTest : Form {
         synth.Modules.Add(mixerVcoPdAmount2);
         synth.Modules.Add(mixerVcoPdAmount3);
         synth.Modules.Add(vcf);
-        synth.Modules.Add(vcf1);
-        synth.Modules.Add(vcf2);
-        synth.Modules.Add(vcf3);
+        //synth.Modules.Add(vcf1);
+        //synth.Modules.Add(vcf2);
+        //synth.Modules.Add(vcf3);
 
 
         // Temporarfy hard coded mod wheel 
@@ -429,9 +433,9 @@ public partial class SimpleTest : Form {
         sldLfoVcfWave.ValueChanged += (o, e) => { vcfLFO.WaveForm = getWaveFormByLfoSlider(sldLfoVcfWave); };
         sldLfoVcfFreq.ValueChanged += (o, e) => { vcfLFO.Frequency = sldLfoVcfFreq.Value / 1000f; };
         sldLfoVcfAmount.ValueChanged += (o, e) => { vcf.ModulatorAmount = sldLfoVcfAmount.Value / 1000f; };
-        sldLfoVcfAmount.ValueChanged += (o, e) => { vcf1.ModulatorAmount = sldLfoVcfAmount.Value / 1000f; };
-        sldLfoVcfAmount.ValueChanged += (o, e) => { vcf2.ModulatorAmount = sldLfoVcfAmount.Value / 1000f; };
-        sldLfoVcfAmount.ValueChanged += (o, e) => { vcf3.ModulatorAmount = sldLfoVcfAmount.Value / 1000f; };
+        //sldLfoVcfAmount.ValueChanged += (o, e) => { vcf1.ModulatorAmount = sldLfoVcfAmount.Value / 1000f; };
+        //sldLfoVcfAmount.ValueChanged += (o, e) => { vcf2.ModulatorAmount = sldLfoVcfAmount.Value / 1000f; };
+        //sldLfoVcfAmount.ValueChanged += (o, e) => { vcf3.ModulatorAmount = sldLfoVcfAmount.Value / 1000f; };
 
 
         sldLfoVibDelay.ValueChanged += (o, e) => { vibLFO.Delay = sldLfoVibDelay.Value / 1000f; };
@@ -455,9 +459,9 @@ public partial class SimpleTest : Form {
 
         // Filter
         sldVcfCutoff.ValueChanged += (o, e) => vcf.CutoffFrequency = sldVcfCutoff.Value / 1000f;
-        sldVcfCutoff.ValueChanged += (o, e) => vcf1.CutoffFrequency = sldVcfCutoff.Value / 1000f;
-        sldVcfCutoff.ValueChanged += (o, e) => vcf2.CutoffFrequency = sldVcfCutoff.Value / 1000f;
-        sldVcfCutoff.ValueChanged += (o, e) => vcf3.CutoffFrequency = sldVcfCutoff.Value / 1000f;
+        //sldVcfCutoff.ValueChanged += (o, e) => vcf1.CutoffFrequency = sldVcfCutoff.Value / 1000f;
+        //sldVcfCutoff.ValueChanged += (o, e) => vcf2.CutoffFrequency = sldVcfCutoff.Value / 1000f;
+        //sldVcfCutoff.ValueChanged += (o, e) => vcf3.CutoffFrequency = sldVcfCutoff.Value / 1000f;
 
 
         virtualKeyboard.NoteChanged += virtualKeyboard_NoteChanged;

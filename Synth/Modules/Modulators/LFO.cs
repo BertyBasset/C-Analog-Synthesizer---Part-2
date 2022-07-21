@@ -81,7 +81,7 @@ public class LFO : iModule {
             if (_WaveForm.Type == WaveformType.SawFalling)
                 value = _Generator.GenerateSample(_Phase, 0, delta, false);
             else
-                value = 1 - _Generator.GenerateSample(_Phase, 0, delta, false);
+                value =  - _Generator.GenerateSample(_Phase, 0, delta, false);
         Value = value * _level * 2;         // Scale by _level, which ramps up and down according to delay (0-1 = 0-5s)  where MAX_DELAY=5
         }
         oldPhase = _Phase;

@@ -13,8 +13,8 @@ namespace Synth.IO;
 // equivalent of CV, however we've already gone down frequency route
 
 public class Keyboard : iModule {
-    public event EventHandler TriggerOn;
-    public event EventHandler TriggerOff;
+    public event EventHandler? TriggerOn;
+    public event EventHandler? TriggerOff;
 
 
 

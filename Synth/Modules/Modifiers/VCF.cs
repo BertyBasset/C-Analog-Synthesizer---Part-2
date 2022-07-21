@@ -1,43 +1,63 @@
-﻿namespace Synth.Modules.Modifiers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Synth.Modules.Modifiers;
 
 public class VCF : iModule {
+    public float Value => poles[poles.Count - 1].Value;
 
-    public float Value { get; internal set; }
-    public float CutoffFrequency { get; set; }
+    //List<VCF1Pole> poles = new() { new VCF1Pole(), new VCF1Pole(), new VCF1Pole(), new VCF1Pole() };
+    List<VCF1Pole> poles;
+    public VCF(int numPoles = 8)
+    {
+        poles = new();
 
+        for (int i = 0; i < numPoles; i++)
+            poles.Add(new VCF1Pole());
 
-    private float prevOut = 0f;
-    private float prevIn = 0f;
+        for (int i = 1; i < poles.Count; i++)
+            poles[i].Source = poles[i - 1];
+    }
+
     public void Tick(float TimeIncrement) {
+        foreach (var pole in poles)
+            pole.Tick(TimeIncrement);
+    }
 
-        if (sampleRate == 0)
-            sampleRate = (int)(1 / TimeIncrement);
+    public iModule? Source {
+        get => poles[0].Source;
+        set => poles[0].Source = value;
+    }
 
-        if (Source == null)
-            Value = 0f;
-        else {
-
-            //Lowpass
-            Value = a * Source.Value + (1 - a) * prevOut;
-
-            //Highpass
-            //Value = RC / (RC + dt) * (prevOut + Source.Value - prevIn);
-
-            prevOut = Value;
-            prevIn = Source.Value;
+    public float CutoffFrequency
+    {
+        get => poles[0].CutoffFrequency;
+        set
+        {
+            foreach(var pole in poles)
+                pole.CutoffFrequency = value;
         }
     }
 
-    int sampleRate = 0;
-    float fc => MathF.Pow(2, 4 * ModulatorAmount * (Modulator?.Value ?? 0) + 7 + 5 * CutoffFrequency);
-    //float fc => 200;
-    float RC => 1f / (2 * MathF.PI * fc);
-    float dt => 1f / sampleRate;
-    float a => dt / (RC + dt);
+    public iModule? Modulator
+    {
+        get => poles[0].Modulator;
+        set
+        {
+            foreach (var pole in poles)
+                pole.Modulator = value;
+        }
+    }
 
-    public iModule? Source;
-    public iModule? Modulator;
-
-    public float ModulatorAmount { get; set; }
-
+    public float ModulatorAmount {
+        get => poles[0].ModulatorAmount;
+        set
+        {
+            foreach (var pole in poles)
+                pole.ModulatorAmount = value;
+        }
+    }
 }

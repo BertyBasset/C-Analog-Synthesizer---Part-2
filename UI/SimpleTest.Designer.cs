@@ -231,6 +231,26 @@
             this.sldLfoFMWave = new System.Windows.Forms.TrackBar();
             this.sldLfoFMDelay = new System.Windows.Forms.TrackBar();
             this.sldVcfCutoff = new System.Windows.Forms.TrackBar();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label56 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.label54 = new System.Windows.Forms.Label();
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.label55 = new System.Windows.Forms.Label();
+            this.trackBar3 = new System.Windows.Forms.TrackBar();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label61 = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
+            this.label63 = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
+            this.trackBar5 = new System.Windows.Forms.TrackBar();
+            this.trackBar6 = new System.Windows.Forms.TrackBar();
+            this.trackBar7 = new System.Windows.Forms.TrackBar();
+            this.trackBar8 = new System.Windows.Forms.TrackBar();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sldModAmount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSuperSaw)).BeginInit();
@@ -332,6 +352,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMWave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldVcfCutoff)).BeginInit();
+            this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
+            this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar8)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdStart
@@ -2287,7 +2316,7 @@
             this.groupBox8.Size = new System.Drawing.Size(187, 168);
             this.groupBox8.TabIndex = 65;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "LFO 2 - Filter Cutoff - NOT DONE";
+            this.groupBox8.Text = "LFO 2 - Filter Cutoff";
             // 
             // pictureBox6
             // 
@@ -2601,20 +2630,258 @@
             // sldVcfCutoff
             // 
             this.sldVcfCutoff.LargeChange = 1;
-            this.sldVcfCutoff.Location = new System.Drawing.Point(1246, 500);
+            this.sldVcfCutoff.Location = new System.Drawing.Point(80, 13);
             this.sldVcfCutoff.Maximum = 1000;
             this.sldVcfCutoff.Name = "sldVcfCutoff";
             this.sldVcfCutoff.Size = new System.Drawing.Size(129, 45);
             this.sldVcfCutoff.TabIndex = 67;
             this.sldVcfCutoff.TickFrequency = 200;
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.label59);
+            this.groupBox10.Controls.Add(this.label58);
+            this.groupBox10.Controls.Add(this.label57);
+            this.groupBox10.Controls.Add(this.label55);
+            this.groupBox10.Controls.Add(this.trackBar3);
+            this.groupBox10.Controls.Add(this.label54);
+            this.groupBox10.Controls.Add(this.trackBar2);
+            this.groupBox10.Controls.Add(this.label53);
+            this.groupBox10.Controls.Add(this.trackBar1);
+            this.groupBox10.Controls.Add(this.label56);
+            this.groupBox10.Controls.Add(this.sldVcfCutoff);
+            this.groupBox10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.groupBox10.ForeColor = System.Drawing.Color.Blue;
+            this.groupBox10.Location = new System.Drawing.Point(1201, 473);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(253, 168);
+            this.groupBox10.TabIndex = 68;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "VCF";
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label56.ForeColor = System.Drawing.Color.Blue;
+            this.label56.Location = new System.Drawing.Point(6, 19);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(73, 15);
+            this.label56.TabIndex = 25;
+            this.label56.Text = "Cutoff Freq.:";
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label53.ForeColor = System.Drawing.Color.Blue;
+            this.label53.Location = new System.Drawing.Point(6, 51);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(71, 15);
+            this.label53.TabIndex = 68;
+            this.label53.Text = "EG Amount:";
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.LargeChange = 1;
+            this.trackBar1.Location = new System.Drawing.Point(80, 45);
+            this.trackBar1.Maximum = 1000;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(129, 45);
+            this.trackBar1.TabIndex = 69;
+            this.trackBar1.TickFrequency = 200;
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label54.ForeColor = System.Drawing.Color.Blue;
+            this.label54.Location = new System.Drawing.Point(6, 84);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(19, 15);
+            this.label54.TabIndex = 70;
+            this.label54.Text = "Q:";
+            // 
+            // trackBar2
+            // 
+            this.trackBar2.LargeChange = 1;
+            this.trackBar2.Location = new System.Drawing.Point(80, 78);
+            this.trackBar2.Maximum = 1000;
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.Size = new System.Drawing.Size(129, 45);
+            this.trackBar2.TabIndex = 71;
+            this.trackBar2.TickFrequency = 200;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label55.ForeColor = System.Drawing.Color.Blue;
+            this.label55.Location = new System.Drawing.Point(6, 117);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(81, 15);
+            this.label55.TabIndex = 72;
+            this.label55.Text = "Kbd. Tracking:";
+            // 
+            // trackBar3
+            // 
+            this.trackBar3.LargeChange = 1;
+            this.trackBar3.Location = new System.Drawing.Point(80, 111);
+            this.trackBar3.Maximum = 1000;
+            this.trackBar3.Name = "trackBar3";
+            this.trackBar3.Size = new System.Drawing.Size(129, 45);
+            this.trackBar3.TabIndex = 73;
+            this.trackBar3.TickFrequency = 200;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label57.ForeColor = System.Drawing.Color.Blue;
+            this.label57.Location = new System.Drawing.Point(212, 49);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(35, 15);
+            this.label57.TabIndex = 74;
+            this.label57.Text = "to do";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label58.ForeColor = System.Drawing.Color.Blue;
+            this.label58.Location = new System.Drawing.Point(212, 80);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(35, 15);
+            this.label58.TabIndex = 75;
+            this.label58.Text = "to do";
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label59.ForeColor = System.Drawing.Color.Blue;
+            this.label59.Location = new System.Drawing.Point(212, 111);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(35, 15);
+            this.label59.TabIndex = 76;
+            this.label59.Text = "to do";
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.label61);
+            this.groupBox11.Controls.Add(this.label62);
+            this.groupBox11.Controls.Add(this.label63);
+            this.groupBox11.Controls.Add(this.label64);
+            this.groupBox11.Controls.Add(this.trackBar5);
+            this.groupBox11.Controls.Add(this.trackBar6);
+            this.groupBox11.Controls.Add(this.trackBar7);
+            this.groupBox11.Controls.Add(this.trackBar8);
+            this.groupBox11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.groupBox11.ForeColor = System.Drawing.Color.Blue;
+            this.groupBox11.Location = new System.Drawing.Point(1464, 472);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(188, 169);
+            this.groupBox11.TabIndex = 69;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Cutoff Frequency";
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label61.ForeColor = System.Drawing.Color.Blue;
+            this.label61.Location = new System.Drawing.Point(130, 140);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(46, 15);
+            this.label61.TabIndex = 28;
+            this.label61.Text = "Release";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label62.ForeColor = System.Drawing.Color.Blue;
+            this.label62.Location = new System.Drawing.Point(85, 140);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(45, 15);
+            this.label62.TabIndex = 27;
+            this.label62.Text = "Sustain";
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label63.ForeColor = System.Drawing.Color.Blue;
+            this.label63.Location = new System.Drawing.Point(46, 140);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(39, 15);
+            this.label63.TabIndex = 26;
+            this.label63.Text = "Decay";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label64.ForeColor = System.Drawing.Color.Blue;
+            this.label64.Location = new System.Drawing.Point(1, 140);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(41, 15);
+            this.label64.TabIndex = 25;
+            this.label64.Text = "Attack";
+            // 
+            // trackBar5
+            // 
+            this.trackBar5.LargeChange = 1;
+            this.trackBar5.Location = new System.Drawing.Point(139, 15);
+            this.trackBar5.Maximum = 1000;
+            this.trackBar5.Name = "trackBar5";
+            this.trackBar5.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar5.Size = new System.Drawing.Size(45, 129);
+            this.trackBar5.TabIndex = 24;
+            this.trackBar5.TickFrequency = 200;
+            // 
+            // trackBar6
+            // 
+            this.trackBar6.LargeChange = 1;
+            this.trackBar6.Location = new System.Drawing.Point(95, 15);
+            this.trackBar6.Maximum = 1000;
+            this.trackBar6.Name = "trackBar6";
+            this.trackBar6.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar6.Size = new System.Drawing.Size(45, 129);
+            this.trackBar6.TabIndex = 23;
+            this.trackBar6.TickFrequency = 200;
+            this.trackBar6.Value = 1000;
+            // 
+            // trackBar7
+            // 
+            this.trackBar7.LargeChange = 1;
+            this.trackBar7.Location = new System.Drawing.Point(52, 15);
+            this.trackBar7.Maximum = 1000;
+            this.trackBar7.Name = "trackBar7";
+            this.trackBar7.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar7.Size = new System.Drawing.Size(45, 129);
+            this.trackBar7.TabIndex = 22;
+            this.trackBar7.TickFrequency = 200;
+            // 
+            // trackBar8
+            // 
+            this.trackBar8.LargeChange = 1;
+            this.trackBar8.Location = new System.Drawing.Point(9, 15);
+            this.trackBar8.Maximum = 1000;
+            this.trackBar8.Name = "trackBar8";
+            this.trackBar8.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar8.Size = new System.Drawing.Size(45, 129);
+            this.trackBar8.TabIndex = 21;
+            this.trackBar8.TickFrequency = 200;
+            // 
             // SimpleTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(1728, 653);
-            this.Controls.Add(this.sldVcfCutoff);
+            this.ClientSize = new System.Drawing.Size(1728, 645);
+            this.Controls.Add(this.groupBox11);
+            this.Controls.Add(this.groupBox10);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox7);
@@ -2751,6 +3018,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMWave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMDelay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldVcfCutoff)).EndInit();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar8)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2959,6 +3237,26 @@
         private CheckBox chkPDOsc2;
         private CheckBox chkPDOsc1;
         private TrackBar sldVcfCutoff;
+        private GroupBox groupBox10;
+        private Label label59;
+        private Label label58;
+        private Label label57;
+        private Label label55;
+        private TrackBar trackBar3;
+        private Label label54;
+        private TrackBar trackBar2;
+        private Label label53;
+        private TrackBar trackBar1;
+        private Label label56;
+        private GroupBox groupBox11;
+        private Label label61;
+        private Label label62;
+        private Label label63;
+        private Label label64;
+        private TrackBar trackBar5;
+        private TrackBar trackBar6;
+        private TrackBar trackBar7;
+        private TrackBar trackBar8;
         //private UI.Keyboard keyboard1;
     }
 }

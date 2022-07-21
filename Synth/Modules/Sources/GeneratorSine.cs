@@ -12,6 +12,7 @@
             float phase = Phase;
             if (Duty != 0) {
                 // If we've wrapped round 360 -> 0, we're safe to do Phase Distortion
+                // Otherwise we get nasty glitches, especially with smooth waves like sines
                 if (IsZeroCrossing)
                     _newDuty = Duty;
                     
