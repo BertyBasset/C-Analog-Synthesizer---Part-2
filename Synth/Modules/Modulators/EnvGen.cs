@@ -71,7 +71,7 @@ public class EnvGen : iModule {
     // This is the *-*-* MEATY *-*-* bit
     public void Tick(float TimeIncrement) {
         // Implement ADSR according to Trigger/Gate state
-        float inc = 0f;
+         float inc = 0f;
 
         switch (CurrentStage) {
             case Stage.Attack:

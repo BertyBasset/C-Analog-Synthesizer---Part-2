@@ -1,0 +1,215 @@
+[
+  {
+    "IsInit": true,
+    "PatchName": "__Init__",
+    "Controls": [
+      {
+        "ControlName": "sldWaveForm",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "ddlSuperSaw",
+        "Value": null,
+        "SelectedIndex": 0,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldOctave",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldTune",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "chkKbd",
+        "Value": null,
+        "SelectedIndex": null,
+        "Checked": true
+      },
+      {
+        "ControlName": "sldFineTune",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldPWM",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldLevel",
+        "Value": 100,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "ddlSyncSource",
+        "Value": null,
+        "SelectedIndex": 0,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldModAmount",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "ddlModSource",
+        "Value": null,
+        "SelectedIndex": 0,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldWaveForm1",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "ddlSuperSaw1",
+        "Value": null,
+        "SelectedIndex": 0,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldOctave1",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldTune1",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "chkKbd1",
+        "Value": null,
+        "SelectedIndex": null,
+        "Checked": true
+      },
+      {
+        "ControlName": "sldFineTune1",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldPWM1",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldLevel1",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "ddlSyncSource",
+        "Value": null,
+        "SelectedIndex": 0,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldModAmount1",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "ddlModSource1",
+        "Value": null,
+        "SelectedIndex": 0,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldWaveForm2",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "ddlSuperSaw2",
+        "Value": null,
+        "SelectedIndex": 0,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldOctave2",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldTune2",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "chkKbd2",
+        "Value": null,
+        "SelectedIndex": null,
+        "Checked": true
+      },
+      {
+        "ControlName": "sldFineTune2",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldPWM2",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldLevel2",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "ddlSyncSource2",
+        "Value": null,
+        "SelectedIndex": 0,
+        "Checked": null
+      },
+      {
+        "ControlName": "sldModAmount2",
+        "Value": 0,
+        "SelectedIndex": null,
+        "Checked": null
+      },
+      {
+        "ControlName": "ddlModSource2",
+        "Value": null,
+        "SelectedIndex": 0,
+        "Checked": null
+      }
+    ],
+    "WaveTableName": null,
+    "FourierCoefficients": [
+    ],
+    "WaveTableName1": null,
+    "FourierCoefficients1": [
+    ],
+    "WaveTableName2": null,
+    "FourierCoefficients2": [
+    ]
+  }
+]

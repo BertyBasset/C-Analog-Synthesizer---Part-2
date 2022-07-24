@@ -69,6 +69,7 @@ public partial class SimpleTest : Form {
     VCA vca;
     EnvGen pdEnvGen;
     EnvGen fmEnvGen;
+    EnvGen vcfEnvGen;
     LFO vibLFO;
     LFO fmLFO;
     LFO vcfLFO;
@@ -173,11 +174,8 @@ public partial class SimpleTest : Form {
         osc3.Frequency.ModulationAmountModulatorAmount = 1f;
         osc3.Frequency.ModulationAmountModulator = mixerVcoFmAmount3;
 
-
-        vcf = new() { Source = vca, Modulator = vcfLFO };
-        //vcf1 = new() { Source = vcf, Modulator = vcfLFO };
-        //vcf2 = new() { Source = vcf1, Modulator = vcfLFO };
-        //vcf3 = new() { Source = vcf2, Modulator = vcfLFO };
+        vcfEnvGen = new() { Keyboard = keyboard};
+        vcf = new() { Source = vca, Modulator = vcfLFO, Modulator2 = vcfEnvGen };
 
 
 
@@ -209,9 +207,9 @@ public partial class SimpleTest : Form {
         synth.Modules.Add(mixerVcoPdAmount2);
         synth.Modules.Add(mixerVcoPdAmount3);
         synth.Modules.Add(vcf);
-        //synth.Modules.Add(vcf1);
-        //synth.Modules.Add(vcf2);
-        //synth.Modules.Add(vcf3);
+        synth.Modules.Add(vcfEnvGen);
+        
+
 
 
         // Temporarfy hard coded mod wheel 
@@ -433,9 +431,7 @@ public partial class SimpleTest : Form {
         sldLfoVcfWave.ValueChanged += (o, e) => { vcfLFO.WaveForm = getWaveFormByLfoSlider(sldLfoVcfWave); };
         sldLfoVcfFreq.ValueChanged += (o, e) => { vcfLFO.Frequency = sldLfoVcfFreq.Value / 1000f; };
         sldLfoVcfAmount.ValueChanged += (o, e) => { vcf.ModulatorAmount = sldLfoVcfAmount.Value / 1000f; };
-        //sldLfoVcfAmount.ValueChanged += (o, e) => { vcf1.ModulatorAmount = sldLfoVcfAmount.Value / 1000f; };
-        //sldLfoVcfAmount.ValueChanged += (o, e) => { vcf2.ModulatorAmount = sldLfoVcfAmount.Value / 1000f; };
-        //sldLfoVcfAmount.ValueChanged += (o, e) => { vcf3.ModulatorAmount = sldLfoVcfAmount.Value / 1000f; };
+
 
 
         sldLfoVibDelay.ValueChanged += (o, e) => { vibLFO.Delay = sldLfoVibDelay.Value / 1000f; };
@@ -457,11 +453,18 @@ public partial class SimpleTest : Form {
         };
 
 
+
+
+
         // Filter
         sldVcfCutoff.ValueChanged += (o, e) => vcf.CutoffFrequency = sldVcfCutoff.Value / 1000f;
-        //sldVcfCutoff.ValueChanged += (o, e) => vcf1.CutoffFrequency = sldVcfCutoff.Value / 1000f;
-        //sldVcfCutoff.ValueChanged += (o, e) => vcf2.CutoffFrequency = sldVcfCutoff.Value / 1000f;
-        //sldVcfCutoff.ValueChanged += (o, e) => vcf3.CutoffFrequency = sldVcfCutoff.Value / 1000f;
+        sldVcfEnvAmount.ValueChanged += (o, e) => vcf.ModulatorAmount2 = sldVcfEnvAmount.Value / 1000f;
+        trackBar2.ValueChanged += (o, e) => vcf.QAmount = trackBar2.Value / 1000f;
+
+        sldVcfEnvAttack.ValueChanged += (o,e) => vcfEnvGen.Attack = sldVcfEnvAttack.Value / 100f;
+        sldVcfEnvDecay.ValueChanged += (o, e) => vcfEnvGen.Decay = sldVcfEnvAttack.Value / 100f;
+        sldVcfEnvSustain.ValueChanged += (o, e) => vcfEnvGen.Sustain = sldVcfEnvAttack.Value / 100f;
+        sldVcfEnvRelease.ValueChanged += (o, e) => vcfEnvGen.Release = sldVcfEnvAttack.Value / 100f;
 
 
         virtualKeyboard.NoteChanged += virtualKeyboard_NoteChanged;

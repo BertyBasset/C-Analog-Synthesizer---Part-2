@@ -19,9 +19,8 @@ public class VCF1Pole : iModule {
         if (Source == null)
             Value = 0f;
         else {
-
             //Lowpass
-            Value = a * Source.Value + (1 - a) * prevOut;
+            Value = a * (Source.Value + QAmount * (QSource?.Value ?? 0)) / (1 + QAmount / 2) + (1 - a) * prevOut;
 
             //Highpass
             //Value = RC / (RC + dt) * (prevOut + Source.Value - prevIn);
@@ -32,15 +31,33 @@ public class VCF1Pole : iModule {
     }
 
     int sampleRate = 0;
-    float fc => MathF.Pow(2, 4 * ModulatorAmount * (Modulator?.Value ?? 0) + 7 + 5 * CutoffFrequency);
+    // float fc => MathF.Pow(2, 4 * ModulatorAmount * (Modulator?.Value ?? 0) + 7 + 5 * CutoffFrequency);
+    float fc => MathF.Pow(2, 4 * TotalModulation() + 7 + 5 * CutoffFrequency);
     //float fc => 200;
     float RC => 1f / (2 * MathF.PI * fc);
     float dt => 1f / sampleRate;
     float a => dt / (RC + dt);
 
     public iModule? Source;
+
+    public iModule? QSource;
+    public float QAmount = 0f;
+
+    // Get total mod from 2 modulators
+    public float TotalModulation() {
+        float mod = 0;
+        mod += (Modulator?.Value ?? 0) * ModulatorAmount;
+        mod += (Modulator2?.Value ?? 0) * ModulatorAmount2;
+        return mod;
+    }
+    
     public iModule? Modulator;
 
     public float ModulatorAmount { get; set; }
+
+
+    public iModule? Modulator2;
+
+    public float ModulatorAmount2 { get; set; }
 
 }

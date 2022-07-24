@@ -20,6 +20,8 @@ public class VCF : iModule {
 
         for (int i = 1; i < poles.Count; i++)
             poles[i].Source = poles[i - 1];
+
+        poles[0].QSource = poles[numPoles - 1];
     }
 
     public void Tick(float TimeIncrement) {
@@ -32,32 +34,49 @@ public class VCF : iModule {
         set => poles[0].Source = value;
     }
 
-    public float CutoffFrequency
-    {
+    public float CutoffFrequency {
         get => poles[0].CutoffFrequency;
-        set
-        {
+        set {
             foreach(var pole in poles)
                 pole.CutoffFrequency = value;
         }
     }
 
-    public iModule? Modulator
-    {
+    public iModule? Modulator {
         get => poles[0].Modulator;
-        set
-        {
+        set {
             foreach (var pole in poles)
                 pole.Modulator = value;
         }
     }
 
+    public float QAmount
+    {
+        get => poles[0].QAmount;
+        set => poles[0].QAmount = value;
+    }
+
     public float ModulatorAmount {
         get => poles[0].ModulatorAmount;
-        set
-        {
+        set {
             foreach (var pole in poles)
                 pole.ModulatorAmount = value;
+        }
+    }
+
+    public iModule? Modulator2 {
+        get => poles[0].Modulator2;
+        set {
+            foreach (var pole in poles)
+                pole.Modulator2 = value;
+        }
+    }
+
+    public float ModulatorAmount2 {
+        get => poles[0].ModulatorAmount2;
+        set {
+            foreach (var pole in poles)
+                pole.ModulatorAmount2 = value;
         }
     }
 }
