@@ -36,7 +36,7 @@ Three Oscillators:
  - Various Modulation Options
  
 
-![Demo]([https://raw.githubusercontent.com/BertyBasset/C-Analog-Synthesiser/main/UI.png](https://www.youtube.com/watch?v=Cr8jCMwvbxw))
+![Demo]([https://www.youtube.com/watch?v=Cr8jCMwvbxw])
 
 
 
