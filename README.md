@@ -1,4 +1,4 @@
-# C# Analog Synthesiser
+# C# Analog Synthesiser - Part 2
 
 Three oscillator monophonic virtual analog synthesizer. Lots of Modulation and Modifiers added since Part 1.
 
@@ -36,7 +36,7 @@ Three Oscillators:
  - Various Modulation Options
  
 
-https://www.youtube.com/watch?v=Cr8jCMwvbxw
+Demo https://www.youtube.com/watch?v=Cr8jCMwvbxw
 
 
 
