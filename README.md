@@ -15,7 +15,7 @@ Three Oscillators:
 - Virtual keyboard:
   - Mouse control
   - Computer keyboard control
-  - Midi keybboard control
+  - Midi keyboard control
 - Frequency control:
   - Keyboard tracking on/off
   - Octave tune
