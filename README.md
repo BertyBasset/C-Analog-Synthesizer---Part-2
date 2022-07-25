@@ -36,7 +36,7 @@ Three Oscillators:
  - Various Modulation Options
  
 
-![Demo]([https://www.youtube.com/watch?v=Cr8jCMwvbxw])
+https://www.youtube.com/watch?v=Cr8jCMwvbxw
 
 
 
