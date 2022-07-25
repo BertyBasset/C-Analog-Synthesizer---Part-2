@@ -458,7 +458,7 @@ public partial class SimpleTest : Form {
         // Filter
         sldVcfCutoff.ValueChanged += (o, e) => vcf.CutoffFrequency = sldVcfCutoff.Value / 1000f;
         sldVcfEnvAmount.ValueChanged += (o, e) => vcf.ModulatorAmount2 = sldVcfEnvAmount.Value / 1000f;
-        trackBar2.ValueChanged += (o, e) => vcf.QAmount = trackBar2.Value / 1000f;
+        sldVcfQ.ValueChanged += (o, e) => vcf.QAmount = sldVcfQ.Value / 1000f;
 
         sldVcfEnvAttack.ValueChanged += (o,e) => envGenVcf.Attack = sldVcfEnvAttack.Value / 100f;
         sldVcfEnvDecay.ValueChanged += (o, e) => envGenVcf.Decay = sldVcfEnvDecay.Value / 100f;

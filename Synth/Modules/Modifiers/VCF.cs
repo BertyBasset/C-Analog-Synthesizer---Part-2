@@ -15,6 +15,9 @@ public class VCF : iModule {
     {
         poles = new();
 
+
+
+
         for (int i = 0; i < numPoles; i++)
             poles.Add(new VCF1Pole());
 

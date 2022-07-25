@@ -20,7 +20,7 @@ public class VCF1Pole : iModule {
             Value = 0f;
         else {
             //Lowpass
-            Value = a * (Source.Value + QAmount * (QSource?.Value ?? 0)) / (1 + QAmount / 2) + (1 - a) * prevOut;
+            Value = a * Source.Value   + (1 - a) * prevOut;
 
             //Highpass
             //Value = RC / (RC + dt) * (prevOut + Source.Value - prevIn);

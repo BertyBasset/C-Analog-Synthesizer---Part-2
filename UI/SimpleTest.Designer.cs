@@ -236,9 +236,9 @@
             this.label58 = new System.Windows.Forms.Label();
             this.label57 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
-            this.trackBar3 = new System.Windows.Forms.TrackBar();
+            this.sldVcfKbdTracking = new System.Windows.Forms.TrackBar();
             this.label54 = new System.Windows.Forms.Label();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.sldVcfQ = new System.Windows.Forms.TrackBar();
             this.label53 = new System.Windows.Forms.Label();
             this.sldVcfEnvAmount = new System.Windows.Forms.TrackBar();
             this.label56 = new System.Windows.Forms.Label();
@@ -353,8 +353,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.sldLfoFMDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldVcfCutoff)).BeginInit();
             this.groupBox10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldVcfKbdTracking)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldVcfQ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldVcfEnvAmount)).BeginInit();
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sldVcfEnvRelease)).BeginInit();
@@ -2644,9 +2644,9 @@
             this.groupBox10.Controls.Add(this.label58);
             this.groupBox10.Controls.Add(this.label57);
             this.groupBox10.Controls.Add(this.label55);
-            this.groupBox10.Controls.Add(this.trackBar3);
+            this.groupBox10.Controls.Add(this.sldVcfKbdTracking);
             this.groupBox10.Controls.Add(this.label54);
-            this.groupBox10.Controls.Add(this.trackBar2);
+            this.groupBox10.Controls.Add(this.sldVcfQ);
             this.groupBox10.Controls.Add(this.label53);
             this.groupBox10.Controls.Add(this.sldVcfEnvAmount);
             this.groupBox10.Controls.Add(this.label56);
@@ -2704,15 +2704,15 @@
             this.label55.TabIndex = 72;
             this.label55.Text = "Kbd. Tracking:";
             // 
-            // trackBar3
+            // sldVcfKbdTracking
             // 
-            this.trackBar3.LargeChange = 1;
-            this.trackBar3.Location = new System.Drawing.Point(80, 111);
-            this.trackBar3.Maximum = 1000;
-            this.trackBar3.Name = "trackBar3";
-            this.trackBar3.Size = new System.Drawing.Size(129, 45);
-            this.trackBar3.TabIndex = 73;
-            this.trackBar3.TickFrequency = 200;
+            this.sldVcfKbdTracking.LargeChange = 1;
+            this.sldVcfKbdTracking.Location = new System.Drawing.Point(80, 111);
+            this.sldVcfKbdTracking.Maximum = 1000;
+            this.sldVcfKbdTracking.Name = "sldVcfKbdTracking";
+            this.sldVcfKbdTracking.Size = new System.Drawing.Size(129, 45);
+            this.sldVcfKbdTracking.TabIndex = 73;
+            this.sldVcfKbdTracking.TickFrequency = 200;
             // 
             // label54
             // 
@@ -2725,15 +2725,15 @@
             this.label54.TabIndex = 70;
             this.label54.Text = "Q:";
             // 
-            // trackBar2
+            // sldVcfQ
             // 
-            this.trackBar2.LargeChange = 1;
-            this.trackBar2.Location = new System.Drawing.Point(80, 78);
-            this.trackBar2.Maximum = 1000;
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(129, 45);
-            this.trackBar2.TabIndex = 71;
-            this.trackBar2.TickFrequency = 200;
+            this.sldVcfQ.LargeChange = 1;
+            this.sldVcfQ.Location = new System.Drawing.Point(80, 78);
+            this.sldVcfQ.Maximum = 1000;
+            this.sldVcfQ.Name = "sldVcfQ";
+            this.sldVcfQ.Size = new System.Drawing.Size(129, 45);
+            this.sldVcfQ.TabIndex = 71;
+            this.sldVcfQ.TickFrequency = 200;
             // 
             // label53
             // 
@@ -3021,8 +3021,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.sldVcfCutoff)).EndInit();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldVcfKbdTracking)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sldVcfQ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sldVcfEnvAmount)).EndInit();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
@@ -3243,9 +3243,9 @@
         private Label label58;
         private Label label57;
         private Label label55;
-        private TrackBar trackBar3;
+        private TrackBar sldVcfKbdTracking;
         private Label label54;
-        private TrackBar trackBar2;
+        private TrackBar sldVcfQ;
         private Label label53;
         private TrackBar sldVcfEnvAmount;
         private Label label56;
