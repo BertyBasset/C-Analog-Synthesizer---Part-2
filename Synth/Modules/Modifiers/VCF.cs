@@ -76,7 +76,7 @@ public class VCF : iModule {
         get => poles[0].ModulatorAmount2;
         set {
             foreach (var pole in poles)
-                pole.ModulatorAmount2 = value;
+                pole.ModulatorAmount2 = value * 5f;         // Magic number to sound good !!
         }
     }
 }

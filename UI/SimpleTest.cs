@@ -32,21 +32,32 @@ using Synth.Modules.Modulators;
  *  FM LFO                                                               DONE
  *  S+H                                                                  DONE
  *  LFOs                                                                 DONE
- *  Filter Envelope
+ *  Filter Envelope                                                      DONE
+ *  Pacth Bug                                                            DONE
+ *  Filter Q
+ *  Filter kbd Tracking
+ *  Write Part 4
+ *  Write Part 5
+ * ----------
+ *  Version 3
+ * ----------
+ *  Throwaway UI
+ *  Tidy Library
+ *  Rationalise CV/non CV
+ *  Stereo Support (mono and stero output connectors)
+ *  Stereo Processor (LFO, EG etc)
+ *  Modulator/Modulatable/Modulators/Modulator Modulator - tidy
  *  Package filter as 4 pole unit state var
  *  Analog Switch
  *  Conditioner.   Gain 0.1 to 10, shift -10 to +10
- *  Filter Q
- *  Part 3 - Modifiers 
- *  Filters 
- *  
- *  Part 4 - Effects
  *  Sequencer
  *  Phasers
  *  Reverb
- *    
- *  
- *  
+ *  UI
+ *  ----------
+ *  Version 4
+ *  ----------
+ *  Pico !!
  * */
 
 
@@ -62,17 +73,19 @@ public partial class SimpleTest : Form {
     Oscillator osc1;
     Oscillator osc2;
     Oscillator osc3;
-    Mixer oscMixer;
+    Mixer mixerOsc;
     AudioOut audioOut;
     Synth.IO.Keyboard keyboard;
-    EnvGen vcaEnvGen;
-    VCA vca;
-    EnvGen pdEnvGen;
-    EnvGen fmEnvGen;
-    EnvGen vcfEnvGen;
-    LFO vibLFO;
-    LFO fmLFO;
-    LFO vcfLFO;
+
+    EnvGen envGenVca;
+    EnvGen envGenPD;
+    EnvGen envGenFM;
+    EnvGen envGenVcf;
+
+    LFO lfoOscFreq;
+    LFO lfoOscFM;
+    LFO lfoVcfCutoff;
+
     Mixer mixerVcoFmAmount1;
     Mixer mixerVcoFmAmount2;
     Mixer mixerVcoFmAmount3;
@@ -82,9 +95,7 @@ public partial class SimpleTest : Form {
     Mixer mixerVcoPdAmount3;
 
     VCF vcf;
-    //VCF1Pole vcf1;
-    //VCF1Pole vcf2;
-    //VCF1Pole vcf3;
+    VCA vca;
 
 
     void InitSynth() {
@@ -103,11 +114,11 @@ public partial class SimpleTest : Form {
 
 
         // Create mixer, and connect three oscillators to it, first one with Level up
-        oscMixer = new Mixer();
-        oscMixer.Sources.Add(osc1);
-        oscMixer.Sources.Add(osc2);
-        oscMixer.Sources.Add(osc3);
-        oscMixer.Levels[0] = 1;
+        mixerOsc = new Mixer();
+        mixerOsc.Sources.Add(osc1);
+        mixerOsc.Sources.Add(osc2);
+        mixerOsc.Sources.Add(osc3);
+        mixerOsc.Levels[0] = 1;
         
         // Created keyboard and connect to oscillators - we can set to null to make keyboard independent
         keyboard = new Synth.IO.Keyboard();
@@ -115,19 +126,15 @@ public partial class SimpleTest : Form {
         osc2.Frequency.Keyboard = keyboard;
         osc3.Frequency.Keyboard = keyboard;
 
-        vcaEnvGen = new EnvGen() { Keyboard = keyboard };
-
 
         mixerVcoPdAmount1 = new Mixer();
         mixerVcoPdAmount2 = new Mixer();
         mixerVcoPdAmount3 = new Mixer();
 
-        pdEnvGen = new EnvGen() { Keyboard = keyboard };
-        mixerVcoPdAmount1.Sources.Add(pdEnvGen);
-        mixerVcoPdAmount2.Sources.Add(pdEnvGen);
-        mixerVcoPdAmount3.Sources.Add(pdEnvGen);
-
-
+        envGenPD = new EnvGen() { Keyboard = keyboard };
+        mixerVcoPdAmount1.Sources.Add(envGenPD);
+        mixerVcoPdAmount2.Sources.Add(envGenPD);
+        mixerVcoPdAmount3.Sources.Add(envGenPD);
 
         osc1.Duty.Modulator = mixerVcoPdAmount1;
         osc1.Duty.ModulationAmount = 1f;
@@ -137,35 +144,26 @@ public partial class SimpleTest : Form {
         osc3.Duty.ModulationAmount = 0f;
 
 
-
-
-        vca = new VCA() { Modulator = vcaEnvGen, Source = oscMixer };
-
         // LFOs
-        vibLFO = new LFO() { Frequency = 0, WaveForm = WaveForm.GetByType(WaveformType.Sine), Keyboard = keyboard };        // Keyboard to add delay
-        fmLFO = new LFO() { Frequency = 0, WaveForm = WaveForm.GetByType(WaveformType.Sine), Keyboard = keyboard };
-        vcfLFO = new LFO() { Frequency = 0, WaveForm = WaveForm.GetByType(WaveformType.Sine), Keyboard = keyboard };
+        lfoOscFreq = new LFO() { Frequency = 0, WaveForm = WaveForm.GetByType(WaveformType.Sine), Keyboard = keyboard };        // Keyboard to add delay
+        lfoOscFM = new LFO() { Frequency = 0, WaveForm = WaveForm.GetByType(WaveformType.Sine), Keyboard = keyboard };
+        lfoVcfCutoff = new LFO() { Frequency = 0, WaveForm = WaveForm.GetByType(WaveformType.Sine), Keyboard = keyboard };
 
-        // HOW ARE WE PATCHING LFOS and Amount controls to the modulated modules ?
-        osc1.Frequency.ModulatorLFO = vibLFO;
+        osc1.Frequency.ModulatorLFO = lfoOscFreq;
 
-
-
-        fmEnvGen = new EnvGen() { Keyboard = keyboard };
-
-
+        envGenFM = new EnvGen() { Keyboard = keyboard };
 
         mixerVcoFmAmount1  = new Mixer();
-        mixerVcoFmAmount1.Sources.Add(fmEnvGen);
-        mixerVcoFmAmount1.Sources.Add(fmLFO);
+        mixerVcoFmAmount1.Sources.Add(envGenFM);
+        mixerVcoFmAmount1.Sources.Add(lfoOscFM);
 
         mixerVcoFmAmount2 = new Mixer();
-        mixerVcoFmAmount2.Sources.Add(fmEnvGen);
-        mixerVcoFmAmount2.Sources.Add(fmLFO);
+        mixerVcoFmAmount2.Sources.Add(envGenFM);
+        mixerVcoFmAmount2.Sources.Add(lfoOscFM);
 
         mixerVcoFmAmount3 = new Mixer();
-        mixerVcoFmAmount3.Sources.Add(fmEnvGen);
-        mixerVcoFmAmount3.Sources.Add(fmLFO);
+        mixerVcoFmAmount3.Sources.Add(envGenFM);
+        mixerVcoFmAmount3.Sources.Add(lfoOscFM);
 
         osc1.Frequency.ModulationAmountModulator = mixerVcoFmAmount1;
         osc1.Frequency.ModulationAmountModulatorAmount = 1f;            // Set to max as the EG and LFO levels will be set on the mocer
@@ -174,13 +172,14 @@ public partial class SimpleTest : Form {
         osc3.Frequency.ModulationAmountModulatorAmount = 1f;
         osc3.Frequency.ModulationAmountModulator = mixerVcoFmAmount3;
 
-        vcfEnvGen = new() { Keyboard = keyboard};
-        vcf = new() { Source = vca, Modulator = vcfLFO, Modulator2 = vcfEnvGen };
-
-
+        envGenVcf = new() { Keyboard = keyboard};
+        vcf = new() {  CutoffFrequency = 1, Source = mixerOsc, Modulator = lfoVcfCutoff, Modulator2 = envGenVcf };
+        
+        envGenVca = new EnvGen() { Keyboard = keyboard };
+        vca = new VCA() { Modulator = envGenVca, Source = vcf };
 
         // Hook mixer output to VCA
-        audioOut = new AudioOut() { Source = vcf };
+        audioOut = new AudioOut() { Source = vca };
 
 
 
@@ -190,16 +189,16 @@ public partial class SimpleTest : Form {
         synth.Modules.Add(osc1);
         synth.Modules.Add(osc2);
         synth.Modules.Add(osc3);
-        synth.Modules.Add(oscMixer);
+        synth.Modules.Add(mixerOsc);
         synth.Modules.Add(audioOut);
         synth.Modules.Add(keyboard);
-        synth.Modules.Add(vcaEnvGen);
+        synth.Modules.Add(envGenVca);
         synth.Modules.Add(vca);
-        synth.Modules.Add(pdEnvGen);
-        synth.Modules.Add(fmEnvGen);
-        synth.Modules.Add(vibLFO);
-        synth.Modules.Add(fmLFO);
-        synth.Modules.Add(vcfLFO);
+        synth.Modules.Add(envGenPD);
+        synth.Modules.Add(envGenFM);
+        synth.Modules.Add(lfoOscFreq);
+        synth.Modules.Add(lfoOscFM);
+        synth.Modules.Add(lfoVcfCutoff);
         synth.Modules.Add(mixerVcoFmAmount1);
         synth.Modules.Add(mixerVcoFmAmount2);
         synth.Modules.Add(mixerVcoFmAmount3);
@@ -207,7 +206,7 @@ public partial class SimpleTest : Form {
         synth.Modules.Add(mixerVcoPdAmount2);
         synth.Modules.Add(mixerVcoPdAmount3);
         synth.Modules.Add(vcf);
-        synth.Modules.Add(vcfEnvGen);
+        synth.Modules.Add(envGenVcf);
         
 
 
@@ -237,13 +236,13 @@ public partial class SimpleTest : Form {
         Debug.Assert(osc1 != null);
         Debug.Assert(osc2 != null);
         Debug.Assert(osc3 != null);
-        Debug.Assert(oscMixer != null);
+        Debug.Assert(mixerOsc != null);
         Debug.Assert(audioOut != null);
         Debug.Assert(keyboard != null);
-        Debug.Assert(pdEnvGen != null);
+        Debug.Assert(envGenPD != null);
         Debug.Assert(vca != null);
-        Debug.Assert(vcaEnvGen != null);
-        Debug.Assert(fmEnvGen != null);
+        Debug.Assert(envGenVca != null);
+        Debug.Assert(envGenFM != null);
         #endregion
 
 
@@ -367,16 +366,16 @@ public partial class SimpleTest : Form {
         cmdSelectOscSetting2.Click += CmdOsctSetting2_Click;
 
         // VCA Env Gen
-        sldAttack.ValueChanged += (o, e) => vcaEnvGen.Attack = sldAttack.Value / 100f;
-        sldDecay.ValueChanged += (o, e) => vcaEnvGen.Decay = sldDecay.Value / 100f;
-        sldSustain.ValueChanged += (o, e) => vcaEnvGen.Sustain = sldSustain.Value / 1000f;
-        sldRelease.ValueChanged += (o, e) => vcaEnvGen.Release = sldRelease.Value / 100f;
+        sldAttack.ValueChanged += (o, e) => envGenVca.Attack = sldAttack.Value / 100f;
+        sldDecay.ValueChanged += (o, e) => envGenVca.Decay = sldDecay.Value / 100f;
+        sldSustain.ValueChanged += (o, e) => envGenVca.Sustain = sldSustain.Value / 1000f;
+        sldRelease.ValueChanged += (o, e) => envGenVca.Release = sldRelease.Value / 100f;
 
         // PD Env Gen
-        sldPDAttack.ValueChanged += (o, e) => pdEnvGen.Attack = sldPDAttack.Value / 100f;
-        sldPDDecay.ValueChanged += (o, e) => pdEnvGen.Decay = sldPDDecay.Value / 100f;
-        sldPDSustain.ValueChanged += (o, e) => pdEnvGen.Sustain = sldPDSustain.Value / 1000f;
-        sldPDRelease.ValueChanged += (o, e) => pdEnvGen.Release = sldPDRelease.Value / 100f;
+        sldPDAttack.ValueChanged += (o, e) => envGenPD.Attack = sldPDAttack.Value / 100f;
+        sldPDDecay.ValueChanged += (o, e) => envGenPD.Decay = sldPDDecay.Value / 100f;
+        sldPDSustain.ValueChanged += (o, e) => envGenPD.Sustain = sldPDSustain.Value / 1000f;
+        sldPDRelease.ValueChanged += (o, e) => envGenPD.Release = sldPDRelease.Value / 100f;
 
         sldPDModAmount.ValueChanged += (o, e) => {
             mixerVcoPdAmount1.Levels[0] = sldPDModAmount.Value / 1000f;
@@ -391,10 +390,10 @@ public partial class SimpleTest : Form {
 
 
         // FM Env Gen
-        sldFMAttack.ValueChanged += (o, e) => fmEnvGen.Attack = sldFMAttack.Value / 100f;
-        sldFMDecay.ValueChanged += (o, e) => fmEnvGen.Decay = sldFMDecay.Value / 100f;
-        sldFMSustain.ValueChanged += (o, e) => fmEnvGen.Sustain = sldFMSustain.Value / 1000f;
-        sldFMRelease.ValueChanged += (o, e) => fmEnvGen.Release = sldFMRelease.Value / 100f;
+        sldFMAttack.ValueChanged += (o, e) => envGenFM.Attack = sldFMAttack.Value / 100f;
+        sldFMDecay.ValueChanged += (o, e) => envGenFM.Decay = sldFMDecay.Value / 100f;
+        sldFMSustain.ValueChanged += (o, e) => envGenFM.Sustain = sldFMSustain.Value / 1000f;
+        sldFMRelease.ValueChanged += (o, e) => envGenFM.Release = sldFMRelease.Value / 100f;
 
         sldFMModAmount.ValueChanged += (o, e) => {
             mixerVcoFmAmount1.Levels[0] = sldFMModAmount.Value / 1000f;
@@ -427,25 +426,25 @@ public partial class SimpleTest : Form {
 
 
         // Lfos
-        sldLfoVcfDelay.ValueChanged += (o, e) => { vcfLFO.Delay = sldLfoVcfDelay.Value / 1000f; };
-        sldLfoVcfWave.ValueChanged += (o, e) => { vcfLFO.WaveForm = getWaveFormByLfoSlider(sldLfoVcfWave); };
-        sldLfoVcfFreq.ValueChanged += (o, e) => { vcfLFO.Frequency = sldLfoVcfFreq.Value / 1000f; };
+        sldLfoVcfDelay.ValueChanged += (o, e) => { lfoVcfCutoff.Delay = sldLfoVcfDelay.Value / 1000f; };
+        sldLfoVcfWave.ValueChanged += (o, e) => { lfoVcfCutoff.WaveForm = getWaveFormByLfoSlider(sldLfoVcfWave); };
+        sldLfoVcfFreq.ValueChanged += (o, e) => { lfoVcfCutoff.Frequency = sldLfoVcfFreq.Value / 1000f; };
         sldLfoVcfAmount.ValueChanged += (o, e) => { vcf.ModulatorAmount = sldLfoVcfAmount.Value / 1000f; };
 
 
 
-        sldLfoVibDelay.ValueChanged += (o, e) => { vibLFO.Delay = sldLfoVibDelay.Value / 1000f; };
-        sldLfoVibWave.ValueChanged += (o, e) => { vibLFO.WaveForm = getWaveFormByLfoSlider(sldLfoVibWave); };
-        sldLfoVibFreq.ValueChanged += (o, e) => { vibLFO.Frequency = sldLfoVibFreq.Value / 1000f; };
+        sldLfoVibDelay.ValueChanged += (o, e) => { lfoOscFreq.Delay = sldLfoVibDelay.Value / 1000f; };
+        sldLfoVibWave.ValueChanged += (o, e) => { lfoOscFreq.WaveForm = getWaveFormByLfoSlider(sldLfoVibWave); };
+        sldLfoVibFreq.ValueChanged += (o, e) => { lfoOscFreq.Frequency = sldLfoVibFreq.Value / 1000f; };
         sldLfoVibAmount.ValueChanged += (o, e) => { osc1.Frequency.LFOAmount = sldLfoVibAmount.Value; osc2.Frequency.LFOAmount = sldLfoVibAmount.Value; osc3.Frequency.LFOAmount = sldLfoVibAmount.Value; };
-        chkLfoVibOsc1.CheckedChanged += (o, e) => { if (chkLfoVibOsc1.Checked) osc1.Frequency.ModulatorLFO = vibLFO; else osc1.Frequency.ModulatorLFO = null; };
-        chkLfoVibOsc2.CheckedChanged += (o, e) => { if (chkLfoVibOsc2.Checked) osc2.Frequency.ModulatorLFO = vibLFO; else osc2.Frequency.ModulatorLFO = null; };
-        chkLfoVibOsc3.CheckedChanged += (o, e) => { if (chkLfoVibOsc3.Checked) osc3.Frequency.ModulatorLFO = vibLFO; else osc3.Frequency.ModulatorLFO = null; };
+        chkLfoVibOsc1.CheckedChanged += (o, e) => { if (chkLfoVibOsc1.Checked) osc1.Frequency.ModulatorLFO = lfoOscFreq; else osc1.Frequency.ModulatorLFO = null; };
+        chkLfoVibOsc2.CheckedChanged += (o, e) => { if (chkLfoVibOsc2.Checked) osc2.Frequency.ModulatorLFO = lfoOscFreq; else osc2.Frequency.ModulatorLFO = null; };
+        chkLfoVibOsc3.CheckedChanged += (o, e) => { if (chkLfoVibOsc3.Checked) osc3.Frequency.ModulatorLFO = lfoOscFreq; else osc3.Frequency.ModulatorLFO = null; };
 
 
-        sldLfoFMDelay.ValueChanged += (o, e) => { fmLFO.Delay = sldLfoFMDelay.Value / 1000f; };
-        sldLfoFMWave.ValueChanged += (o, e) => { fmLFO.WaveForm = getWaveFormByLfoSlider(sldLfoFMWave); };
-        sldLfoFMFreq.ValueChanged += (o, e) => { fmLFO.Frequency = sldLfoFMFreq.Value / 1000f; };
+        sldLfoFMDelay.ValueChanged += (o, e) => { lfoOscFM.Delay = sldLfoFMDelay.Value / 1000f; };
+        sldLfoFMWave.ValueChanged += (o, e) => { lfoOscFM.WaveForm = getWaveFormByLfoSlider(sldLfoFMWave); };
+        sldLfoFMFreq.ValueChanged += (o, e) => { lfoOscFM.Frequency = sldLfoFMFreq.Value / 1000f; };
         sldLfoFMAmount.ValueChanged += (o, e) => {
             mixerVcoFmAmount1.Levels[1] = sldLfoFMAmount.Value / 5000f;
             mixerVcoFmAmount2.Levels[1] = sldLfoFMAmount.Value / 5000f;
@@ -461,10 +460,10 @@ public partial class SimpleTest : Form {
         sldVcfEnvAmount.ValueChanged += (o, e) => vcf.ModulatorAmount2 = sldVcfEnvAmount.Value / 1000f;
         trackBar2.ValueChanged += (o, e) => vcf.QAmount = trackBar2.Value / 1000f;
 
-        sldVcfEnvAttack.ValueChanged += (o,e) => vcfEnvGen.Attack = sldVcfEnvAttack.Value / 100f;
-        sldVcfEnvDecay.ValueChanged += (o, e) => vcfEnvGen.Decay = sldVcfEnvAttack.Value / 100f;
-        sldVcfEnvSustain.ValueChanged += (o, e) => vcfEnvGen.Sustain = sldVcfEnvAttack.Value / 100f;
-        sldVcfEnvRelease.ValueChanged += (o, e) => vcfEnvGen.Release = sldVcfEnvAttack.Value / 100f;
+        sldVcfEnvAttack.ValueChanged += (o,e) => envGenVcf.Attack = sldVcfEnvAttack.Value / 100f;
+        sldVcfEnvDecay.ValueChanged += (o, e) => envGenVcf.Decay = sldVcfEnvDecay.Value / 100f;
+        sldVcfEnvSustain.ValueChanged += (o, e) => envGenVcf.Sustain = sldVcfEnvSustain.Value / 1000f;
+        sldVcfEnvRelease.ValueChanged += (o, e) => envGenVcf.Release = sldVcfEnvRelease.Value / 100f;
 
 
         virtualKeyboard.NoteChanged += virtualKeyboard_NoteChanged;
@@ -596,7 +595,7 @@ public partial class SimpleTest : Form {
     }
 
     private void SldLevel_ValueChanged(object? sender, EventArgs e) {
-        oscMixer.Levels[0] = sldLevel.Value / 100f;
+        mixerOsc.Levels[0] = sldLevel.Value / 100f;
     }
     private void CmdOsctSetting_Click(object? sender, EventArgs e) {
         bool originalSynthStateStarted = synth.Started;
@@ -704,7 +703,7 @@ public partial class SimpleTest : Form {
         osc2.Duty.Value = (float)sldPWM1.Value / 100f;
     }
     private void SldLevel1_ValueChanged(object? sender, EventArgs e) {
-        oscMixer.Levels[1] = sldLevel1.Value / 100f;
+        mixerOsc.Levels[1] = sldLevel1.Value / 100f;
     }
 
     private void CmdOsctSetting1_Click(object? sender, EventArgs e) {
@@ -815,7 +814,7 @@ public partial class SimpleTest : Form {
         osc3.Duty.Value = (float)sldPWM2.Value / 100f;
     }
     private void SldLevel2_ValueChanged(object? sender, EventArgs e) {
-        oscMixer.Levels[2] = sldLevel2.Value / 100f;
+        mixerOsc.Levels[2] = sldLevel2.Value / 100f;
     }
 
     private void CmdOsctSetting2_Click(object? sender, EventArgs e) {
