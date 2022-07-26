@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Synth.Modules.Modifiers;
+﻿namespace Synth.Modules.Modifiers;
 
 public class VCA : iModule {
+    #region Public Properties
+    public iModule? Source { get; set; }
+    public iModule? Modulator { get; set; }
+    #endregion
 
+    #region iModule Members
     public float Value { get; internal set; }
 
     public void Tick(float TimeIncrement) {
@@ -20,8 +19,5 @@ public class VCA : iModule {
                 Value = Source.Value * Modulator.Value;
         }
     }
-
-    public iModule? Source;
-    public iModule? Modulator;
-
+    #endregion
 }

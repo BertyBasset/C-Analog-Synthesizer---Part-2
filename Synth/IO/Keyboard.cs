@@ -1,35 +1,33 @@
 ﻿using Synth.Modules;
 using Synth.Properties;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Synth.IO;
 
-
-// Keyboard and Frequecny classes should be dealing with logarithmic digital
+// Keyboard and Frequency classes should be dealing with logarithmic digital
 // equivalent of CV, however we've already gone down frequency route
 
 public class Keyboard : iModule {
+    #region Public Events
     public event EventHandler? TriggerOn;
     public event EventHandler? TriggerOff;
+    #endregion
 
-
-
+    #region Private Variables
     // Used to implement Glide
     float _previousNoteFreq = 0;  // Previous Note       
     float _newNoteFreq;           // New Note 
+    #endregion
 
+    #region Constructor
     public Keyboard() {
         // init
         Value = Note.GetByDesc("C3").Frequency;     // Set default
         _previousNoteFreq = Value;
         _newNoteFreq = Value;
     }
+    #endregion
 
-
+    #region Public Properties
     // This is primarilly for internal usage by synth modules
     public bool Gate { get; set; }
 
@@ -48,11 +46,19 @@ public class Keyboard : iModule {
             TriggerOn?.Invoke(this, new EventArgs());
         }
     }
-
-
-
     public float Glide { get;  set; } = 0;
 
+    private Note _Note = new Note();
+    public Note Note {
+        get { return _Note; }
+        set  {
+            _Note = value;
+            _newNoteFreq = _Note.Frequency;
+        }
+    }
+    #endregion
+
+    #region iModule Members
     public float Value { get; internal set; } = 0;
 
     public void Tick(float interval) {
@@ -77,14 +83,5 @@ public class Keyboard : iModule {
         } else
             _previousNoteFreq = _newNoteFreq;
     }
-
-    private Note _Note = new Note();
-    public Note Note {
-        get { return _Note; }
-        set  {
-            _Note = value;
-            _newNoteFreq = _Note.Frequency;
-        }
-    }
-
+    #endregion
 }

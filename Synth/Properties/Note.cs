@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-// Class to abstract Notes on a keyboard, and provide corresponding frequecny
+﻿// Class to abstract Notes on a keyboard, and provide corresponding frequecny
 
 namespace Synth.Properties;
 
 public class Note {
-    public int ID;
-    public string Desc = "";
-    public float Frequency = 0;
+    #region Public Properties
+    public int ID { get; set; } 
+    public string Desc { get; set; } = "";
+    public float Frequency { get; set; } = 0;
+    #endregion
 
+    #region Overrides
     public override string ToString() {
         return Desc;
     }
+    #endregion
 
+    #region Public Methods
     public static Note GetByDesc(string Desc) {
         return GetNoteList().Where(n => n.Desc.ToUpper() == Desc.ToUpper()).First();
     }
@@ -95,4 +94,5 @@ public class Note {
 
         return notes;
     }
+    #endregion
 }

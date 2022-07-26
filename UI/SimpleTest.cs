@@ -34,8 +34,7 @@ using Synth.Modules.Modulators;
  *  LFOs                                                                 DONE
  *  Filter Envelope                                                      DONE
  *  Pacth Bug                                                            DONE
- *  Filter Q
- *  Filter kbd Tracking
+ *  Filter kbd Tracking                                                  - to do
  *  Write Part 4
  *  Write Part 5
  * ----------
@@ -43,6 +42,7 @@ using Synth.Modules.Modulators;
  * ----------
  *  Throwaway UI
  *  Tidy Library
+ *  Filter Q Version 3
  *  Rationalise CV/non CV
  *  Stereo Support (mono and stero output connectors)
  *  Stereo Processor (LFO, EG etc)
@@ -458,7 +458,7 @@ public partial class SimpleTest : Form {
         // Filter
         sldVcfCutoff.ValueChanged += (o, e) => vcf.CutoffFrequency = sldVcfCutoff.Value / 1000f;
         sldVcfEnvAmount.ValueChanged += (o, e) => vcf.ModulatorAmount2 = sldVcfEnvAmount.Value / 1000f;
-        sldVcfQ.ValueChanged += (o, e) => vcf.QAmount = sldVcfQ.Value / 1000f;
+        ///sldVcfQ.ValueChanged += (o, e) => vcf.QAmount = sldVcfQ.Value / 1000f;
 
         sldVcfEnvAttack.ValueChanged += (o,e) => envGenVcf.Attack = sldVcfEnvAttack.Value / 100f;
         sldVcfEnvDecay.ValueChanged += (o, e) => envGenVcf.Decay = sldVcfEnvDecay.Value / 100f;

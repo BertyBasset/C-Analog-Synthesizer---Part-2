@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Synth.Modules.Sources;
+﻿using Synth.Modules.Sources;
 
 namespace Synth.Properties {
     public enum WaveformType {
@@ -20,12 +15,13 @@ namespace Synth.Properties {
     }
 
     public class WaveForm {
+        #region Public Properties
+        public int ID { get; set; }
+        public string Name { get; set; } = "";
+        public WaveformType Type { get; set; }
 
-        public int ID;
-        public string Name = "";
-        public WaveformType Type;
+
         internal Modules.Sources.iGenerator? _Generator;
-
         internal Modules.Sources.iGenerator Generator {
             get {
                 if (_Generator == null) {
@@ -47,8 +43,9 @@ namespace Synth.Properties {
                 return _Generator;
             }
         }
+        #endregion
 
-
+        #region Public Methods
         public static WaveForm GetByID(int ID) {
             return GetWaveFormList().Where(w => w.ID == ID).First();
         }
@@ -77,5 +74,6 @@ namespace Synth.Properties {
 
             return waveforms;
         }
+        #endregion
     }
 }

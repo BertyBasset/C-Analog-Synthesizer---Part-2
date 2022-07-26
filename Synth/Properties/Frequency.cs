@@ -1,22 +1,18 @@
 ﻿using Synth.IO;
 using Synth.Modules;
 using Synth.Modules.Modulators;
-using Synth.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Synth.Properties;
 public class Frequency {
-    // Keyboard and Frequecny classes should be dealing with logarithmic digital
+    // Keyboard and Frequency classes should be dealing with logarithmic digital
     // equivalent of CV, however we've already gone down frequency route
     // However, consider changing, esp if we go down C++ pico route
 
+    #region Private Properties etc.
     private const float DEFAULT_FREQUENCY = 110f;
+    #endregion
 
-
+    #region Public Properties
     // Keyboard Control
     // If false, Note property has no effect on frequecny
     private bool _Kbd = true;
@@ -72,7 +68,7 @@ public class Frequency {
     public Keyboard? Keyboard { get; set; }
 
 
-    public iModule? Modulator;
+    public iModule? Modulator { get; set; }
 
     private float _ModulationAmount;
     public float ModulationAmount {                            // 0 to 10000
@@ -97,7 +93,7 @@ public class Frequency {
 
 
     // We've got a modulator to modulate the modulation amount!!  
-    public iModule? ModulationAmountModulator;
+    public iModule? ModulationAmountModulator { get; set; }
     private float _ModulationAmountModulatorAmount;
     public float ModulationAmountModulatorAmount {                            // 0 to 10000
         get { return _ModulationAmountModulatorAmount; }
@@ -105,10 +101,10 @@ public class Frequency {
             _ModulationAmountModulatorAmount = Utils.Misc.Constrain(value, 0f, 10000f);
         }
     }
+    #endregion
 
-
+    #region Public Methods
     //  Modulation Frequency scaling is 1.0 per octave
-
     public float GetFrequency() {
         // NB     / 2 because of stereo interleaving
         // This is final frequency used for driving Phase Accumulator
@@ -124,8 +120,6 @@ public class Frequency {
         PreModFrequency = PreModFrequency * MathF.Pow(2, _Tune);      // Tune within octave
         PreModFrequency = PreModFrequency * MathF.Pow(2, _FineTune);  // Tune within semitone
         var f = PreModFrequency / 2f;
-
-
 
         // <<-- ** Apply modulation here
         if (Modulator != null) {
@@ -144,6 +138,7 @@ public class Frequency {
 
         return f;
     }
+    #endregion
 
 }
 

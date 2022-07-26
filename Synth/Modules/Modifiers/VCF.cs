@@ -1,36 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Synth.IO;
 
 namespace Synth.Modules.Modifiers;
 
 public class VCF : iModule {
-    public float Value => poles[poles.Count - 1].Value;
+    #region Private Properties
+    List<VCF1Pole> poles { get; set; }
+    #endregion
 
-    //List<VCF1Pole> poles = new() { new VCF1Pole(), new VCF1Pole(), new VCF1Pole(), new VCF1Pole() };
-    List<VCF1Pole> poles;
-    public VCF(int numPoles = 8)
-    {
+    #region Constructor
+    public VCF(int numPoles = 8) {
         poles = new();
-
-
-
 
         for (int i = 0; i < numPoles; i++)
             poles.Add(new VCF1Pole());
 
         for (int i = 1; i < poles.Count; i++)
             poles[i].Source = poles[i - 1];
-
-        poles[0].QSource = poles[numPoles - 1];
     }
+    #endregion
 
-    public void Tick(float TimeIncrement) {
-        foreach (var pole in poles)
-            pole.Tick(TimeIncrement);
-    }
+    #region Public Properties
+    public Keyboard? Keyboard { get; set; }     // Used for keyboard tracking
 
     public iModule? Source {
         get => poles[0].Source;
@@ -53,11 +43,6 @@ public class VCF : iModule {
         }
     }
 
-    public float QAmount
-    {
-        get => poles[0].QAmount;
-        set => poles[0].QAmount = value;
-    }
 
     public float ModulatorAmount {
         get => poles[0].ModulatorAmount;
@@ -82,4 +67,14 @@ public class VCF : iModule {
                 pole.ModulatorAmount2 = value * 5f;         // Magic number to sound good !!
         }
     }
+    #endregion
+
+    #region iModule Members
+    public float Value => poles[poles.Count - 1].Value;
+
+    public void Tick(float TimeIncrement) {
+        foreach (var pole in poles)
+            pole.Tick(TimeIncrement);
+    }
+    #endregion
 }
