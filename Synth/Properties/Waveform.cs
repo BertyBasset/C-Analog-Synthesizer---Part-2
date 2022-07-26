@@ -1,6 +1,7 @@
-﻿using Synth.Modules.Sources;
+﻿using Synth.Modules.Sources.Generators;
 
-namespace Synth.Properties {
+namespace Synth.Properties
+{
     public enum WaveformType {
         Sine = 0,
         Saw,
@@ -21,8 +22,8 @@ namespace Synth.Properties {
         public WaveformType Type { get; set; }
 
 
-        internal Modules.Sources.iGenerator? _Generator;
-        internal Modules.Sources.iGenerator Generator {
+        internal iGenerator? _Generator;
+        internal iGenerator Generator {
             get {
                 if (_Generator == null) {
                     switch (Type) {

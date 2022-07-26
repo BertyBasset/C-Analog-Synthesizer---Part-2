@@ -1,21 +1,14 @@
 ﻿using Synth.IO;
-using Synth.Modules.Sources;
+using Synth.Modules.Sources.Generators;
 using Synth.Properties;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Synth.Modules.Modulators;
 
-
 public class LFO : iModule {
+    #region Private Properties
     float _level = 0f;
-    bool _Gate = false;     // Ig Gate high, we're in delay phase, incrmenting level
-
+    bool _Gate = false;                 // If Gate high, we're in delay phase, incrementing level
     const float MAX_DELAY = 5f;         // Max time to get to full LFO output level of x1
-
 
     // Generator class will change according to selected waveform
     // The Oscillator will call _Generators GenerateSample(float Phase) method each time it requires a new waveform sample
@@ -23,12 +16,13 @@ public class LFO : iModule {
 
     // _Phase is the oscillator's 360 degree modulo phase accumulator
     float _Phase = 0f;
+    #endregion
 
+    #region Public Properties
     private WaveForm _WaveForm = new WaveForm();
     public WaveForm WaveForm {
         get { return _WaveForm; }
-        set
-        {
+        set {
             _WaveForm = value;
             _Generator = _WaveForm.Generator;   // This is where we assign Waveform Specific Generator to private _Generator object
         }
@@ -45,10 +39,6 @@ public class LFO : iModule {
             _Frequency = f;
         }
     }
-
-
-    public float Value { get; set; }
-
     private float _Delay = 0;
     public float Delay {
         get { return _Delay; }
@@ -57,13 +47,18 @@ public class LFO : iModule {
             _Delay = Utils.Misc.Constrain(value *5f, 0f, MAX_DELAY);
         }
     }
+    #endregion
 
-
-    Random r = new Random();
-    // This is the *-*-* MEATY *-*-* bit
+    #region Private Properties
+    Random r = new();
     float oldPhase;
+    #endregion
+
+    #region iModule Members
+    public float Value { get; set; }
+
+    // This is the *-*-* MEATY *-*-* bit
     public void Tick(float timeIncrement) {
-        
         // Advance Phase Accumulator acording to timeIncrement and current frequency
         float delta = timeIncrement * Frequency * 360f;
         _Phase += delta;
@@ -82,15 +77,12 @@ public class LFO : iModule {
                 value = _Generator.GenerateSample(_Phase, 0, delta, false);
             else
                 value =  - _Generator.GenerateSample(_Phase, 0, delta, false);
-        Value = value * _level * 2;         // Scale by _level, which ramps up and down according to delay (0-1 = 0-5s)  where MAX_DELAY=5
+            Value = value * _level * 2;         // Scale by _level, which ramps up and down according to delay (0-1 = 0-5s)  where MAX_DELAY=5
         }
         oldPhase = _Phase;
 
             
-            
         // Increment/decrement or leave level as is
-
-
         if (_Delay == 0)
             _level = 1f;
         else {
@@ -109,10 +101,8 @@ public class LFO : iModule {
                     _level = 0f;
             }
         }
-
-
     }
-
+    #endregion
 
     #region Trigger Event handling
     private Keyboard? _Keyboard;

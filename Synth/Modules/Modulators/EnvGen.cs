@@ -1,15 +1,22 @@
 ﻿using Synth.IO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Synth.Modules.Modulators;
 
 public class EnvGen : iModule {
-    public event EventHandler? StageChanged;
+    #region ADSR Enum
+    public enum Stage {
+        Attack,
+        Decay,
+        Sustain,
+        Release
+    }
+    #endregion
 
+    #region Public Events
+    public event EventHandler? StageChanged;
+    #endregion
+
+    #region Public Properties
     private Stage _currentStage = Stage.Release;
     public Stage CurrentStage {
         get { return _currentStage; }
@@ -19,15 +26,6 @@ public class EnvGen : iModule {
         }
     }
 
-    public enum Stage {
-        Attack,
-        Decay,
-        Sustain,
-        Release
-    }
-
-
-    #region ADSR properties
     private float _Attack = .05f;
     public float Attack {
         get { return _Attack; }
@@ -62,11 +60,8 @@ public class EnvGen : iModule {
     }
     #endregion
 
-
-
+    #region iModule Members
     public float Value {get; set;}
-
-
 
     // This is the *-*-* MEATY *-*-* bit
     public void Tick(float TimeIncrement) {
@@ -102,6 +97,7 @@ public class EnvGen : iModule {
             default: break;
         }
     }
+    #endregion
 
     #region Trigger Event handling
     private Keyboard? _Keyboard;

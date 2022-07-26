@@ -1,8 +1,12 @@
-﻿namespace Synth.Modules.Sources;
-internal class GeneratorSuperSaw : iGenerator {
-    const float AMPLITUDE_NORMALISATION = .3f;
+﻿namespace Synth.Modules.Sources.Generators;
 
+internal class GeneratorSuperSaw : iGenerator {
+    #region Private Properties    
+    const float AMPLITUDE_NORMALISATION = .3f;
     private double[] _PhaseAccumulators = new double[7];
+    #endregion
+
+    #region Public Properties
     private double[] _FrequencyRatios = new double[7] { 0.987, 0.998, 0.999, 1.000, 1.001, 1.002, 1.003 };
     public double[] FrequencyRatios {
         get { return _FrequencyRatios; }
@@ -13,7 +17,9 @@ internal class GeneratorSuperSaw : iGenerator {
             _PhaseAccumulators = new double[_FrequencyRatios.Length];
         }
     }
+    #endregion
 
+    #region iGenerator Members
     //                                                                                  not used
     float iGenerator.GenerateSample(float Phase, float Duty, float PhaseIncrement, bool IsZeroCrossing) {
         // Advance each Phase accumulator by PhaseIncrement time RelativeFrequenices to give 7 wave detuned SuperSaw
@@ -26,7 +32,7 @@ internal class GeneratorSuperSaw : iGenerator {
             sample += (float)(_PhaseAccumulators[i] / 180f - 1);
 
             // Increment Phase Accumulators
-            _PhaseAccumulators[i] += (PhaseIncrement * _FrequencyRatios[i]);
+            _PhaseAccumulators[i] += PhaseIncrement * _FrequencyRatios[i];
             _PhaseAccumulators[i] = _PhaseAccumulators[i] % 360.0;
         }
 
@@ -40,5 +46,6 @@ internal class GeneratorSuperSaw : iGenerator {
         for (int i = 0; i < _PhaseAccumulators.Length; i++)
             _PhaseAccumulators[i] = 0f;
     }
+    #endregion
 }
 

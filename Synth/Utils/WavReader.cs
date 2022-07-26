@@ -1,11 +1,4 @@
-﻿using NAudio.Wave;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Synth.Utils {
+﻿namespace Synth.Utils {
     // Utility class to read in a .wav file into a double array
     // From https://stackoverflow.com/questions/8754111/how-to-read-the-data-in-a-wav-file-to-an-array
     public class WavReader {

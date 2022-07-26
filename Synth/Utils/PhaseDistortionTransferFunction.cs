@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Synth.Modules.Sources.Generators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Synth.Modules.Sources {
+namespace Synth.Utils
+{
     internal struct Point {
         internal Point(float x, float y) {
             X = x;
@@ -56,21 +58,21 @@ namespace Synth.Modules.Sources {
 
         // Do transfer function here after normalising input to between -1 and +1
         //     -1 to +1                    -1 to +1       -1 to + 1                     // We can use this so sine wave can use different transfer function
-        private static float GetPhaseNominal(float Phase, float   Distortion, iGenerator generator) {
+        private static float GetPhaseNominal(float Phase, float Distortion, iGenerator generator) {
             // Shortcircuit if no distortion
             if (Distortion == 0)
                 return Phase;
 
-            var p1 = new Point(-1f, -1f ) ;
+            var p1 = new Point(-1f, -1f);
             // Which is better ?
 
             Point p2;
-            if(generator.GetType() == typeof(GeneratorSine) || generator.GetType() == typeof(GeneratorHarmonic))
+            if (generator.GetType() == typeof(GeneratorSine) || generator.GetType() == typeof(GeneratorHarmonic))
                 p2 = new Point(Distortion, -Distortion);           // This better for distorting sine waves
             else
                 p2 = new Point(Distortion, 0);                     // This better for distorting triangles and wavetable
 
-             var p3 = new Point(1f, 1f);
+            var p3 = new Point(1f, 1f);
 
             float m;
             float c;
@@ -86,7 +88,7 @@ namespace Synth.Modules.Sources {
             }
             c = p2.Y - m * p2.X;
 
-            return m * Phase + c;            
+            return m * Phase + c;
         }
 
         // Normalise values, call GetPhaseNominal transfer function, the de-normalise to 0-360°

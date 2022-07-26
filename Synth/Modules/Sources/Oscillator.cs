@@ -1,4 +1,5 @@
-﻿using Synth.Properties;
+﻿using Synth.Modules.Sources.Generators;
+using Synth.Properties;
 
 namespace Synth.Modules.Sources;
 // Implement iModulator so an Oscillator can also be a modulator via its Value property
@@ -162,7 +163,5 @@ public class Oscillator : iModule {
     }
 
     #endregion
-
-
 }
 

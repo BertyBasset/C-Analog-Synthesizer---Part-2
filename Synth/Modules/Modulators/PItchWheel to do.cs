@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Synth.Modules.Modulators
-{
-    internal class PItchWheel
-    {
+namespace Synth.Modules.Modulators {
+    internal class PitchWheel {
+        // To Do ??
+
     }
 }

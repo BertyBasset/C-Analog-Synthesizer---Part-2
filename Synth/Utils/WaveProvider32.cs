@@ -1,28 +1,20 @@
-﻿
+﻿using NAudio.Wave;
 
-using NAudio.Wave;
-
-public abstract class WaveProvider32 : IWaveProvider
-{
+// Might have to re-look at this an implement our own
+public abstract class WaveProvider32 : IWaveProvider {
     private WaveFormat? waveFormat;
 
-    public WaveProvider32()
-        : this(44100, 1)
-    {
-    }
+    public WaveProvider32() : this(44100, 1) { }
 
-    public WaveProvider32(int sampleRate, int channels)
-    {
+    public WaveProvider32(int sampleRate, int channels) {
         SetWaveFormat(sampleRate, channels);
     }
 
-    public void SetWaveFormat(int sampleRate, int channels)
-    {
+    public void SetWaveFormat(int sampleRate, int channels) {
         this.waveFormat = WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, channels);
     }
 
-    public int Read(byte[] buffer, int offset, int count)
-    {
+    public int Read(byte[] buffer, int offset, int count) {
         WaveBuffer waveBuffer = new WaveBuffer(buffer);
         int samplesRequired = count / 4;
         int samplesRead = Read(waveBuffer.FloatBuffer, offset / 4, samplesRequired);
