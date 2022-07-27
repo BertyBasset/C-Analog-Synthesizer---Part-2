@@ -34,19 +34,19 @@ using Synth.Modules.Modulators;
  *  LFOs                                                                 DONE
  *  Filter Envelope                                                      DONE
  *  Pacth Bug                                                            DONE
- *  Filter kbd Tracking                                                  - to do
+ *  Tidy Library                                                         DONE
  *  Write Part 4
  *  Write Part 5
  * ----------
  *  Version 3
  * ----------
- *  Throwaway UI
- *  Tidy Library
- *  Filter Q Version 3
+ *  Throwaway UI - apart from keyboard
  *  Rationalise CV/non CV
+ *  Modulator/Modulatable/Modulators/Modulator Modulator - tidy
+ *  Filter Q Version 3
+ *  Filter kbd Tracking                                                  - to do
  *  Stereo Support (mono and stero output connectors)
  *  Stereo Processor (LFO, EG etc)
- *  Modulator/Modulatable/Modulators/Modulator Modulator - tidy
  *  Package filter as 4 pole unit state var
  *  Analog Switch
  *  Conditioner.   Gain 0.1 to 10, shift -10 to +10

@@ -20,7 +20,7 @@ public class VCF : iModule {
     #endregion
 
     #region Public Properties
-    public Keyboard? Keyboard { get; set; }     // Used for keyboard tracking
+
 
     public iModule? Source {
         get => poles[0].Source;
