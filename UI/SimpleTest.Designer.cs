@@ -234,7 +234,6 @@
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label59 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
             this.sldVcfKbdTracking = new System.Windows.Forms.TrackBar();
             this.label54 = new System.Windows.Forms.Label();
@@ -1659,7 +1658,7 @@
             this.groupBox4.Size = new System.Drawing.Size(188, 168);
             this.groupBox4.TabIndex = 60;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "VCA";
+            this.groupBox4.Text = "EG4 - VCA";
             // 
             // label30
             // 
@@ -1761,7 +1760,7 @@
             this.groupBox5.Size = new System.Drawing.Size(188, 241);
             this.groupBox5.TabIndex = 61;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Phase Distortion";
+            this.groupBox5.Text = "EG1 - Duty/Phase Distortion";
             // 
             // chkPDOsc3
             // 
@@ -1930,7 +1929,7 @@
             this.groupBox6.Size = new System.Drawing.Size(188, 241);
             this.groupBox6.TabIndex = 62;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Frequency Amount Mod";
+            this.groupBox6.Text = "EG2 - VCO FM Amount";
             // 
             // chkFMOsc3
             // 
@@ -2114,7 +2113,7 @@
             this.groupBox7.Size = new System.Drawing.Size(195, 241);
             this.groupBox7.TabIndex = 64;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "LFO 1 - Vibrato";
+            this.groupBox7.Text = "LFO 1 - Oscillator Vibrato";
             // 
             // pictureBox7
             // 
@@ -2483,7 +2482,7 @@
             this.groupBox9.Size = new System.Drawing.Size(195, 167);
             this.groupBox9.TabIndex = 66;
             this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "LFO 3 - VCO FM";
+            this.groupBox9.Text = "LFO 3 - VCO FM Amount";
             // 
             // label49
             // 
@@ -2642,7 +2641,6 @@
             // 
             this.groupBox10.Controls.Add(this.label59);
             this.groupBox10.Controls.Add(this.label58);
-            this.groupBox10.Controls.Add(this.label57);
             this.groupBox10.Controls.Add(this.label55);
             this.groupBox10.Controls.Add(this.sldVcfKbdTracking);
             this.groupBox10.Controls.Add(this.label54);
@@ -2681,17 +2679,6 @@
             this.label58.Size = new System.Drawing.Size(35, 15);
             this.label58.TabIndex = 75;
             this.label58.Text = "to do";
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label57.ForeColor = System.Drawing.Color.Blue;
-            this.label57.Location = new System.Drawing.Point(212, 49);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(35, 15);
-            this.label57.TabIndex = 74;
-            this.label57.Text = "to do";
             // 
             // label55
             // 
@@ -2784,7 +2771,7 @@
             this.groupBox11.Size = new System.Drawing.Size(188, 169);
             this.groupBox11.TabIndex = 69;
             this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Cutoff Frequency";
+            this.groupBox11.Text = "EG3 - VCF Cutoff Frequency";
             // 
             // label61
             // 

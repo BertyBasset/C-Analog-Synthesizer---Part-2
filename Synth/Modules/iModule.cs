@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Synth.Modules;
 public interface iModule {
-
-    // All a modulator needs to do is to provide a value between -1 and +1
+    // Each module needs to provide a Value - nominally between -1 and +1
     public float Value { get; }
+    // When Tick occurs, each module must update its Value to reflect what i will be in TimeIncrement
     internal void Tick(float TimeIncrement);
-
 }
 
